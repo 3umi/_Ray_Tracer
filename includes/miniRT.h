@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/08 17:44:46 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/08 18:18:47 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define MINIRT_H
 
 # include <stdio.h>
+# include "../mlx/mlx.h"
 
 #endif
