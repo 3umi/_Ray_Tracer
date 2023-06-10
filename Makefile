@@ -6,7 +6,7 @@
 #    By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 18:07:54 by ohalim            #+#    #+#              #
-#    Updated: 2023/06/10 03:57:15 by brahim           ###   ########.fr        #
+#    Updated: 2023/06/10 04:06:00 by brahim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,6 @@ OBJ_DIR		= objs/
 
 CC			= cc 
 
-
 LIBFT_PATH		=		libs/libft/
 
 LIBFT_LIB		=		$(LIBFT_PATH)libft.a
@@ -69,7 +68,7 @@ all : header MAKE_LIBS $(NAME)
 
 # # == Rule that compile source files into object files ==
 $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
-	$(CC) $(CFLAGS) $(MLX_O) $< -o $@
+	@$(CC) $(CFLAGS) $(MLX_O) $< -o $@
 	@printf "$(GRAY)\r- Creating little RayTracer ...⌛$(NO_COLOR)"
 	@sleep 0.03
 	@printf "$(GRAY)\r- Creating little RayTracer ...⏳$(NO_COLOR)"
@@ -79,6 +78,7 @@ $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 MAKE_LIBS	:
 	@make -C $(LIBFT_PATH) all
 	@echo
+mlx:
 	@make -C $(MLX_PATH)
 	@echo
 
