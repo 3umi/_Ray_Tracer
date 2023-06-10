@@ -6,11 +6,27 @@
 #    By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 18:07:54 by ohalim            #+#    #+#              #
-#    Updated: 2023/06/08 18:43:48 by ohalim           ###   ########.fr        #
+#    Updated: 2023/06/10 04:06:00 by brahim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# #=== Colors ===
+# #=============================== OS detecter ==================================
+OS			= $(shell uname -s)
+# #==============================================================================
+
+# #============= wish flags to use to compile depending on the os ===============
+ifeq ($(OS), Darwin)
+	MLX_O 	= -Imlx -c -o3
+	MLXCC	= -lmlx -framework OpenGL -framework AppKit
+	MLX_PATH	= mlx
+else
+	MLX_O 	= -I/usr/include -Imlx_linux -o3 -c
+	MLXCC 	= -Lmlx_linux -lmlx_Linux -L/usr/lib/ -Imlx_linux -lXext -lX11 -lm
+	MLX_PATH	= mlx_linux
+endif
+# #==============================================================================
+
+# #=================================== Colors ===================================
 NO_COLOR	= \033[0m
 GRAY		= \033[0;1;3;90m
 RED			= \033[0;1;3;91m
@@ -18,11 +34,7 @@ GREEN		= \033[0;1;3;92m
 GREEN_L		= \033[0;1;3;36m
 YELLOW		= \033[0;1;3;33m
 BLUE		= \033[0;1;3;34m
-# #==============
-
-UP				=		"\033[A"
-CUT				=		"\033[K"
-
+# #==============================================================================
 
 # #=== Standard ===
 NAME		= miniRT
@@ -33,26 +45,16 @@ SRC_DIR		= srcs/
 
 OBJ_DIR		= objs/
 
-
+CC			= cc 
 
 LIBFT_PATH		=		libs/libft/
 
 LIBFT_LIB		=		$(LIBFT_PATH)libft.a
 
-MLX_PATH		=		mlx/
-
-MLX_LIB			=		$(MLX_PATH)libmlx.a	
-
-
-MLX_FLAGS		=		-Lmlx -lmlx -framework OpenGL -framework AppKit
-
-
 SRC_FILES	= main
 
 CFLAGS		= -Wall -Wextra -Werror -g
 #-fsanitize=address
-
-CC			= cc 
 
 OBJF		=	.cache_exists
 # #================
@@ -66,8 +68,7 @@ all : header MAKE_LIBS $(NAME)
 
 # # == Rule that compile source files into object files ==
 $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
-	@printf $(UP)$(CUT)
+	@$(CC) $(CFLAGS) $(MLX_O) $< -o $@
 	@printf "$(GRAY)\r- Creating little RayTracer ...⌛$(NO_COLOR)"
 	@sleep 0.03
 	@printf "$(GRAY)\r- Creating little RayTracer ...⏳$(NO_COLOR)"
@@ -75,25 +76,25 @@ $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
 # #=======================================================
 
 MAKE_LIBS	:
-				@make -C $(LIBFT_PATH) all
-				@echo
-				@make -C $(MLX_PATH) all
-				@echo
+	@make -C $(LIBFT_PATH) all
+	@echo
+mlx:
+	@make -C $(MLX_PATH)
+	@echo
 
 
 # #=== rule that compile the final program ===
 $(NAME) : $(OBJ)
-	@$(CC) $(CFLAGS) $(MLX_FLAGS) $(OBJ) $(MLX_LIB) $(LIBFT_LIB) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJ) $(MLXCC) $(LIBFT_LIB) -o $(NAME)
 	@printf "$(GREEN)\n- Little RayTracer is ready ✅🥳\n$(NO_COLOR)"
 # #===========================================
-# stty -echoctl
-# #=======================
-#
+
+# #=======================#
+
 # #== rule that called if object folder doesn't exist ==
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 # #=====================================================
-
 
 ## # == rule deleting compiled files : the cache folder ==
 clean : header
