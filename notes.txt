@@ -1,0 +1,1 @@
+We need to implement at least these geometric objects: plane, sphere, cylinder.
