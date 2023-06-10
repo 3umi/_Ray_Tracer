@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/10 18:12:53 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:30:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "../mlx/mlx.h"
-# include "vectors.h"
 # include "../libs/libft/libft.h"
+# include "vectors.h"
 # include "image.h"
+# include "ray.h"
 
 # define WIN_W 500
 # define WIN_H 500

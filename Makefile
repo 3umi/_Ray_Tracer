@@ -6,7 +6,7 @@
 #    By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 18:07:54 by ohalim            #+#    #+#              #
-#    Updated: 2023/06/10 18:19:35 by belkarto         ###   ########.fr        #
+#    Updated: 2023/06/10 19:41:14 by belkarto         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ BLUE		= \033[0;1;3;34m
 # #======================================================================================
 
 # #================================= Files to compile ===================================
-SRC_FILES	= main vectors_utils image_utils
+SRC_FILES	= main vectors_utils image_utils ray_utils
 
 CFLAGS		= -Wall -Wextra -Werror -g
 #-fsanitize=address

@@ -6,7 +6,7 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:08:57 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/10 04:17:38 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/10 19:36:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,25 @@ t_vect vector_negate(t_vect v)
 	v1.x = -v.x;
 	v1.y = -v.y;
 	v1.z = -v.z;
+	return (v1);
+}
+
+t_vect vector_new(double x, double y, double z)
+{
+	t_vect	v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}
+
+t_vect	vector_copy(t_vect v)
+{
+	t_vect	v1;
+
+	v1.x = v.x;
+	v1.y = v.y;
+	v1.z = v.z;
 	return (v1);
 }

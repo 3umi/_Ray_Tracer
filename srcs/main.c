@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/10 19:10:53 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:27:49 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	rgb(double r, double g, double b)
 	rgb += (int)g << 8;
 	rgb += (int)b;
 	return (rgb);
-	// return ((int)(r * 255) << 16 | (int)(g * 255) << 8 | (int)(b * 255));
 }
 
 int	key_hook(int keycode, t_data *mlx)
@@ -45,13 +44,13 @@ void	fill_img(t_img *img)
 	int	x;
 	int	y;
 
-	y = WIN_H-1;
+	y = WIN_H+1;
 	while (--y >= 0)
 	{
-		x = 0;
+		x = -1;
 		while (++x < WIN_W)
 		{
-			my_mlx_pixel_put(img, x, y, rgb((double)y/WIN_H, (double)x/WIN_W, 0.25));
+			my_mlx_pixel_put(img, x, y, rgb((double)x/WIN_H, (double)y/WIN_W, 0.25));
 		}
 	}
 }
