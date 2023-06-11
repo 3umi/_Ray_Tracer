@@ -6,13 +6,13 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:08:57 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/10 19:36:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/11 19:48:00 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/miniRT.h"
 
-t_vect		vect_add(t_vect v1, t_vect v2)
+t_vect		vector_add(t_vect v1, t_vect v2)
 {
 	t_vect	v;
 
@@ -22,7 +22,7 @@ t_vect		vect_add(t_vect v1, t_vect v2)
 	return (v);
 }
 
-t_vect		vect_sub(t_vect v1, t_vect v2)
+t_vect		vector_sub(t_vect v1, t_vect v2)
 {
 	t_vect	v;
 
@@ -32,7 +32,7 @@ t_vect		vect_sub(t_vect v1, t_vect v2)
 	return (v);
 }
 
-t_vect		vect_mult(t_vect v1, t_vect v2)
+t_vect		vector_mult(t_vect v1, t_vect v2)
 {
 	t_vect	v;
 
@@ -42,7 +42,7 @@ t_vect		vect_mult(t_vect v1, t_vect v2)
 	return (v);
 }
 
-t_vect		vect_div(t_vect v1, t_vect v2)
+t_vect		vector_div(t_vect v1, t_vect v2)
 {
 	t_vect	v;
 
@@ -52,7 +52,7 @@ t_vect		vect_div(t_vect v1, t_vect v2)
 	return (v);
 }
 
-t_vect		vect_scale(t_vect v, double c)
+t_vect		vector_scale(t_vect v, double c)
 {
 	t_vect	v1;
 
@@ -62,7 +62,7 @@ t_vect		vect_scale(t_vect v, double c)
 	return (v1);
 }
 
-t_vect cross(t_vect v1, t_vect v2)
+t_vect vector_cross(t_vect v1, t_vect v2)
 {
 	t_vect	v;
 
@@ -73,7 +73,7 @@ t_vect cross(t_vect v1, t_vect v2)
 }
 
 
-double		vect_dot(t_vect v1, t_vect v2)
+double		vector_dot(t_vect v1, t_vect v2)
 {
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
@@ -98,7 +98,7 @@ double sqrt(double x)
 
 double		vector_magnitude(t_vect v)
 {
-	return (sqrt(vect_dot(v, v)));
+	return (sqrt(vector_dot(v, v)));
 }
 
 t_vect vector_normalize(t_vect v)
@@ -106,7 +106,7 @@ t_vect vector_normalize(t_vect v)
 	double		magnitude;
 
 	magnitude = vector_magnitude(v);
-	return (vect_scale(v, 1 / magnitude));
+	return (vector_scale(v, 1 / magnitude));
 }
 
 t_vect vector_negate(t_vect v)
