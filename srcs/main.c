@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/12 00:29:37 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:38:14 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	fill_img(t_img *img)
 {
 	int	x;
 	int	y;
+	int width;
 	double	aspect_ratio;
 	double	viewport_height;
 	double	viewport_width;
@@ -109,6 +110,7 @@ void	fill_img(t_img *img)
 	while (y < image_height)
 	{
 		x = WIN_W - 1;
+		width = 0;
 		while (x >= 0)
 		{
 			double u = (double)x / (image_width - 1);
@@ -116,8 +118,9 @@ void	fill_img(t_img *img)
 			t_ray r = ray_new(origin, vector_add(lower_left_corner, vector_add(vector_scale(horizontal, u), vector_scale(vertical, v))));
 			t_vect pixel_color = ray_color(&r);
 			my_mlx_pixel_put(img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
-			my_mlx_pixel_put(img, x, y, rgb((double)(WIN_W - x) / WIN_W, (double)(WIN_H - y) / WIN_H, 0.25));
+			// my_mlx_pixel_put(img, width, y, rgb((double)(WIN_W - x) / WIN_W, (double)(WIN_H - y) / WIN_H, 0.25));
 			x--;
+			width++;
 		}
 		y++;
 	}
