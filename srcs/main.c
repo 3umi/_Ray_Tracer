@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/11 19:49:57 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/12 00:29:37 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_vect ray_color(t_ray *r)
 	t_vect unit_direction;
 	double t;
 
-	if (hit_sphere(vector_new(0, 0, -1), 0.5, r))
+	if (hit_sphere(vector_new(0, 0, -2), 1.0, r))
 		return (vector_new(1, 0, 0));
 	unit_direction = vector_unit(r->direction);
 	t = 0.5 * (unit_direction.y + 1.0);
@@ -105,19 +105,21 @@ void	fill_img(t_img *img)
 	vertical = vector_new(0, viewport_height, 0);
 	lower_left_corner = vector_sub(vector_sub(vector_sub(origin, vector_scale(horizontal, 1.0/2)), vector_scale(vertical, 1.0/2)), vector_new(0, 0, focal_length));
 	//render
-	y = image_height;
-	while (--y >= 0)
+	y = 0;
+	while (y < image_height)
 	{
-		x = -1;
-		while (++x < image_width)
+		x = WIN_W - 1;
+		while (x >= 0)
 		{
 			double u = (double)x / (image_width - 1);
 			double v = (double)y / (image_height - 1);
 			t_ray r = ray_new(origin, vector_add(lower_left_corner, vector_add(vector_scale(horizontal, u), vector_scale(vertical, v))));
 			t_vect pixel_color = ray_color(&r);
 			my_mlx_pixel_put(img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
-			// my_mlx_pixel_put(img, x, y, rgb((double)x/WIN_W, (double)y/WIN_H, 0.25));
+			my_mlx_pixel_put(img, x, y, rgb((double)(WIN_W - x) / WIN_W, (double)(WIN_H - y) / WIN_H, 0.25));
+			x--;
 		}
+		y++;
 	}
 }
 
