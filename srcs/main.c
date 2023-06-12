@@ -6,17 +6,12 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/12 00:38:14 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/12 06:00:18 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
-
-int	close_win(t_data *mlx)
-{
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	exit(0);
-}
+#include <stdio.h>
 
 int	rgb(double r, double g, double b)
 {
@@ -32,23 +27,6 @@ int	rgb(double r, double g, double b)
 	return (rgb);
 }
 
-int	key_hook(int keycode, t_data *mlx)
-{
-	if (keycode == 53)
-		close_win(mlx);
-	return (0);
-}
-
-double vector_length(t_vect v)
-{
-	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
-}
-
-t_vect vector_unit(t_vect v)
-{
-	return (vector_scale(v, 1 / vector_length(v)));
-}
-
 bool	hit_sphere(t_vect center, double radius, t_ray *r)
 {
 	t_vect	oc;
@@ -57,10 +35,10 @@ bool	hit_sphere(t_vect center, double radius, t_ray *r)
 	double	c;
 	double	discriminant;
 
-	oc = vector_sub(r->origin, center);
-	a = vector_dot(r->direction, r->direction);
-	b = 2.0 * vector_dot(oc, r->direction);
-	c = vector_dot(oc, oc) - radius * radius;
+	oc = vect_sub(r->origin, center);
+	a = vect_dot(r->direction, r->direction);
+	b = 2.0 * vect_dot(oc, r->direction);
+	c = vect_dot(oc, oc) - radius * radius;
 	discriminant = b * b - 4 * a * c;
 	return (discriminant > 0);
 }
@@ -70,18 +48,20 @@ t_vect ray_color(t_ray *r)
 	t_vect unit_direction;
 	double t;
 
-	if (hit_sphere(vector_new(0, 0, -2), 1.0, r))
-		return (vector_new(1, 0, 0));
-	unit_direction = vector_unit(r->direction);
+	if (hit_sphere(vect_new(0, 0, -2), 1.0, r))
+		return (vect_new(0.5, 0.5, 0.5));
+	unit_direction = vect_unit(r->direction);
 	t = 0.5 * (unit_direction.y + 1.0);
-	return (vector_add(vector_scale(vector_new(1.0, 1.0, 1.0), 1.0 - t), vector_scale(vector_new(0.5, 0.7, 1.0), t)));
+	// this calculate t between 0 and 1
+	// remove the comment below to make background yellow
+	// return(vect_new(1.0, 1.0, 0.0));
+	return (vect_add(vect_scale(vect_new(0.0, 0.0, 1.0), 1.0 - t), vect_scale(vect_new(1, 0.0, 0.0), t)));
 }
 
 void	fill_img(t_img *img)
 {
 	int	x;
 	int	y;
-	int width;
 	double	aspect_ratio;
 	double	viewport_height;
 	double	viewport_width;
@@ -94,33 +74,54 @@ void	fill_img(t_img *img)
 	t_vect	lower_left_corner;
 
 	//image
+	//put this in a struct later
+	//and put it befor mlx_new_window and mlx_new_image
+	//and put it in a function and use those values in mlx_new_window and 
+	//mlx_new_image
+	//and maybe put put them as global variables
 	aspect_ratio = 16.0 / 9.0;
-	image_width = 400;
+	image_width = WIN_W;
 	image_height = (int)(image_width / aspect_ratio);
 	//camera
+	//viewport is the rectangle that we project the world
 	viewport_height = 2.0;
 	viewport_width = aspect_ratio * viewport_height;
+	//focal_length is the distance between the camera and the viewport_height
 	focal_length = 1.0;
-	origin = vector_new(0, 0, 0);
-	horizontal = vector_new(viewport_width, 0, 0);
-	vertical = vector_new(0, viewport_height, 0);
-	lower_left_corner = vector_sub(vector_sub(vector_sub(origin, vector_scale(horizontal, 1.0/2)), vector_scale(vertical, 1.0/2)), vector_new(0, 0, focal_length));
+	//origin is the position of the camera
+	origin = vect_new(0, 0, 0);
+	//horizontal is the width of the viewport
+	horizontal = vect_new(viewport_width, 0, 0);
+	//vertical is the height of the viewport 
+	vertical = vect_new(0, viewport_height, 0);
+	//lower_left_corner is the bottom left corner of the viewport 
+	//we need the lower_left_corner to calculate the ray 
+	//that goes from the camera to the pixel 
+	lower_left_corner = vect_sub(vect_sub(vect_sub(origin, vect_scale(horizontal, 1.0/2)), vect_scale(vertical, 1.0/2)), vect_new(0, 0, focal_length));
 	//render
 	y = 0;
 	while (y < image_height)
 	{
-		x = WIN_W - 1;
-		width = 0;
-		while (x >= 0)
+		x = 0;
+		while (x <= image_width)
 		{
+			//u is the position of the pixel on the horizontal axis
 			double u = (double)x / (image_width - 1);
-			double v = (double)y / (image_height - 1);
-			t_ray r = ray_new(origin, vector_add(lower_left_corner, vector_add(vector_scale(horizontal, u), vector_scale(vertical, v))));
+			//v is the position of the pixel on the vertical axis
+			double v = (double)(image_height - y) / (image_height - 1);
+			//r is the ray that goes from the camera to the pixel
+			t_ray r = ray_new(origin, vect_add(lower_left_corner, vect_add(vect_scale(horizontal, u), vect_scale(vertical, v))));
+			//pixel_color is the color of the pixel 
+			//we used vector as a color because it's easier to work with 
+			//-------------------------------------------------------------
+			//          note!! need to creat color struct later	           |
+			//          inside ray struct and use it here                  |
+			//-------------------------------------------------------------
 			t_vect pixel_color = ray_color(&r);
+			// printf("pixel_color: %f %f %f\n", pixel_color.x, pixel_color.y, pixel_color.z);
 			my_mlx_pixel_put(img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
-			// my_mlx_pixel_put(img, width, y, rgb((double)(WIN_W - x) / WIN_W, (double)(WIN_H - y) / WIN_H, 0.25));
-			x--;
-			width++;
+			// my_mlx_pixel_put(img, x, y, rgb((double)x / WIN_W, (double)(WIN_H - y) / WIN_H, 0.25));
+			x++;
 		}
 		y++;
 	}
@@ -140,6 +141,7 @@ int	main(void)
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img, 0, 0);
 	mlx_hook(mlx.win_ptr, 17, 0, close_win, &mlx);
 	mlx_hook(mlx.win_ptr, 2, 0, key_hook, &mlx);
+	mlx_key_hook(mlx.win_ptr, key_hook, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	return (0);
 }

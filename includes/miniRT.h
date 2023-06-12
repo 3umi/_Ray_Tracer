@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/11 19:49:25 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/12 05:08:31 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # include "image.h"
 # include "ray.h"
 
-# define WIN_W 400
-# define WIN_H 200
+# define WIN_W 800
+# define WIN_H 400
 
 typedef struct	s_data
 {
@@ -34,5 +34,6 @@ typedef struct	s_data
 	void	*win_ptr;
 }				t_data;
 
+# include "key_hook.h"
 
 #endif

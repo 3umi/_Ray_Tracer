@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image_utils.c                                      :+:      :+:    :+:   */
+/*   key_hook_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 18:07:55 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/12 04:30:24 by brahim           ###   ########.fr       */
+/*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
+/*   Updated: 2023/06/12 05:46:50 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+#include <stdio.h>
 
-
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+int	close_win(t_data *mlx)
 {
-	char	*dst;
+	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	exit(0);
+}
 
-	if (x >= 0 && x < WIN_W && y >= 0 && y < WIN_H)
-	{
-		dst = img->addr + \
-		(y * img->line_length + x * (img->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
-	}
+int	key_hook(int keycode, t_data *mlx)
+{
+	if (keycode == ESC || keycode == ESC_LINUX)
+		close_win(mlx);
+	// printf("keycode %d\n", keycode);
+	return (0);
 }
