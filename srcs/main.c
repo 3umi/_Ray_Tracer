@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/12 06:00:18 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/13 02:44:57 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,29 @@ int	rgb(double r, double g, double b)
 	return (rgb);
 }
 
-bool	hit_sphere(t_vect center, double radius, t_ray *r)
+double	hit_sphere(t_vect center, double radius, t_ray *r)
 {
 	t_vect	oc;
 	double	a;
-	double	b;
+	double	half_b;
 	double	c;
 	double	discriminant;
 
+	//oc is the vector between the center of the sphere and the origin of the ray
+	//t^2 * b * b + 2 * t * b * (A - C) + (A - C)^2 - r^2 = 0
+	//a = b * b
+	//oc = A - C
+	//b = 2 * b * oc
+	//c = oc * oc - r^2
 	oc = vect_sub(r->origin, center);
 	a = vect_dot(r->direction, r->direction);
-	b = 2.0 * vect_dot(oc, r->direction);
+	half_b = vect_dot(oc, r->direction);
 	c = vect_dot(oc, oc) - radius * radius;
-	discriminant = b * b - 4 * a * c;
-	return (discriminant > 0);
+	discriminant = pow(half_b, 2) - a * c;
+	if (discriminant < 0)
+		return (-1.0);
+	else
+		return ((-half_b - sqrt(discriminant)) / a);
 }
 
 t_vect ray_color(t_ray *r)
@@ -48,14 +57,19 @@ t_vect ray_color(t_ray *r)
 	t_vect unit_direction;
 	double t;
 
-	if (hit_sphere(vect_new(0, 0, -2), 1.0, r))
-		return (vect_new(0.5, 0.5, 0.5));
+	t = hit_sphere(vect_new(0, 0, -1), 0.5, r);
+	if (t > 0.0)
+	{
+		t_vect N;
+		N = vect_unit(vect_sub(ray_at(r, t), vect_new(0, 0, -1)));
+		return (vect_scale(vect_new(N.x + 1, N.y + 1, N.z + 1), 0.5));
+	}
 	unit_direction = vect_unit(r->direction);
 	t = 0.5 * (unit_direction.y + 1.0);
 	// this calculate t between 0 and 1
 	// remove the comment below to make background yellow
 	// return(vect_new(1.0, 1.0, 0.0));
-	return (vect_add(vect_scale(vect_new(0.0, 0.0, 1.0), 1.0 - t), vect_scale(vect_new(1, 0.0, 0.0), t)));
+	return (vect_add(vect_scale(vect_new(1.0, 1.0, 1.0), 1.0 - t), vect_scale(vect_new(0.5, 0.8, 1.0), t)));
 }
 
 void	fill_img(t_img *img)

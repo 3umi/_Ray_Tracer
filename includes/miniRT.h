@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/12 05:08:31 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/13 02:43:15 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "vectors.h"
 # include "image.h"
 # include "ray.h"
+# include "objects.h"
+# include "hited.h"
 
 # define WIN_W 800
 # define WIN_H 400
