@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:31:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/13 04:53:57 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:33:51 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_object
 {
 	int			type;
 	void		*object;
-	struct s_object	*next;
 }				t_object;
 
 #endif

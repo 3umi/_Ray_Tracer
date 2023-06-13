@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/13 05:05:00 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/13 18:37:31 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,6 @@ t_sphere	*sphere_new(t_vect center, double radius)
 	sp->center = center;
 	sp->radius = radius;
 	return (sp);
-}
-
-t_object	*object_new(void *object, int type)
-{
-	t_object *obj;
-
-	obj = malloc(sizeof(t_object));
-	if (!obj)
-		return (NULL);
-	obj->object = object;
-	obj->type = type;
-	obj->next = NULL;
-	return (obj);
-}
-
-void	hittable_list_add(t_object **list, t_object *new)
-{
-	t_object *tmp;
-
-	if (!*list)
-	{
-		*list = new;
-		return ;
-	}
-	tmp = *list;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
 }
 
 bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj)
@@ -118,18 +90,19 @@ bool hittable_list_hit(t_object *list, t_ray *r, double t_min, double t_max, t_h
 	t_hitrecod	tmp_rec;
 	bool		hit_anything;
 	double		closest_so_far;
+	int			i;
 
 	hit_anything = false;
 	closest_so_far = t_max;
-	while (list)
+	i = -1;
+	while (++i < 2)
 	{
-		if (hit(r, t_min, closest_so_far, &tmp_rec, list))
+		if (hit(r, t_min, closest_so_far, &tmp_rec, &list[i]))
 		{
 			hit_anything = true;
 			closest_so_far = tmp_rec.t;
 			*rec = tmp_rec;
 		}
-		list = list->next;
 	}
 	return (hit_anything);
 }
