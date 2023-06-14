@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/13 02:43:15 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:46:15 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "../mlx/mlx.h"
 # include "../libs/libft/libft.h"
 # include "vectors.h"
+# include "camera.h"
 # include "image.h"
 # include "ray.h"
 # include "objects.h"

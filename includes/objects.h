@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:31:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/13 18:33:51 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:21:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 typedef enum e_type
 {
+	NONE,
 	SPHERE,
 	PLANE,
 	CYLINDER
@@ -50,4 +51,5 @@ typedef struct s_object
 	void		*object;
 }				t_object;
 
+t_sphere	*sphere_new(t_vect center, double radius);
 #endif

@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/13 18:37:31 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:21:48 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ bool hittable_list_hit(t_object *list, t_ray *r, double t_min, double t_max, t_h
 	hit_anything = false;
 	closest_so_far = t_max;
 	i = -1;
-	while (++i < 2)
+	while (list[++i].type != NONE)
 	{
 		if (hit(r, t_min, closest_so_far, &tmp_rec, &list[i]))
 		{

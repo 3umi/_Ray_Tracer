@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:29:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/13 04:51:00 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 08:46:45 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,6 @@ typedef struct s_hitrecod
 	bool		front_face;
 }				t_hitrecod;
 
-/* typedef struct	s_hited
-{
-	t_vect	normal;
-	t_vect	hit_point;
-	t_vect	color;
-	double		t;
-	int			inside;
-}				t_hited; */
-
 typedef struct	s_hittable_list
 {
 	int size;
@@ -45,5 +36,6 @@ typedef struct	s_hittable_list
 bool			hit(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);
 bool			hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);
 void			set_face_normal(t_ray *r, t_hitrecod *rec);
+bool hittable_list_hit(t_object *list, t_ray *r, double t_min, double t_max, t_hitrecod *rec);
 
 #endif
