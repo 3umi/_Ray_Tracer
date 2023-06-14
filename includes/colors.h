@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
-/*   Updated: 2020/10/04 01:55:35 by mg               ###   ########.fr       */
+/*   Created: 2023/06/14 15:20:37 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/14 15:21:58 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_int.h"
+#ifndef COLORS_H
+# define COLORS_H
 
-int	mlx_destroy_display(t_xvar *xvar)
+typedef struct s_color
 {
-	XCloseDisplay(xvar->display);
-}
+    double  r;
+    double  g;
+    double  b;
+}   t_color;
+
+
+#endif

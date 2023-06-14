@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hited.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:29:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/14 08:46:45 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:32:33 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ typedef struct s_hitrecod
 	bool		front_face;
 }				t_hitrecod;
 
-typedef struct	s_hittable_list
-{
-	int size;
-	int capacity;
-	t_object		*objects;
-	struct s_hittable_list	*next;
-}				t_hittable_list;
+// typedef struct	s_hittable_list
+// {
+// 	int size;
+// 	int capacity;
+// 	t_object		*objects;
+// 	struct s_hittable_list	*next;
+// }				t_hittable_list;
 
 bool			hit(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);
 bool			hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);

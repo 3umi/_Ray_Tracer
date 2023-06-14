@@ -1,25 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   lighting.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 19:29:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/14 15:34:59 by ohalim           ###   ########.fr       */
+/*   Created: 2023/06/14 15:39:49 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/14 15:45:12 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#ifndef LIGHTING_H
+# define LIGHTING_H
 
-typedef struct	s_ray
+# include "colors.h"
+# include "vectors.h"
+
+typedef struct s_amb_light
 {
-	t_vect	origin;
-	t_vect	direction;
-}				t_ray;
+    double  ratio;
+    t_color color;
+}   t_amb_light;
 
-t_ray			ray_new(t_vect origin, t_vect direction);
-t_vect			ray_at(t_ray *r, double t);
+
+typedef struct s_ligh
+{
+    double  ratio;
+    t_vect  point;
+    t_color color;
+}   t_light;
+
+
+typedef struct s_lighting
+{
+    t_amb_light *amb_light;
+    t_light     *light;
+}   t_lighting;
 
 #endif

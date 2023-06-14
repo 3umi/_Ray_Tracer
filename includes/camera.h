@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 08:38:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/14 08:53:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:46:57 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,12 @@ typedef struct	s_camera
 	double		viewport_width;
 	double		viewport_height;
 	double		focal_length;
+	double		fov;
 	t_vect		origin;
+	t_vect		normalized;
 	t_vect		lower_left_corner;
 	t_vect		horizontal;
 	t_vect		vertical;
-	t_vect		u;
-	t_vect		v;
-	t_vect		w;
 }				t_camera;
 
 t_camera init_camera(t_vect origin, t_vect normalized, double fov);

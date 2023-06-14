@@ -6,7 +6,7 @@
 #    By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 18:07:54 by ohalim            #+#    #+#              #
-#    Updated: 2023/06/14 09:21:21 by belkarto         ###   ########.fr        #
+#    Updated: 2023/06/14 16:20:57 by ohalim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,14 +14,13 @@
 OS			= $(shell uname -s)
 # #=============================================================================
 
+LIB			= libs/
 # #=============== wish flags to use to compile depending on the os ============
 ifeq ($(OS), Darwin)
-	MLX_O 	= -Imlx -c -o3
-	MLXCC	= -lmlx -framework OpenGL -framework AppKit
+	MLXCC	= -L $(LIB)minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
 	MLX_PATH	= mlx
 else
-	MLX_O 	= -I/usr/include -Imlx_linux -o3 -c
-	MLXCC 	= -Lmlx_linux -lmlx_Linux -L/usr/lib/ -Imlx_linux -lXext -lX11 -lm
+	MLXCC = -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 	MLX_PATH	= mlx_linux
 endif
 # #======================================================================================
@@ -37,7 +36,7 @@ BLUE		= \033[0;1;3;34m
 # #======================================================================================
 
 # #================================= Files to compile ===================================
-SRC_FILES	= main vectors_utils image_utils ray_utils key_hook_utils camera
+SRC_FILES	= main vectors_utils image_utils ray_utils key_hook_utils camera parsing error
 
 CFLAGS		= -Wall -Wextra -Werror -g
 #-fsanitize=address
@@ -71,7 +70,7 @@ all : header MAKE_LIBS $(NAME)
 
 # # == Rule that compile source files into object files ==
 $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
-	@$(CC) $(CFLAGS) $(MLX_O) $< -o $@
+	@$(CC) $(CFLAGS) $(MLX_O) -c $< -o $@
 	@printf "$(GRAY)\r- Creating little RayTracer ...⌛$(NO_COLOR)"
 	@sleep 0.03
 	@printf "$(GRAY)\r- Creating little RayTracer ...⏳$(NO_COLOR)"

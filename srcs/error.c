@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 19:29:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/14 15:34:59 by ohalim           ###   ########.fr       */
+/*   Created: 2023/06/14 16:06:48 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/14 16:10:11 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#include "../includes/miniRT.h"
 
-typedef struct	s_ray
+void	__exit_error(char *str)
 {
-	t_vect	origin;
-	t_vect	direction;
-}				t_ray;
-
-t_ray			ray_new(t_vect origin, t_vect direction);
-t_vect			ray_at(t_ray *r, double t);
-
-#endif
+	if (!str)
+		exit(FAILURE_RETURN);
+	write(2, str, ft_strlen(str));
+	exit(FAILURE_RETURN);
+}

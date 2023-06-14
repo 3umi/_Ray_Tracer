@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/14 12:36:50 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 16:13:12 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	fill_img(t_img *img)
 	image_height = (int)(image_width / aspect_ratio);
 	
 	//camera
-	cam = init_camera(vect_new(0, 0, 0), vect_new(0.5, 0.5, -1), 100.0);
+	cam = init_camera(vect_new(0, 0, 0), vect_new(0.5, 0.5, 1), 100.0);
 
 	//render
 	y = 0;
@@ -99,22 +99,23 @@ void	fill_img(t_img *img)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	t_data	mlx;
+	t_data	data;
 	t_img	img;
 
-	mlx.mlx_ptr = mlx_init();
-	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, WIN_W, WIN_H, "miniRT");
-	img.img = mlx_new_image(mlx.mlx_ptr, WIN_W, WIN_H);
+	__parsing(argc, argv, &data);
+	data.mlx_ptr = mlx_init();
+	data.win_ptr = mlx_new_window(data.mlx_ptr, WIN_W, WIN_H, "miniRT");
+	img.img = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
 			&img.line_length, &img.endian);
 	fill_img(&img);
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img, 0, 0);
-	mlx_hook(mlx.win_ptr, 17, 0, close_win, &mlx);
-	mlx_hook(mlx.win_ptr, 2, 0, key_hook, &mlx);
-	mlx_key_hook(mlx.win_ptr, key_hook, &mlx);
-	mlx_loop(mlx.mlx_ptr);
+	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img.img, 0, 0);
+	mlx_hook(data.win_ptr, 17, 0, close_win, &data);
+	mlx_hook(data.win_ptr, 2, 0, key_hook, &data);
+	mlx_key_hook(data.win_ptr, key_hook, &data);
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }
 

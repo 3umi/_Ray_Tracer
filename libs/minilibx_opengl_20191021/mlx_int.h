@@ -6,6 +6,7 @@
 // include opengl needed before mlx_int.h
 //
 
+//#include <OpenGL/gl3.h>
 
 #define	MAX_EVENT	32
 #define MAX_PIXEL_NB	200000
