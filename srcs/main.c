@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/14 12:36:50 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/14 14:55:33 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	fill_img(t_img *img)
 	image_height = (int)(image_width / aspect_ratio);
 	
 	//camera
-	cam = init_camera(vect_new(0, 0, 0), vect_new(0.5, 0.5, -1), 100.0);
+	cam = init_camera(vect_new(0, 0, 0), vect_new(0.5, 0.5, 1), 100.0);
 
 	//render
 	y = 0;
