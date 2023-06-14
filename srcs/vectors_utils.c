@@ -6,7 +6,7 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:08:57 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/10 04:17:38 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/12 04:13:26 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_vect		vect_scale(t_vect v, double c)
 	return (v1);
 }
 
-t_vect cross(t_vect v1, t_vect v2)
+t_vect vect_cross(t_vect v1, t_vect v2)
 {
 	t_vect	v;
 
@@ -96,20 +96,20 @@ double sqrt(double x)
 	return (res);
 }
 
-double		vector_magnitude(t_vect v)
+double		vect_magnitude(t_vect v)
 {
 	return (sqrt(vect_dot(v, v)));
 }
 
-t_vect vector_normalize(t_vect v)
+t_vect vect_normalize(t_vect v)
 {
 	double		magnitude;
 
-	magnitude = vector_magnitude(v);
+	magnitude = vect_magnitude(v);
 	return (vect_scale(v, 1 / magnitude));
 }
 
-t_vect vector_negate(t_vect v)
+t_vect vect_negate(t_vect v)
 {
 	t_vect	v1;
 
@@ -117,4 +117,34 @@ t_vect vector_negate(t_vect v)
 	v1.y = -v.y;
 	v1.z = -v.z;
 	return (v1);
+}
+
+t_vect vect_new(double x, double y, double z)
+{
+	t_vect	v;
+
+	v.x = x;
+	v.y = y;
+	v.z = z;
+	return (v);
+}
+
+t_vect	vect_copy(t_vect v)
+{
+	t_vect	v1;
+
+	v1.x = v.x;
+	v1.y = v.y;
+	v1.z = v.z;
+	return (v1);
+}
+
+double vect_length(t_vect v)
+{
+	return (sqrt(v.x * v.x + v.y * v.y + v.z * v.z));
+}
+
+t_vect vect_unit(t_vect v)
+{
+	return (vect_scale(v, 1 / vect_length(v)));
 }
