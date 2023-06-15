@@ -6,12 +6,24 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/14 16:13:12 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:02:21 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+#include <float.h>
+#include <limits.h>
 #include <stdio.h>
+
+t_vect clamp_vec(t_vect color)
+{
+	t_vect tmp;
+
+	tmp.x = fmin(color.x, 1.0);
+	tmp.y = fmin(color.y, 1.0);
+	tmp.z = fmin(color.z, 1.0);
+	return (tmp);
+}
 
 int	rgb(double r, double g, double b)
 {
@@ -42,7 +54,12 @@ t_vect ray_color(t_ray *r, t_object *world)
 	t_hitrecod	rec;
 
 	if (hittable_list_hit(world, r, 0, INFINITY, &rec))
+	{
+		// return(vect_new(1, 0, 1));
+		return (rec.color);
 		return (vect_scale(vect_new(rec.normal.x + 1, rec.normal.y + 1, rec.normal.z + 1), 0.5));
+	}
+	return (vect_new(0, 0, 0));
 	t_vect	unit_direction;
 	unit_direction = vect_unit(r->direction);
 	double t = 0.5 * (unit_direction.y + 1.0);
@@ -59,27 +76,25 @@ void	fill_img(t_img *img)
 	t_object	*object;
 	t_sphere	*sphere;
 	t_sphere	*sphere2;
-	t_sphere	*sphere3;
 	t_camera	cam;
-	
-	object = ft_calloc(4, sizeof(t_object));
+	double R;
+
+	R = cos(M_PI / 4);
+	object = ft_calloc(3, sizeof(t_object));
 	sphere = sphere_new(vect_new(0, 0, -1), 0.5);
-	sphere2 = sphere_new(vect_new(0, -100.5, -1), 100);
-	sphere3 = sphere_new(vect_new(0, 0, 1), 0.5);
+	sphere2 = sphere_new(vect_new(0, -25, -1), 25);
 	object[0].type = SPHERE;
 	object[0].object = sphere;
 	object[1].type = SPHERE;
 	object[1].object = sphere2;
-	object[2].type = SPHERE;
-	object[2].object = sphere3;
-	object[3].type = NONE;
+	object[1].type = NONE;
 	//image
 	aspect_ratio = 16.0 / 9.0;
 	image_width = WIN_W;
 	image_height = (int)(image_width / aspect_ratio);
-	
+
 	//camera
-	cam = init_camera(vect_new(0, 0, 0), vect_new(0.5, 0.5, 1), 100.0);
+	cam = init_camera(vect_new(0, 0, 0), vect_new(0, 0, -1), vect_new(0, 1, 0), 90, aspect_ratio);
 
 	//render
 	y = 0;
@@ -90,7 +105,7 @@ void	fill_img(t_img *img)
 		{
 			double u = (double)x / (image_width - 1);
 			double v = (double)(image_height - y) / (image_height - 1);
-			t_ray r = ray_new(cam.origin, vect_add(cam.lower_left_corner, vect_add(vect_scale(cam.horizontal, u), vect_scale(cam.vertical, v))));
+			t_ray r = ray_new(&cam, u, v);
 			t_vect pixel_color = ray_color(&r, object);
 			my_mlx_pixel_put(img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
 			x++;

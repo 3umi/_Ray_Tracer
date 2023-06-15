@@ -6,19 +6,29 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/14 08:21:48 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:00:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 #include <stdbool.h>
 
-t_ray ray_new(t_vect origin, t_vect direction)
+t_ray ray_new(t_camera * cam, double x, double y)
 {
 	t_ray ray;
+	t_vect tmp;
+	t_vect tmp2;
+
+	tmp = vect_scale(cam->horizontal, x);
+	tmp2 = vect_scale(cam->vertical, y);
+	ray.origin = cam->origin;
+	ray.direction = vect_add(cam->lower_left_corner, tmp);
+	ray.direction = vect_add(ray.direction, tmp2);
+	ray.direction = vect_sub(ray.direction, cam->origin);
+	/* t_ray ray;
 
 	ray.origin = origin;
-	ray.direction = direction;
+	ray.direction = direction; */
 	return (ray);
 }
 
@@ -48,6 +58,20 @@ t_sphere	*sphere_new(t_vect center, double radius)
 	return (sp);
 }
 
+t_vect av_color(t_vect color1, t_vect color2)
+{
+	t_vect tmp;
+
+	if (color1.x == 0 && color1.y == 0 && color1.z == 0)
+		return (color2);
+	if (color2.x == 0 && color2.y == 0 && color2.z == 0)
+		return (color1);
+	tmp.x = (color1.x + color2.x) / 2;
+	tmp.y = (color1.y + color2.y) / 2;
+	tmp.z = (color1.z + color2.z) / 2;
+	return (tmp);
+}
+
 bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj)
 {
 	t_vect	oc;
@@ -56,6 +80,8 @@ bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object 
 	double	c;
 	double	discriminant;
 	t_sphere	*sp;
+	t_vect		light;
+	double		dot;
 
 	sp = obj->object;
 	oc = vect_sub(r->origin, sp->center);
@@ -75,6 +101,19 @@ bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object 
 	rec->p = ray_at(r, rec->t);
 	rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);
 	set_face_normal(r, rec);
+
+
+
+	light = vect_normalize(vect_new(1, 1, 1));
+	dot = fmax(vect_dot(light, rec->normal), 0.0);
+	double light_brightness = 1;
+	if (rec->color_set == false)
+	{
+		rec->color = vect_new(1, 0, 1);
+		rec->color = vect_scale(rec->color, dot);
+		rec->color = vect_scale(rec->color, light_brightness);
+		rec->color_set = true;
+	}
 	return (true);
 }
 
@@ -94,6 +133,7 @@ bool hittable_list_hit(t_object *list, t_ray *r, double t_min, double t_max, t_h
 
 	hit_anything = false;
 	closest_so_far = t_max;
+	tmp_rec.color_set = false;
 	i = -1;
 	while (list[++i].type != NONE)
 	{

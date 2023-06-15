@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 08:38:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/14 15:46:57 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:01:14 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,13 @@ typedef struct	s_camera
 	t_vect		lower_left_corner;
 	t_vect		horizontal;
 	t_vect		vertical;
+	t_vect		u;
+	t_vect		v;
+	t_vect		w;
 }				t_camera;
 
-t_camera init_camera(t_vect origin, t_vect normalized, double fov);
+// t_camera init_camera(t_vect origin, t_vect normalized, double fov);
+// t_camera		init_camera(double fov, double aspect_ratio);
+
+t_camera init_camera(t_vect lookfrom, t_vect lookat, t_vect vup, double fov, double aspect_ratio);
 #endif
