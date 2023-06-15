@@ -6,7 +6,7 @@
 #    By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/08 18:07:54 by ohalim            #+#    #+#              #
-#    Updated: 2023/06/14 16:20:57 by ohalim           ###   ########.fr        #
+#    Updated: 2023/06/15 23:46:18 by brahim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ BLUE		= \033[0;1;3;34m
 # #======================================================================================
 
 # #================================= Files to compile ===================================
-SRC_FILES	= main vectors_utils image_utils ray_utils key_hook_utils camera parsing error
+SRC_FILES	= main vectors_utils image_utils ray_utils key_hook_utils camera \
+			  parsing error rerander
 
 CFLAGS		= -Wall -Wextra -Werror -g
 #-fsanitize=address

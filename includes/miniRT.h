@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/14 16:36:02 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/15 23:44:39 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ typedef struct	s_data
 	t_object		*object;
 	t_camera		*camera;
 	t_lighting		*lighting;
+	t_img			img;
 }				t_data;
+
+void		rerander(t_data *data);
 
 # include "parsing.h"
 # include "key_hook.h"

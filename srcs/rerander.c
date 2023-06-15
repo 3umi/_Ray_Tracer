@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/15 13:11:26 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/15 23:39:43 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,18 @@
 
 void		rerander(t_data *data)
 {
-	int		i;
-	int		j;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (i < 
+	y = 0;
+	while (y < data->img.height)
+	{
+		x = 0;
+		while (x <= data->img.width)
+		{
+		
+			x++;
+		}
+		y++;
+	}
 }
