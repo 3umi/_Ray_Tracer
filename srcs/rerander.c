@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   rerander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 19:29:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/15 09:12:40 by belkarto         ###   ########.fr       */
+/*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
+/*   Updated: 2023/06/15 13:11:26 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
+#include "../includes/miniRT.h"
 
-typedef struct	s_ray
+void		rerander(t_data *data)
 {
-	t_vect	origin;
-	t_vect	direction;
-}				t_ray;
+	int		i;
+	int		j;
 
-// t_ray			ray_new(t_vect origin, t_vect direction);
-t_ray ray_new(t_camera *cam, double x, double y);
-t_vect			ray_at(t_ray *r, double t);
-
-#endif
+	i = 0;
+	while (i < 
+}
