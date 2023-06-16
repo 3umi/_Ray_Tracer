@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/16 11:25:28 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/16 11:55:20 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,17 @@ t_vect ray_color(t_ray *r, t_object *world)
 		return (rec.color);
 		return (vect_scale(vect_new(rec.normal.x + 1, rec.normal.y + 1, rec.normal.z + 1), 0.5));
 	}
-	return (vect_new(0, 0, 0));
+	// return (vect_new(0, 0, 0));
 	t_vect	unit_direction;
 	unit_direction = vect_unit(r->direction);
 	double t = 0.5 * (unit_direction.y + 1.0);
-	return (vect_add(vect_scale(vect_new(1.0, 1.0, 1.0), 1.0 - t), vect_scale(vect_new(0.5, 0.8, 1.0), t)));
+	return (vect_add(vect_scale(vect_new(1.0, 1.0, 1.0), 1.0 - t), vect_scale(vect_new(0.0, 0.0, 1.0), t)));
 }
 
-void	fill_img(t_img *img)
+void	fill_img(t_data *data)
 {
 	int	x;
 	int	y;
-	double	aspect_ratio;
-	double	image_width;
-	double	image_height;
 	t_object	*object;
 	t_sphere	*sphere;
 	t_sphere	*sphere2;
@@ -86,26 +83,23 @@ void	fill_img(t_img *img)
 	object[1].type = SPHERE;
 	object[1].object = sphere2;
 	object[2].type = NONE;
-	//image
-	aspect_ratio = 16.0 / 9.0;
-	image_width = WIN_W;
-	image_height = (int)(image_width / aspect_ratio);
 
 	//camera
-	cam = init_camera(vect_new(0, 0, 0), vect_new(0, 0, -1), vect_new(0, 1, 0), 90, aspect_ratio);
+	cam = init_camera(vect_new(0, 0, 0), vect_new(0, 0, -1), vect_new(0, 1, 0), 90, data->img.aspect_ratio);
 
 	//render
 	y = 0;
-	while (y < image_height)
+	while (y < data->img.height)
 	{
 		x = 0;
-		while (x <= image_width)
+		while (x <= data->img.width)
 		{
-			double u = (double)x / (image_width - 1);
-			double v = (double)(image_height - y) / (image_height - 1);
+			double u = (double)x / (data->img.width - 1);
+			double v = (double)(data->img.height - y) / (data->img.height - 1);
+			// double v = (double)y / (data->img.height - 1);
 			t_ray r = ray_new(&cam, u, v);
 			t_vect pixel_color = ray_color(&r, object);
-			my_mlx_pixel_put(img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
+			my_mlx_pixel_put(&data->img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
 			x++;
 		}
 		y++;
@@ -117,13 +111,9 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	__parsing(argc, argv, &data);
-	data.mlx_ptr = mlx_init();
-	data.win_ptr = mlx_new_window(data.mlx_ptr, WIN_W, WIN_H, "miniRT");
-	data.img.img = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
-	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bits_per_pixel,
-			&data.img.line_length, &data.img.endian);
+	__init(&data);
 	rerander(&data);
-	fill_img(&data.img);
+	fill_img(&data);
 	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.img.img, 0, 0);
 	mlx_hook(data.win_ptr, 17, 0, close_win, &data);
 	mlx_hook(data.win_ptr, 2, 0, key_hook, &data);

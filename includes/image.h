@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:10:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/15 23:44:34 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/16 11:36:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_img
 	int		endian;
 	double	width;
 	double	height;
-
+	double	aspect_ratio;
 }				t_img;
 
 void			my_mlx_pixel_put(t_img *img, int x, int y, int color);
