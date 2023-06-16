@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/14 16:36:02 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/15 15:55:26 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "lighting.h"
 # include "error.h"
 # include "errno.h"
+# include "linked_list_utils.h"
 
 # define WIN_W 800
 # define WIN_H 400

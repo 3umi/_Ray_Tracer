@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.h                                          :+:      :+:    :+:   */
+/*   linked_list_utils.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 15:52:28 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/15 17:04:52 by ohalim           ###   ########.fr       */
+/*   Created: 2023/06/15 15:54:40 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/15 16:40:18 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSING_H
-# define PARSING_H
+#ifndef LINKED_LIST_UTILS_H
+# define LINKED_LIST_UTILS_H
 
-# include <stdbool.h>
-
-typedef struct	s_parse
-{
-	bool	A;
-	bool	C;
-	bool	L;
-}	t_parse;
-
-void	__parsing(int argc, char **argv, t_data *data);
-
+t_object	*new_object(t_type type);
+void		object_add_back(t_object **object_head, t_object *new_object);
 
 #endif
