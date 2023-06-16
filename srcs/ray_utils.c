@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/15 14:00:19 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:09:52 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ t_ray ray_new(t_camera * cam, double x, double y)
 	ray.direction = vect_sub(ray.direction, cam->origin);
 	/* t_ray ray;
 
-	ray.origin = origin;
-	ray.direction = direction; */
+	   ray.origin = origin;
+	   ray.direction = direction; */
 	return (ray);
 }
 
@@ -105,15 +105,39 @@ bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object 
 
 
 	light = vect_normalize(vect_new(1, 1, 1));
+	   dot = fmax(vect_dot(light, rec->normal), 0.0);
+	   double light_brightness = 1;
+	   if (rec->color_set == false)
+	   {
+	   rec->color = vect_new(1, 0, 1);
+	   rec->color = vect_scale(rec->color, dot);
+	   rec->color = vect_scale(rec->color, light_brightness);
+	   rec->color_set = true;
+	   }
+	/* light = vect_normalize(vect_new(1, 1, 1));
 	dot = fmax(vect_dot(light, rec->normal), 0.0);
-	double light_brightness = 1;
+	double light_brightness = 0; // Adjust the light brightness factor as desired
+	t_vect light_color = vect_new(0, 0, 1.0); // Set the light color as desired
+	double ambient_brightness = 1; // Adjust the ambient brightness factor as desired
 	if (rec->color_set == false)
 	{
-		rec->color = vect_new(1, 0, 1);
-		rec->color = vect_scale(rec->color, dot);
-		rec->color = vect_scale(rec->color, light_brightness);
+		// Ambient lighting
+		t_vect ambient_color = vect_new(1, 1, 1); // Adjust the ambient color as desired
+
+		// Scale the ambient color by the ambient brightness factor
+		ambient_color = vect_scale(ambient_color, ambient_brightness);
+
+		t_vect material_color = vect_new(1, 0, 0.5); // Assuming the material color is set to purple
+
+		// Compute the final color by adding ambient, diffuse, and light components
+		t_vect diffuse_color = vect_scale(material_color, dot);
+		t_vect light_component = vect_scale(light_color, light_brightness);
+		t_vect light_colorized = vect_mult(diffuse_color, light_component);
+		rec->color = vect_add(ambient_color, light_colorized);
+
 		rec->color_set = true;
-	}
+	} */
+
 	return (true);
 }
 

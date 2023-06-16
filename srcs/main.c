@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/15 23:46:57 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/16 11:25:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	fill_img(t_img *img)
 
 	object = ft_calloc(3, sizeof(t_object));
 	sphere = sphere_new(vect_new(0, 0, -1), 0.5);
-	sphere2 = sphere_new(vect_new(0, -25, -1), 25);
+	sphere2 = sphere_new(vect_new(0, -1000, -1), 1000);
 	object[0].type = SPHERE;
 	object[0].object = sphere;
 	object[1].type = SPHERE;
 	object[1].object = sphere2;
-	object[1].type = NONE;
+	object[2].type = NONE;
 	//image
 	aspect_ratio = 16.0 / 9.0;
 	image_width = WIN_W;
