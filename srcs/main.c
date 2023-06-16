@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/16 11:55:20 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:24:45 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,7 @@
 #include <float.h>
 #include <limits.h>
 #include <stdio.h>
-
-t_vect clamp_vec(t_vect color)
-{
-	t_vect tmp;
-
-	tmp.x = fmin(color.x, 1.0);
-	tmp.y = fmin(color.y, 1.0);
-	tmp.z = fmin(color.z, 1.0);
-	return (tmp);
-}
+#include <time.h>
 
 int	rgb(double r, double g, double b)
 {
@@ -37,16 +28,6 @@ int	rgb(double r, double g, double b)
 	rgb += (int)g << 8;
 	rgb += (int)b;
 	return (rgb);
-}
-
-double	rnd(void)
-{
-	return ((double)rand() / ((double)RAND_MAX + 1));
-}
-
-double	rnd2(double min, double max)
-{
-	return (min + (max - min) * rnd());
 }
 
 t_vect ray_color(t_ray *r, t_object *world)
@@ -75,9 +56,10 @@ void	fill_img(t_data *data)
 	t_sphere	*sphere2;
 	t_camera	cam;
 
+	srand(time(NULL));
 	object = ft_calloc(3, sizeof(t_object));
 	sphere = sphere_new(vect_new(0, 0, -1), 0.5);
-	sphere2 = sphere_new(vect_new(0, -1000, -1), 1000);
+	sphere2 = sphere_new(vect_new(0, -10, -1), 10);
 	object[0].type = SPHERE;
 	object[0].object = sphere;
 	object[1].type = SPHERE;
@@ -85,20 +67,23 @@ void	fill_img(t_data *data)
 	object[2].type = NONE;
 
 	//camera
-	cam = init_camera(vect_new(0, 0, 0), vect_new(0, 0, -1), vect_new(0, 1, 0), 90, data->img.aspect_ratio);
+	cam = init_camera(vect_new(0, 0, 0), vect_new(0, 0, -1), vect_new(0, 1, 0), 50, data->img.aspect_ratio);
 
 	//render
 	y = 0;
+	t_vect pixel_color = vect_new(0, 0, 0);
 	while (y < data->img.height)
 	{
 		x = 0;
 		while (x <= data->img.width)
 		{
-			double u = (double)x / (data->img.width - 1);
-			double v = (double)(data->img.height - y) / (data->img.height - 1);
-			// double v = (double)y / (data->img.height - 1);
+			for (int s = 0; s < 5; s++)
+			{
+			double u = (double)(x + ((double)s / 10)) / (data->img.width - 1);
+			double v = (double)(data->img.height - y + ((double)s / 10)) / (data->img.height - 1);
 			t_ray r = ray_new(&cam, u, v);
-			t_vect pixel_color = ray_color(&r, object);
+			pixel_color = vect_scale(vect_add(pixel_color, ray_color(&r, object)), 0.5);
+			}
 			my_mlx_pixel_put(&data->img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
 			x++;
 		}
