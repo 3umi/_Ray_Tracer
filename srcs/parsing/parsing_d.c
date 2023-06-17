@@ -6,11 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 05:41:36 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 20:32:23 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 static void	parse_sphere(t_data **data, char **info)
 {

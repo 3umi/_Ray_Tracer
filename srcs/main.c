@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 10:49:20 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:44:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,7 @@ t_vect vect_random_in_unit_sphere()
 	}
 	return (p);
 }
-/* t_vect t_ray_new(t_vect origin, t_vect direction)
-{
-	t_ray r;
 
-	r.origin = origin;
-	r.direction = direction;
-	return (r);
-} */
 t_vect ray_color(t_ray *r, t_object *world, int depth)
 {
 	t_hitrecod	rec;
@@ -107,23 +100,25 @@ void	fill_img(t_data *data)
 	int	x;
 	int	y;
 	t_object	*object;
-	t_sphere	*sphere;
-	t_sphere	*sphere2;
+	/* t_sphere	*sphere;
+	t_sphere	*sphere2; */
 	t_camera	cam;
 	int			s;
 	int			bounce_limit;
 
-	object = ft_calloc(3, sizeof(t_object));
+	object = data->object;
+	/* object = ft_calloc(3, sizeof(t_object));
 	sphere = sphere_new(vect_new(0, 0, -1), 0.5);
 	sphere2 = sphere_new(vect_new(0, -100, -1), 100);
 	object[0].type = SPHERE;
 	object[0].object = sphere;
 	object[1].type = SPHERE;
 	object[1].object = sphere2;
-	object[2].type = NONE;
+	object[2].type = NONE; */
 
+	// return;
 	//camera
-	cam = init_camera(vect_new(0, 0, 10), vect_new(0, 0, -1), vect_new(0, 1, 0), 20, data->img.aspect_ratio);
+	cam = init_camera(data->camera->origin, vect_new(0, 0, 0), data->camera->normalized, data->camera->fov, data->img.aspect_ratio);
 
 	//render
 	y = data->img.height - 1;
@@ -157,6 +152,7 @@ int	main(int argc, char **argv)
 	srand(time(NULL));
 
 	__parsing(argc, argv, &data);
+	printf("%lf\n", data.camera->fov);
 	__init(&data);
 	rerander(&data);
 	fill_img(&data);

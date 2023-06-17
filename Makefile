@@ -26,16 +26,17 @@ BLUE		= \033[0;1;3;34m
 # #=================================files directories ===================================
 RNDR_DIR	= randring/
 UTILS_DIR	= utils/
+PARSING_DIR	= parsing/
 # #======================================================================================
 
 # #================================= Files to compile ===================================
 SRC_RENDER	= rerander ray_utils vectors_utils key_hook_utils 
 SRC_UTILS 	= camera_utils char_utils colors_utils image_utils linked_list_utils
+SRC_PARSING	= parsing parsing_b parsing_c parsing_d
 
-SRC_FILES	= 	main $(RENDER) $(UTILS)  parsing parsing_b parsing_c	\
-				parsing_d error init_program
+SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program
 
-CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address -g
+CFLAGS		= -Wall -Wextra -Werror -fsanitize=address -g
 # #======================================================================================
 
 # #===================================== Standard =======================================
@@ -61,6 +62,7 @@ OBJF		=	.cache_exists
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 RENDER		=	$(addprefix $(RNDR_DIR), $(addsuffix , $(SRC_RENDER)))
 UTILS		=	$(addprefix $(UTILS_DIR), $(addsuffix , $(SRC_UTILS)))
+PARSING		=	$(addprefix $(PARSING_DIR), $(addsuffix , $(SRC_PARSING)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 # #===========================#
 
@@ -96,6 +98,7 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(OBJ_DIR)$(RNDR_DIR)
 	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
+	@mkdir -p $(OBJ_DIR)$(PARSING_DIR)
 # #=====================================================
 
 ## # == rule deleting compiled files : the cache folder ==

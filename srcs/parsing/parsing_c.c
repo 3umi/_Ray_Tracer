@@ -6,11 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 05:40:45 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 15:44:06 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 void	parse_ambient_light(t_data *data, char **info)
 {
