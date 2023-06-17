@@ -6,12 +6,11 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:07:55 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/16 11:40:34 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:24:43 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
-
+#include "../../includes/miniRT.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {

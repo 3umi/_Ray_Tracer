@@ -6,11 +6,11 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/16 20:52:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:23:06 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 void		rerander(t_data *data)
 {

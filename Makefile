@@ -23,9 +23,17 @@ YELLOW		= \033[0;1;3;33m
 BLUE		= \033[0;1;3;34m
 # #======================================================================================
 
+# #=================================files directories ===================================
+RNDR_DIR	= randring/
+UTILS_DIR	= utils/
+# #======================================================================================
+
 # #================================= Files to compile ===================================
-SRC_FILES	= 	main vectors_utils image_utils ray_utils key_hook_utils camera parsing parsing_b parsing_c	\
-				parsing_d	error rerander init_program linked_list_utils	colors_utils char_utils
+SRC_RENDER	= rerander ray_utils vectors_utils key_hook_utils 
+SRC_UTILS 	= camera_utils char_utils colors_utils image_utils linked_list_utils
+
+SRC_FILES	= 	main $(RENDER) $(UTILS)  parsing parsing_b parsing_c	\
+				parsing_d error init_program
 
 CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address -g
 # #======================================================================================
@@ -51,6 +59,8 @@ OBJF		=	.cache_exists
 
 # # ===Better not to touch ===#
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+RENDER		=	$(addprefix $(RNDR_DIR), $(addsuffix , $(SRC_RENDER)))
+UTILS		=	$(addprefix $(UTILS_DIR), $(addsuffix , $(SRC_UTILS)))
 OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 # #===========================#
 
@@ -84,6 +94,8 @@ $(NAME) : $(OBJ)
 # #== rule that called if object folder doesn't exist ==
 $(OBJF):
 	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)$(RNDR_DIR)
+	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 # #=====================================================
 
 ## # == rule deleting compiled files : the cache folder ==

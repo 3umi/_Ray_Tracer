@@ -6,11 +6,11 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/12 05:46:50 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/17 11:23:26 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 #include <stdio.h>
 
 int	close_win(t_data *mlx)

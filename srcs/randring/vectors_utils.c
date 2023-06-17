@@ -6,11 +6,11 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:08:57 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/12 04:13:26 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/17 11:23:43 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 t_vect		vect_add(t_vect v1, t_vect v2)
 {

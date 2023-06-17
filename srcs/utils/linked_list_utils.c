@@ -6,11 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:04 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/16 21:14:49 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 11:26:21 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 t_object	*new_object(t_type type, void *object)
 {

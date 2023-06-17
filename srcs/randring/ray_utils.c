@@ -6,11 +6,11 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/16 21:49:07 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:23:35 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 #include <stdbool.h>
 
 t_ray ray_new(t_camera * cam, double x, double y)

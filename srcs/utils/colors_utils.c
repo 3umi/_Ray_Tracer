@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_utils.c                                       :+:      :+:    :+:   */
+/*   colors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 01:50:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:51:03 by ohalim           ###   ########.fr       */
+/*   Created: 2023/06/17 01:48:04 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/17 11:24:35 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
-int	__2d_len(char **tab)
+t_color	fill_color(double r, double g, double b)
 {
-	int	len;
+	t_color	color;
 
-	if (!tab)
-		return (0);
-	len = 0;
-	while (tab[len++])
-		;
-	return (len - 1);
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	return (color);
 }
