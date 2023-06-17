@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:51:52 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:52:26 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 03:02:21 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,14 @@
 # define CHAR_UTILS_H
 
 int	__2d_len(char **tab);
+
+typedef struct s_atod_utils
+{
+	double 	result;
+    double 	decimal;
+    int		sign;
+    int		hasDecimal;
+}	t_atod_utils;
+
 
 #endif

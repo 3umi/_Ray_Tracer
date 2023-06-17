@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 02:04:16 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 05:40:45 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	parse_ambient_light(t_data *data, char **info)
 	data->lighting->amb_light = ft_calloc(sizeof(t_amb_light), 1);
 	if (!data->lighting->amb_light)
 		return ;
-	data->lighting->amb_light->ratio = strtod(info[1], NULL);
+	data->lighting->amb_light->ratio = ft_atod(info[1]);
 	color = ft_split(info[2], ',');
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
-	data->lighting->amb_light->color = fill_color(strtod(color[0], NULL), strtod(color[1], NULL), strtod(color[2], NULL));
+	data->lighting->amb_light->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
 }
 
 void	parse_light(t_data *data, char **info)
@@ -38,15 +38,15 @@ void	parse_light(t_data *data, char **info)
 	data->lighting->light = ft_calloc(sizeof(t_light), 1);
 	if (!data->lighting->light)
 		return ;
-	data->lighting->light->ratio = strtod(info[2], NULL);
+	data->lighting->light->ratio = ft_atod(info[2]);
 	point = ft_split(info[1], ',');
 	if (__2d_len(point) != 3)
 		__exit_error("TypeError: Bad information structure\n");
-	data->lighting->light->point = vect_new(strtod(point[0], NULL), strtod(point[1], NULL), strtod(point[2], NULL));
+	data->lighting->light->point = vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2]));
 	color = ft_split(info[3], ',');
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
-	data->lighting->light->color = fill_color(strtod(color[0], NULL), strtod(color[1], NULL), strtod(color[2], NULL));
+	data->lighting->light->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
 }
 
 void	parse_camera(t_data *data, char **info)
@@ -59,13 +59,13 @@ void	parse_camera(t_data *data, char **info)
 	data->camera = ft_calloc(sizeof(t_camera), 1);
 	if (!data->camera)
 		return ;
-	data->camera->fov = strtod(info[3], NULL);
+	data->camera->fov = ft_atod(info[3]);
 	origin = ft_split(info[1], ',');
 	if (__2d_len(origin) != 3)
 		__exit_error("TypeError: Bad information structure\n");
-	data->camera->origin = vect_new(strtod(origin[0], NULL), strtod(origin[1], NULL), strtod(origin[2], NULL));
+	data->camera->origin = vect_new(ft_atod(origin[0]), ft_atod(origin[1]), ft_atod(origin[2]));
 	normalized = ft_split(info[2], ',');
 	if (__2d_len(normalized) != 3)
 		__exit_error("TypeError: Bad information structure\n");
-	data->camera->normalized = vect_new(strtod(normalized[0], NULL), strtod(normalized[1], NULL), strtod(normalized[2], NULL));
+	data->camera->normalized = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
 }
