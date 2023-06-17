@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   colors_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 15:20:37 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:48:46 by ohalim           ###   ########.fr       */
+/*   Created: 2023/06/17 01:48:04 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/17 01:49:46 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#include "../includes/miniRT.h"
 
-typedef struct s_color
+t_color	fill_color(double r, double g, double b)
 {
-    double  r;
-    double  g;
-    double  b;
-}   t_color;
+	t_color	color;
 
-t_color	fill_color(double r, double g, double b);
-#endif
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	return (color);
+}
