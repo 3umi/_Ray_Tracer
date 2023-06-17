@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:31:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/14 15:22:37 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/15 16:29:49 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ typedef struct s_cylinder
 
 typedef struct s_object
 {
-	int			type;
-	void		*object;
+	t_type			type;
+	void			*object;
+	struct s_object	*next;
 }				t_object;
 
 t_sphere	*sphere_new(t_vect center, double radius);

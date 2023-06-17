@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/08 18:07:54 by ohalim            #+#    #+#              #
-#    Updated: 2023/06/16 11:39:02 by belkarto         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 # #================================== OS detecter ==============================
 OS			= $(shell uname -s)
 # #=============================================================================
@@ -36,11 +24,10 @@ BLUE		= \033[0;1;3;34m
 # #======================================================================================
 
 # #================================= Files to compile ===================================
-SRC_FILES	= main vectors_utils image_utils ray_utils key_hook_utils camera \
-			  parsing error rerander init_program
+SRC_FILES	= 	main vectors_utils image_utils ray_utils key_hook_utils camera parsing parsing_b parsing_c	\
+				parsing_d	error rerander init_program linked_list_utils	colors_utils char_utils
 
-CFLAGS		= -Wall -Wextra -Werror -g
-#-fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -g -fsanitize=address -g
 # #======================================================================================
 
 # #===================================== Standard =======================================

@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   linked_list_utils.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 15:20:37 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:48:46 by ohalim           ###   ########.fr       */
+/*   Created: 2023/06/15 15:54:40 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/16 21:06:40 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#ifndef LINKED_LIST_UTILS_H
+# define LINKED_LIST_UTILS_H
 
-typedef struct s_color
-{
-    double  r;
-    double  g;
-    double  b;
-}   t_color;
+t_object	*new_object(t_type type, void *object);
+void		object_add_back(t_object **object_head, t_object *new_object);
 
-t_color	fill_color(double r, double g, double b);
 #endif

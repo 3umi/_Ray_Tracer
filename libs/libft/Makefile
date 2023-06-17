@@ -37,7 +37,8 @@ SRC			=	ft_atoi.c		ft_bzero.c		\
 				get_next_line.c	ft_lstnew_int.c 	\
 				ft_lstadd_back_int.c	ft_lstdelone_int.c\
 				ft_lstclear_int.c	ft_atol.c\
-				ft_lstsize_int.c	ft_strcmp.c
+				ft_lstsize_int.c	ft_strcmp.c\
+				ft_atod.c
 
 #----------------------------------------------#
 # 					Colors

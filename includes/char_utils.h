@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   char_utils.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/14 15:20:37 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:48:46 by ohalim           ###   ########.fr       */
+/*   Created: 2023/06/17 01:51:52 by ohalim            #+#    #+#             */
+/*   Updated: 2023/06/17 03:02:21 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#ifndef CHAR_UTILS_H
+# define CHAR_UTILS_H
 
-typedef struct s_color
+int	__2d_len(char **tab);
+
+typedef struct s_atod_utils
 {
-    double  r;
-    double  g;
-    double  b;
-}   t_color;
+	double 	result;
+    double 	decimal;
+    int		sign;
+    int		hasDecimal;
+}	t_atod_utils;
 
-t_color	fill_color(double r, double g, double b);
+
 #endif
