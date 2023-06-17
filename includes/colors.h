@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:20:37 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/14 15:21:58 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/16 15:24:07 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ typedef struct s_color
     double  b;
 }   t_color;
 
-
+t_color new_color(double r, double g, double b);
 #endif

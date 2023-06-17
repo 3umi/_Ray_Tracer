@@ -6,13 +6,13 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:04 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/15 16:40:15 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/16 21:14:49 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../includes/miniRT.h"
 
-t_object	*new_object(t_type type)
+t_object	*new_object(t_type type, void *object)
 {
 	t_object	*new_object;
 
@@ -20,6 +20,15 @@ t_object	*new_object(t_type type)
 	if (!new_object)
 		return (NULL);
 	new_object->type = type;
+	if (new_object->type == SPHERE)
+		new_object->object = ft_calloc(sizeof(t_sphere), 1);
+	else if (new_object->type == PLANE)
+		new_object->object = ft_calloc(sizeof(t_plane), 1);
+	else if (new_object->type == CYLINDER)
+		new_object->object = ft_calloc(sizeof(t_cylinder), 1);
+	if (!new_object->object)
+		return (NULL);
+	new_object->object = object;
 	new_object->next = NULL;
 	return (new_object);
 }
