@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 20:44:33 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:42:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@ int	rgb(double r, double g, double b)
 	int	rgb;
 
 	rgb = 0x00;
-	r = 255.999 * r;
-	g = 255.999 * g;
-	b = 255.999 * b;
 	rgb += (int)r << 16;
 	rgb += (int)g << 8;
 	rgb += (int)b;
@@ -71,30 +68,28 @@ t_vect vect_random_in_unit_sphere()
 	return (p);
 }
 
-t_vect ray_color(t_ray *r, t_object *world, int depth)
+t_color ray_color(t_ray *r, t_object *world, int depth)
 {
 	t_hitrecod	rec;
 	t_vect		target;
 
 	if (depth <= 0)
-		return (vect_new(0, 0, 0));
+		return (fill_color(0, 0, 0));
 	target = vect_add(r->origin, vect_add(r->direction, vect_random_in_unit_sphere()));
 	if (hittable_list_hit(world, r, 0, INFINITY, &rec))
 	{
-		// return(vect_new(1, 0, 1));
 		return (rec.color);
-		// rec.color = vect_scale(rec.color, 0.5);
-		// return (vect_scale(ray_color(&target_ray, world, depth - 1), 0.5));
-		// return (vect_scale(&target_ray, world, depth - 1), 0.5);
-		// return (vect_scale(vect_new(rec.normal.x + 1, rec.normal.y + 1, rec.normal.z + 1), 0.5));
 	}
-	// return (vect_new(0, 0, 0));
-	t_vect	unit_direction;
-	unit_direction = vect_unit(r->direction);
-	double t = 0.5 * (unit_direction.y + 1.0);
-	return (vect_add(vect_scale(vect_new(1.0, 1.0, 1.0), 1.0 - t), vect_scale(vect_new(0.0, 0.0, 1.0), t)));
+	return (fill_color(0, 0, 0));
 }
 
+t_color color_sqrt(t_color color)
+{
+	color.r = sqrt(color.r);
+	color.g = sqrt(color.g);
+	color.b = sqrt(color.b);
+	return (color);
+}
 void	fill_img(t_data *data)
 {
 	int	x;
@@ -107,23 +102,14 @@ void	fill_img(t_data *data)
 	int			bounce_limit;
 
 	object = data->object;
-	/* object = ft_calloc(3, sizeof(t_object));
-	sphere = sphere_new(vect_new(0, 0, -1), 0.5);
-	sphere2 = sphere_new(vect_new(0, -100, -1), 100);
-	object[0].type = SPHERE;
-	object[0].object = sphere;
-	object[1].type = SPHERE;
-	object[1].object = sphere2;
-	object[2].type = NONE; */
 
-	// return;
 	//camera
 	cam = init_camera(data->camera->origin, vect_new(0, 0, 0), data->camera->normalized, data->camera->fov, data->img.aspect_ratio);
 
 	//render
 	y = data->img.height - 1;
-	t_vect pixel_color = vect_new(0, 0, 0);
-	bounce_limit = 50;
+	t_color	pixel_color = fill_color(0, 0, 0);
+	bounce_limit = 10;
 	while (y >= 0)//) < data->img.height)
 	{
 		x = 0;
@@ -135,10 +121,11 @@ void	fill_img(t_data *data)
 				data->img.u = (double)(x + ((double)s / 10)) / (data->img.width - 1);
 				data->img.v = (double)(data->img.height - y + (double)s / 10) / (data->img.height - 1);
 				t_ray r = ray_new(&cam, data->img.u, data->img.v);
-				pixel_color = vect_scale(vect_add(pixel_color, ray_color(&r, object, bounce_limit)), 0.5);
+				pixel_color = color_add(pixel_color, ray_color(&r, object, bounce_limit));
+				pixel_color = color_scalar(pixel_color, 0.5);
 				s++;
 			}
-			my_mlx_pixel_put(&data->img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
+			my_mlx_pixel_put(&data->img, x, y, rgb(pixel_color.r, pixel_color.g, pixel_color.b));
 			x++;
 		}
 		y--;

@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/17 20:40:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:08:42 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,25 @@ t_vect av_color(t_vect color1, t_vect color2)
 	return (tmp);
 }
 
+t_color	vec_to_color(t_vect color)
+{
+	t_color tmp;
+
+	tmp.r = color.x;
+	tmp.g = color.y;
+	tmp.b = color.z;
+	return (tmp);
+}
+
+t_vect c_to_v(t_color color)
+{
+	t_vect tmp;
+
+	tmp.x = color.r;
+	tmp.y = color.g;
+	tmp.z = color.b;
+	return (tmp);
+}
 bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj)
 {
 	t_vect	oc;
@@ -81,7 +100,7 @@ bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object 
 	double	discriminant;
 	t_sphere	*sp;
 	/* t_vect		light;
-	double		dot; */
+	   double		dot; */
 
 	sp = obj->object;
 	oc = vect_sub(r->origin, sp->center);
@@ -109,13 +128,7 @@ bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object 
 	brightness = 1;
 	light = vect_normalize(vect_new(1, 1, 1));
 	dot = fmax(vect_dot(light, rec->normal), 0.0);
-	if (rec->color_set == false)
-	{
-		rec->color =  vect_scale(vect_scale(vect_new(1, 0, 1), dot), brightness);
-		rec->color_set = true;
-	}
-	else
-		rec->color = vect_new(0.5, 0, 0.5);
+	rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), brightness));
 	return (true);
 
 }
