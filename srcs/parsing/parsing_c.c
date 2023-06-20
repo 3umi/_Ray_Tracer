@@ -6,25 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/20 17:46:12 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/20 18:09:03 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
-
-void	check_color(t_color color)
-{
-	if(!(color.r >= 0 && color.r <= 255 && color.g >= 0 && color.g <= 255
-		&& color.b >= 0 && color.b <= 255))
-		__exit_error("ValueError: Required R,G,B range is [0 ; 255]\n");
-}
-
-void	check_normalized(t_vect normal)
-{
-	if (!(normal.x >= -1 && normal.x <= 1 && normal.y >= -1 && normal.y <= 1
-		&& normal.z >= -1 && normal.z <= 1))
-		__exit_error("ValueError: Required normal vertor range is [-1 ; 1]\n");
-}
 
 void	parse_ambient_light(t_data *data, char **info)
 {
@@ -57,6 +43,9 @@ void	parse_light(t_data *data, char **info)
 	if (!data->lighting->light)
 		return ;
 	data->lighting->light->ratio = ft_atod(info[2]);
+	if (!(data->lighting->light->ratio >= 0.0
+		&& data->lighting->light->ratio <= 1.0))
+		__exit_error("ValueError: Required 'L' ratio range is [0.0 ; 1.0]\n");
 	point = ft_split(info[1], ',');
 	if (__2d_len(point) != 3)
 		__exit_error("TypeError: Bad information structure\n");
@@ -65,6 +54,7 @@ void	parse_light(t_data *data, char **info)
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->light->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	check_color(data->lighting->light->color);
 }
 
 void	parse_camera(t_data *data, char **info)

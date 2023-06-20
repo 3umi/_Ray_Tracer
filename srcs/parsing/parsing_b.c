@@ -6,11 +6,25 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:55:19 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 15:56:20 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:09:17 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
+void	check_color(t_color color)
+{
+	if(!(color.r >= 0 && color.r <= 255 && color.g >= 0 && color.g <= 255
+		&& color.b >= 0 && color.b <= 255))
+		__exit_error("ValueError: Required R,G,B range is [0 ; 255]\n");
+}
+
+void	check_normalized(t_vect normal)
+{
+	if (!(normal.x >= -1 && normal.x <= 1 && normal.y >= -1 && normal.y <= 1
+		&& normal.z >= -1 && normal.z <= 1))
+		__exit_error("ValueError: Required normal vertor range is [-1 ; 1]\n");
+}
 
 int	check_argc(int argc)
 {

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 20:32:23 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:14:54 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	parse_sphere(t_data **data, char **info)
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	sphere->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	check_color(sphere->color);
 	object_add_back(&(*data)->object, new_object(SPHERE, sphere));
 }
 
@@ -59,7 +60,9 @@ static void	parse_cylinder(t_data **data, char **info)
 		__exit_error("TypeError: Bad information structure\n");
 	cylinder->center = vect_new(ft_atod(center[0]), ft_atod(center[1]), ft_atod(center[2]));
 	cylinder->normal = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
+	check_normalized(cylinder->normal);
 	cylinder->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	check_color(cylinder->color);
 	object_add_back(&(*data)->object, new_object(CYLINDER, cylinder));
 }
 
@@ -83,7 +86,9 @@ static void	parse_plane(t_data **data, char **info)
 		__exit_error("TypeError: Bad information structure\n");
 	plane->point = vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2]));
 	plane->normal = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
+	check_normalized(plane->normal);
 	plane->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	check_color(plane->color);
 	object_add_back(&(*data)->object, new_object(PLANE, plane));
 }
 
