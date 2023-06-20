@@ -6,11 +6,25 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 05:40:45 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/19 23:55:04 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
+
+void	check_color(t_color color)
+{
+	if(!(color.r >= 0 && color.r <= 255 && color.g >= 0 && color.g <= 255
+		&& color.b >= 0 && color.b <= 255))
+		__exit_error("ValueError: Required R,G,B range is [0 ; 255]\n");
+}
+
+void	check_normalized(t_vect normal)
+{
+	if (!(normal.x >= -1 && normal.x <= 1 && normal.y >= -1 && normal.y <= 1
+		&& normal.z >= -1 && normal.z <= 1))
+		__exit_error("ValueError: Required normal vertor range is [-1 ; 1]\n");
+}
 
 void	parse_ambient_light(t_data *data, char **info)
 {
@@ -22,10 +36,14 @@ void	parse_ambient_light(t_data *data, char **info)
 	if (!data->lighting->amb_light)
 		return ;
 	data->lighting->amb_light->ratio = ft_atod(info[1]);
+	if (!(data->lighting->amb_light->ratio >= 0.0
+		&& data->lighting->amb_light->ratio <= 1.0))
+		__exit_error("ValueError: Required 'A' ratio range is [0.0 ; 1.0]\n");
 	color = ft_split(info[2], ',');
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->amb_light->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	check_color(data->lighting->amb_light->color);
 }
 
 void	parse_light(t_data *data, char **info)
@@ -60,6 +78,8 @@ void	parse_camera(t_data *data, char **info)
 	if (!data->camera)
 		return ;
 	data->camera->fov = ft_atod(info[3]);
+	if (!(data->camera->fov >= 0 && data->camera->fov <= 180))
+		__exit_error("TypeError: Required 'C' FOV range is [0 ; 180]\n");
 	origin = ft_split(info[1], ',');
 	if (__2d_len(origin) != 3)
 		__exit_error("TypeError: Bad information structure\n");
@@ -68,4 +88,5 @@ void	parse_camera(t_data *data, char **info)
 	if (__2d_len(normalized) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->camera->normalized = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
+	check_normalized(data->camera->normalized);
 }

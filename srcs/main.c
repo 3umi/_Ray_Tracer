@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/16 17:37:50 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/19 23:34:07 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void	fill_img(t_img *img)
 	t_sphere	*sphere;
 	t_sphere	*sphere2;
 	t_camera	cam;
-	double R;
+	// double R;
 
-	R = cos(M_PI / 4);
+	// R = cos(M_PI / 4);
 	object = ft_calloc(3, sizeof(t_object));
 	sphere = sphere_new(vect_new(0, 0, -1), 0.5);
 	sphere2 = sphere_new(vect_new(0, -25, -1), 25);
