@@ -6,11 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/19 23:55:04 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/20 17:46:12 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 void	check_color(t_color color)
 {

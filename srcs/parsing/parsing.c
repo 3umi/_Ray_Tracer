@@ -6,11 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:05:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:55:49 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 16:00:26 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 static char	*read_file(char *str)
 {
@@ -43,9 +43,6 @@ static void	fill_data(t_data **data, char *str)
 	parse.A = 0;
 	parse.C = 0;
 	parse.L = 0;
-	(*data) = ft_calloc(sizeof(t_data), 1);
-	if (!(*data))
-		return ;
 	(*data)->lighting = ft_calloc(sizeof(t_lighting), 1);
 	if (!(*data)->lighting)
 		return ;
@@ -64,7 +61,8 @@ static void	fill_data(t_data **data, char *str)
 void	__parsing(int argc, char **argv, t_data *data)
 {
 	if (check_argc(argc))
-		__exit_error("TypeError: Not enough arguments.\n");
+		__exit_error("TypeError: Two arguments are required.\n");
 	check_file(argv[1]);
 	fill_data(&data, argv[1]);
+	printf("%lf \n", data->camera->fov);
 }

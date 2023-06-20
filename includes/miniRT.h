@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:53:01 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:11:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "vectors.h"
 # include "camera.h"
 # include "image.h"
+# include "colors.h"
 # include "ray.h"
 # include "objects.h"
 # include "hited.h"
@@ -45,7 +46,11 @@ typedef struct	s_data
 	t_object		*object;
 	t_camera		*camera;
 	t_lighting		*lighting;
+	t_img			img;
+	int			depth;
 }				t_data;
+
+void		rerander(t_data *data);
 
 # include "parsing.h"
 # include "key_hook.h"

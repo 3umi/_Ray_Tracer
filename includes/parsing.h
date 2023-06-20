@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:52:28 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 02:04:54 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 10:48:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	iterate_line(t_data *data, t_parse *parse, char *line);
 
 //----------------------Parsing------------------------------//
 void	__parsing(int argc, char **argv, t_data *data);
-
+void	__init(t_data *data);
 
 #endif

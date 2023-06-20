@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_c.c                                        :+:      :+:    :+:   */
+/*   parsing_b.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:55:19 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 01:56:07 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/17 15:56:20 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/miniRT.h"
+#include "../../includes/miniRT.h"
 
 int	check_argc(int argc)
 {
-	return (argc < 2);
+	return (argc != 2);
 }
 
 void	check_file(char *str)

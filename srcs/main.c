@@ -6,7 +6,11 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/06/19 23:34:07 by ohalim           ###   ########.fr       */
+=======
+/*   Updated: 2023/06/20 14:27:19 by belkarto         ###   ########.fr       */
+>>>>>>> belkarto
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,191 +19,138 @@
 #include <limits.h>
 #include <stdio.h>
 
-t_vect clamp_vec(t_vect color)
-{
-	t_vect tmp;
-
-	tmp.x = fmin(color.x, 1.0);
-	tmp.y = fmin(color.y, 1.0);
-	tmp.z = fmin(color.z, 1.0);
-	return (tmp);
-}
-
-int	rgb(double r, double g, double b)
+int	rgb(t_color color)
 {
 	int	rgb;
 
 	rgb = 0x00;
-	r = 255.999 * r;
-	g = 255.999 * g;
-	b = 255.999 * b;
-	rgb += (int)r << 16;
-	rgb += (int)g << 8;
-	rgb += (int)b;
+	rgb += (int)color.r << 16;
+	rgb += (int)color.g << 8;
+	rgb += (int)color.b;
 	return (rgb);
 }
-
-double	rnd(void)
+/* double randomBetweenZeroAndOne()
 {
-	return ((double)rand() / ((double)RAND_MAX + 1));
+    // Seed the random number generator
+
+    // Generate a random number between 0 and RAND_MAX
+    int randNum = rand();
+
+    // Scale the random number to the range [0, 1]
+    double result = (double)randNum / RAND_MAX;
+
+    return result;
+}
+double random_double(double min, double max)
+{
+	return (min + (max - min) * randomBetweenZeroAndOne());
+} */
+/* t_vect vect_random(double min, double max)
+{
+	t_vect p;
+
+	p = vect_new(random_double(min, max), random_double(min, max), random_double(min, max));
+	return (p);
+}
+ */
+double vect_length_squared(t_vect v)
+{
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
-double	rnd2(double min, double max)
+/* t_vect vect_random_in_unit_sphere()
 {
-	return (min + (max - min) * rnd());
-}
+	t_vect p;
 
-t_vect ray_color(t_ray *r, t_object *world)
+	p = vect_new(0, 0, 0);
+	while (1)
+	{
+		p = vect_random(-1, 1);
+		if (vect_length_squared(p) >= 1)
+			break ;
+	}
+	return (p);
+} */
+
+t_color ray_color(t_ray *r, t_object *world, int depth)
 {
 	t_hitrecod	rec;
+	// t_vect		target;
 
+	if (depth <= 0)
+		return (fill_color(0, 0, 0));
+	// target = vect_add(r->origin, vect_add(r->direction, vect_random_in_unit_sphere()));
 	if (hittable_list_hit(world, r, 0, INFINITY, &rec))
 	{
-		// return(vect_new(1, 0, 1));
 		return (rec.color);
-		return (vect_scale(vect_new(rec.normal.x + 1, rec.normal.y + 1, rec.normal.z + 1), 0.5));
 	}
-	return (vect_new(0, 0, 0));
-	t_vect	unit_direction;
-	unit_direction = vect_unit(r->direction);
-	double t = 0.5 * (unit_direction.y + 1.0);
-	return (vect_add(vect_scale(vect_new(1.0, 1.0, 1.0), 1.0 - t), vect_scale(vect_new(0.5, 0.8, 1.0), t)));
+	return (fill_color(0, 0, 0));
 }
 
-void	fill_img(t_img *img)
+t_color color_sqrt(t_color color)
+{
+	color.r = sqrt(color.r);
+	color.g = sqrt(color.g);
+	color.b = sqrt(color.b);
+	return (color);
+}
+
+void	av_color(t_color *pixel_color, t_color color, int ind)
+{
+	/* if (ind == 0)
+		pixel_color = &color;
+	else */
+	(void)ind;
+	{
+		*pixel_color = color_scalar(color_add(*pixel_color, color), 0.5);
+	}
+}
+
+void	fill_img(t_data *data)
 {
 	int	x;
 	int	y;
-	double	aspect_ratio;
-	double	image_width;
-	double	image_height;
-	t_object	*object;
-	t_sphere	*sphere;
-	t_sphere	*sphere2;
-	t_camera	cam;
-	// double R;
-
-	// R = cos(M_PI / 4);
-	object = ft_calloc(3, sizeof(t_object));
-	sphere = sphere_new(vect_new(0, 0, -1), 0.5);
-	sphere2 = sphere_new(vect_new(0, -25, -1), 25);
-	object[0].type = SPHERE;
-	object[0].object = sphere;
-	object[1].type = SPHERE;
-	object[1].object = sphere2;
-	object[1].type = NONE;
-	//image
-	aspect_ratio = 16.0 / 9.0;
-	image_width = WIN_W;
-	image_height = (int)(image_width / aspect_ratio);
+	int			s;
 
 	//camera
-	cam = init_camera(vect_new(0, 0, 0), vect_new(0, 0, -1), vect_new(0, 1, 0), 90, aspect_ratio);
+	init_camera(data->camera);
 
 	//render
-	y = 0;
-	while (y < image_height)
-	{
+	y = data->img.height - 1;
+	t_color	pixel_color = fill_color(0, 0, 0);
+	while (y >= 0)	{
 		x = 0;
-		while (x <= image_width)
+		while (x <= data->img.width)
 		{
-			double u = (double)x / (image_width - 1);
-			double v = (double)(image_height - y) / (image_height - 1);
-			t_ray r = ray_new(&cam, u, v);
-			t_vect pixel_color = ray_color(&r, object);
-			my_mlx_pixel_put(img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
+			s = 0;
+			while (s < data->img.samples_per_pixel)
+			{
+				data->img.u = (double)(x + ((double)s / 10)) / (data->img.width - 1);
+				data->img.v = (double)(data->img.height - y + (double)s / 10) / (data->img.height - 1);
+				t_ray r = ray_new(data->camera, data->img.u, data->img.v);
+				av_color(&pixel_color, ray_color(&r, data->object, data->depth), s);
+				s++;
+			}
+			my_mlx_pixel_put(&data->img, x, y, rgb(pixel_color));
 			x++;
 		}
-		y++;
+		y--;
 	}
 }
+#include <time.h>
 
 int	main(int argc, char **argv)
 {
 	t_data	data;
-	// t_img	img;
+	srand(time(NULL));
 
 	__parsing(argc, argv, &data);
-	// data.mlx_ptr = mlx_init();
-	// data.win_ptr = mlx_new_window(data.mlx_ptr, WIN_W, WIN_H, "miniRT");
-	// img.img = mlx_new_image(data.mlx_ptr, WIN_W, WIN_H);
-	// img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel,
-	// 		&img.line_length, &img.endian);
-	// fill_img(&img);
-	// mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, img.img, 0, 0);
-	// mlx_hook(data.win_ptr, 17, 0, close_win, &data);
-	// mlx_hook(data.win_ptr, 2, 0, key_hook, &data);
-	// mlx_key_hook(data.win_ptr, key_hook, &data);
-	// mlx_loop(data.mlx_ptr);
+	__init(&data);
+	fill_img(&data);
+	mlx_put_image_to_window(data.mlx_ptr, data.win_ptr, data.img.img, 0, 0);
+	mlx_hook(data.win_ptr, 17, 0, close_win, &data);
+	mlx_hook(data.win_ptr, 2, 0, key_hook, &data);
+	mlx_key_hook(data.win_ptr, key_hook, &data);
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }
-
-
-/* void	fill_img(t_img *img)
-   {
-   int	x;
-   int	y;
-   double	aspect_ratio;
-   double	viewport_height;
-   double	viewport_width;
-   double	focal_length;
-   double	image_width;
-   double	image_height;
-   t_vect	origin;
-   t_vect	horizontal;
-   t_vect	vertical;
-   t_vect	lower_left_corner;
-
-//image
-//put this in a struct later
-//and put it befor mlx_new_window and mlx_new_image
-//and put it in a function and use those values in mlx_new_window and 
-//mlx_new_image
-//and maybe put put them as global variables
-aspect_ratio = 16.0 / 9.0;
-image_width = WIN_W;
-image_height = (int)(image_width / aspect_ratio);
-//camera
-//viewport is the rectangle that we project the world
-viewport_height = 2.0;
-viewport_width = aspect_ratio * viewport_height;
-//focal_length is the distance between the camera and the viewport_height
-focal_length = 1.0;
-//origin is the position of the camera
-origin = vect_new(0, 0, 0);
-//horizontal is the width of the viewport
-horizontal = vect_new(viewport_width, 0, 0);
-//vertical is the height of the viewport 
-vertical = vect_new(0, viewport_height, 0);
-//lower_left_corner is the bottom left corner of the viewport 
-//we need the lower_left_corner to calculate the ray 
-//that goes from the camera to the pixel 
-lower_left_corner = vect_sub(vect_sub(vect_sub(origin, vect_scale(horizontal, 1.0/2)), vect_scale(vertical, 1.0/2)), vect_new(0, 0, focal_length));
-//render
-y = 0;
-while (y < image_height)
-{
-x = 0;
-while (x <= image_width)
-{
-//u is the position of the pixel on the horizontal axis
-double u = (double)x / (image_width - 1);
-//v is the position of the pixel on the vertical axis
-double v = (double)(image_height - y) / (image_height - 1);
-//r is the ray that goes from the camera to the pixel
-t_ray r = ray_new(origin, vect_add(lower_left_corner, vect_add(vect_scale(horizontal, u), vect_scale(vertical, v))));
-//pixel_color is the color of the pixel 
-//we used vector as a color because it's easier to work with 
-//-------------------------------------------------------------
-//          note!! need to creat color struct later	           |
-//          inside ray struct and use it here                  |
-//-------------------------------------------------------------
-t_vect pixel_color = ray_color(&r);
-// printf("pixel_color: %f %f %f\n", pixel_color.x, pixel_color.y, pixel_color.z);
-my_mlx_pixel_put(img, x, y, rgb(pixel_color.x, pixel_color.y, pixel_color.z));
-// my_mlx_pixel_put(img, x, y, rgb((double)x / WIN_W, (double)(WIN_H - y) / WIN_H, 0.25));
-x++;
-}
-y++;
-}
-} */
