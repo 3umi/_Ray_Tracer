@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/20 15:40:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/20 17:41:09 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,12 @@ int	key_hook(int keycode, t_data *mlx)
 	sphere = mlx->object->object;
 	if (keycode == ESC || keycode == ESC_LINUX)
 		close_win(mlx);
-	if (keycode == W_KEY)
+	else if (keycode == W_KEY)
 	{
 		mlx->img.samples_per_pixel = 1;
 		if (mlx->camera->origin_lock == UNLOCKED)
 		{
 			mlx->camera->origin.y += 0.1;
-			sphere->center.y += 0.1;
 		}
 		if (mlx->camera->view_lock == UNLOCKED)
 		{
@@ -42,13 +41,12 @@ int	key_hook(int keycode, t_data *mlx)
 		init_camera(mlx->camera);
 		rerander(mlx);
 	}
-	if (keycode == S_KEY)
+	else if (keycode == S_KEY)
 	{
 		mlx->img.samples_per_pixel = 1;
 		if (mlx->camera->origin_lock == UNLOCKED)
 		{
 			mlx->camera->origin.y -= 0.1;
-			sphere->center.y -= 0.1;
 		}
 		if (mlx->camera->view_lock == UNLOCKED)
 		{
@@ -58,13 +56,12 @@ int	key_hook(int keycode, t_data *mlx)
 		init_camera(mlx->camera);
 		rerander(mlx);
 	}
-	if (keycode == D_KEY)
+	else if (keycode == D_KEY)
 	{
 		mlx->img.samples_per_pixel = 1;
 		if (mlx->camera->origin_lock == UNLOCKED)
 		{
 			mlx->camera->origin.x += 0.1;
-			sphere->center.x += 0.1;
 		}
 		if (mlx->camera->view_lock == UNLOCKED)
 		{
@@ -74,13 +71,12 @@ int	key_hook(int keycode, t_data *mlx)
 		init_camera(mlx->camera);
 		rerander(mlx);
 	}
-	if (keycode == A_KEY)
+	else if (keycode == A_KEY)
 	{
 		mlx->img.samples_per_pixel = 1;
 		if (mlx->camera->origin_lock == UNLOCKED)
 		{
 			mlx->camera->origin.x -= 0.1;
-			sphere->center.x -= 0.1;
 		}
 		if (mlx->camera->view_lock == UNLOCKED)
 		{
@@ -90,19 +86,19 @@ int	key_hook(int keycode, t_data *mlx)
 		init_camera(mlx->camera);
 		rerander(mlx);
 	}
-	if (keycode == Q_KEY)
+	else if (keycode == Q_KEY)
 	{
 		if (mlx->camera->origin_lock == UNLOCKED)
 			mlx->camera->origin_lock = LOCKED;
 		else
 			mlx->camera->origin_lock = UNLOCKED;
 	}
-	if (keycode == E_KEY)
+	else if (keycode == E_KEY)
 	{
 		if (mlx->camera->view_lock == UNLOCKED)
 			mlx->camera->view_lock = LOCKED;
 		else
-			mlx->camera->origin_lock = UNLOCKED;
+			mlx->camera->view_lock = UNLOCKED;
 	}
 	if (mlx->camera->origin_lock == LOCKED)
 		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FFFFFF, "Origin locked");

@@ -36,7 +36,7 @@ SRC_PARSING	= parsing parsing_b parsing_c parsing_d
 
 SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program
 
-CFLAGS		= -Wall -Wextra -Werror -march=native -funroll-loops -fsanitize=address -g
+CFLAGS		= -Wall -Wextra -Werror -funroll-loops -fsanitize=address -g
 # #======================================================================================
 
 # #===================================== Standard =======================================
