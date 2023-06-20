@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/20 18:10:24 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/20 19:08:08 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	key_hook(int keycode, t_data *mlx)
 	sphere = mlx->object->object;
 	if (keycode == ESC || keycode == ESC_LINUX)
 		close_win(mlx);
-	else if (keycode == W_KEY || keycode == 119)
+	if (mlx->camera->origin_lock == UNLOCKED || mlx->camera->view_lock == UNLOCKED)
+	{
+	if (keycode == W_KEY || keycode == 119)
 	{
 		mlx->img.samples_per_pixel = 1;
 		if (mlx->camera->origin_lock == UNLOCKED)
@@ -41,8 +43,6 @@ int	key_hook(int keycode, t_data *mlx)
 		init_camera(mlx->camera);
 		rerander(mlx);
 	}
-	if (mlx->camera->origin_lock == UNLOCKED || mlx->camera->view_lock == UNLOCKED)
-	{
 		if (keycode == S_KEY || keycode == 115)
 		{
 			mlx->img.samples_per_pixel = 1;
@@ -89,6 +89,20 @@ int	key_hook(int keycode, t_data *mlx)
 			rerander(mlx);
 		}
 	}
+	if (mlx->camera->origin_lock == LOCKED)
+		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FF0000, "Origin : locked");
+	else
+		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FF0000, "Origin : unlocked");
+	if (mlx->camera->view_lock == LOCKED)
+		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FF0000, "View   : locked");
+	else
+		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FF0000, "View   : unlocked");
+	printf("keycode %d\n", keycode);
+	return (0);
+}
+
+int	lock_key_hook(int keycode, t_data *mlx)
+{
 	if (keycode == Q_KEY || keycode == 113)
 	{
 		if (mlx->camera->origin_lock == UNLOCKED)
@@ -103,14 +117,6 @@ int	key_hook(int keycode, t_data *mlx)
 		else
 			mlx->camera->view_lock = UNLOCKED;
 	}
-	if (mlx->camera->origin_lock == LOCKED)
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FFFFFF, "Origin locked");
-	else
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FFFFFF, "Origin unlocked");
-	if (mlx->camera->view_lock == LOCKED)
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FFFFFF, "View locked");
-	else
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FFFFFF, "View unlocked");
-	printf("keycode %d\n", keycode);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 0, 0);
 	return (0);
 }
