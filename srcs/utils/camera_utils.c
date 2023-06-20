@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 08:47:01 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/17 11:24:20 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:38:57 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,28 @@
 
 //left lower corner 
 // origin - horizontal/2 - vertical/2 - focal_length
-t_camera init_camera(t_vect lookfrom, t_vect lookat, t_vect vup, double fov, double aspect_ratio)
+// camera origin is lookfrom
+// camera viewport is lookat
+void	init_camera(t_camera *camera)
 {
-	t_camera cam;
 	double h;
 	t_vect tmp;
+	t_vect vup;
 
-	fov = fov * M_PI / 180;
-	h = tan(fov / 2);
-	cam.aspect_ratio = aspect_ratio;
-	cam.viewport_height = 2.0 * h;
-	cam.viewport_width = cam.aspect_ratio * cam.viewport_height;
-	cam.focal_length = 1.0;
-
-	cam.w = vect_unit(vect_sub(lookfrom, lookat));
-	cam.u = vect_unit(vect_cross(vup, cam.w));
-	cam.v = vect_cross(cam.w, cam.u);
-	cam.origin = lookfrom;
-	cam.horizontal = vect_scale(cam.u, cam.viewport_width);
-	cam.vertical = vect_scale(cam.v, cam.viewport_height);
-	tmp = vect_scale(cam.w, cam.focal_length);
-	tmp = vect_sub(cam.origin, tmp);
-	tmp = vect_sub(tmp, vect_scale(cam.horizontal, 0.5));
-	tmp = vect_sub(tmp, vect_scale(cam.vertical, 0.5));
-	cam.lower_left_corner = tmp;
-	return (cam);
+	vup = camera->normalized;
+	camera->fov_rad = camera->fov * M_PI / 180;
+	h = tan(camera->fov_rad / 2);
+	camera->viewport_height = 2.0 * h;
+	camera->viewport_width = camera->aspect_ratio * camera->viewport_height;
+	camera->focal_length = 1.0;
+	camera->w = vect_unit(vect_sub(camera->origin, camera->lookat));
+	camera->u = vect_unit(vect_cross(vup, camera->w));
+	camera->v = vect_cross(camera->w, camera->u);
+	camera->horizontal = vect_scale(camera->u, camera->viewport_width);
+	camera->vertical = vect_scale(camera->v, camera->viewport_height);
+	tmp = vect_scale(camera->w, camera->focal_length);
+	tmp = vect_sub(camera->origin, tmp);
+	tmp = vect_sub(tmp, vect_scale(camera->horizontal, 0.5));
+	tmp = vect_sub(tmp, vect_scale(camera->vertical, 0.5));
+	camera->lower_left_corner = tmp;
 }
-/* cam.origin = vect_new(0, 0, 0);
-   cam.horizontal = vect_new(cam.viewport_width, 0, 0);
-   cam.vertical = vect_new(0, cam.viewport_height, 0);
-   tmp = vect_sub(cam.origin, vect_scale(cam.horizontal, 0.5));
-   tmp = vect_sub(tmp, vect_scale(cam.vertical, 0.5));
-   tmp = vect_sub(tmp, vect_new(0, 0, cam.focal_length));
-   cam.lower_left_corner = tmp; */
-// cam.lower_left_corner = vect_sub(cam.origin, vect_scale(cam.horizontal, 0.5));
-/* t_camera cam;
-   t_vect tmp;
-
-   (void)normalized;
-   fov = fov * M_PI / 180;
-   cam.aspect_ratio = 16.0 / 9.0;
-   cam.origin = origin;
-   cam.focal_length = 2.0;
-   cam.viewport_width = 2 * tan(fov / 2) * cam.focal_length;
-   cam.viewport_height = cam.viewport_width / cam.aspect_ratio;
-   cam.horizontal = vect_new(cam.viewport_width, 0, 0);
-   cam.vertical = vect_new(0, cam.viewport_height, 0);
-   tmp = vect_sub(cam.origin, vect_scale(cam.horizontal, normalized.x));
-   tmp = vect_sub(tmp, vect_scale(cam.vertical, normalized.y));
-   tmp = vect_sub(tmp, vect_new(0, 0, normalized.z));
-   cam.lower_left_corner = tmp;
-   return (cam); */

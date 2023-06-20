@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/18 15:08:42 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:29:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_sphere	*sphere_new(t_vect center, double radius)
 	return (sp);
 }
 
-t_vect av_color(t_vect color1, t_vect color2)
+/* t_vect av_color(t_vect color1, t_vect color2)
 {
 	t_vect tmp;
 
@@ -70,7 +70,7 @@ t_vect av_color(t_vect color1, t_vect color2)
 	tmp.y = (color1.y + color2.y) / 2;
 	tmp.z = (color1.z + color2.z) / 2;
 	return (tmp);
-}
+} */
 
 t_color	vec_to_color(t_vect color)
 {

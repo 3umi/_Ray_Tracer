@@ -6,7 +6,7 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:03:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/12 04:21:50 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/20 15:27:47 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,16 @@
 
 # define ESC 53
 # define ESC_LINUX 65307
+# define W_KEY 13
+# define A_KEY 0
+# define S_KEY 1
+# define D_KEY 2
+# define Q_KEY 12
+# define E_KEY 14
+# define LEFT_AROW 123
+# define RIGHT_AROW 124
+# define UP_AROW 126
+# define DOWN_AROW 125
 
 
 int	close_win(t_data *mlx);

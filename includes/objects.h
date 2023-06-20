@@ -6,14 +6,13 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:31:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/15 16:29:49 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/20 14:11:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OBJECTS_H
 # define OBJECTS_H
 # include "vectors.h"
-# include "colors.h"
 # include "ray.h"
 
 typedef enum e_type
