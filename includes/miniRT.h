@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/20 14:11:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:13:59 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,6 @@ void		rerander(t_data *data);
 # include "parsing.h"
 # include "key_hook.h"
 
+bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);
+bool	hit_plane(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);
 #endif
