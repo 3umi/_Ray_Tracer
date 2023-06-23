@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/22 18:54:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:34:57 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,14 @@ bool hit_plane(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *
 	// t_vect	p;
 
 	pl = obj->object;
+	r->direction = vect_normalize(r->direction);
+	r->origin = vect_normalize(r->origin);
+	pl->normal = vect_negate(pl->normal);
 	denom = vect_dot(pl->normal, r->direction);
-	if (denom == 0)
+	if (fabs(denom) < EPSILON)
 		return (false);
-	if (denom > 0)
-		return (false);
+	/* if (denom > 0)
+		return (false); */
 	t = vect_dot(vect_sub(pl->point, r->origin), pl->normal) / denom;
 	if (t < t_min || t > t_max)
 		return (false);

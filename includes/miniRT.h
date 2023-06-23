@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/22 18:13:59 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:43:35 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define WIN_H 400
 # define SUCCESS_RETURN 0
 # define FAILURE_RETURN 1
+# define EPSILON 1e-6
 
 typedef struct	s_data
 {
