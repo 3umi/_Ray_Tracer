@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/22 18:11:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/24 17:08:58 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,7 @@ bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object 
 	t_vect		light;
 	double		dot;
 	double		brightness;
-	double specular_intensity;
-	double specular_power;
 
-	specular_intensity = 0.5;
-	specular_power = 32;
 	brightness = 1;
 	light = vect_normalize(vect_new(1, 1, 1));
 	dot = fmax(vect_dot(light, rec->normal), 0.0);
