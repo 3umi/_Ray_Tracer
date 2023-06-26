@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/22 18:13:20 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/26 04:34:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ t_ray ray_new(t_camera * cam, double x, double y)
 	return (ray);
 }
 
-t_vect	ray_at(t_ray *r, double t)
+//ray at is used to determine the point at which the ray hits the sphere
+t_vect	ray_hit_point(t_ray *r, double t)
 {
 	return (vect_add(r->origin, vect_scale(r->direction, t)));
 }
 
+//set face normal is used to determine if the ray is inside or outside the sphere 
+//if the ray is inside the sphere, the normal is inverted 
 void set_face_normal(t_ray *r, t_hitrecod *rec)
 {
 	rec->front_face = vect_dot(r->direction, rec->normal) < 0;
@@ -79,32 +82,29 @@ t_vect vect_reflect(t_vect v, t_vect n)
 	return (vect_sub(v, vect_scale(n, 2 * vect_dot(v, n))));
 }
 
-bool	hit(t_ray *r, double t_min, double t_max, t_hitrecod *rec,	t_object *obj)
+bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 {
 	if (obj->type == SPHERE)
-		return (hit_sphere(r, t_min, t_max, rec, obj));
+		return (hit_sphere(data, rec, obj));
 	else if (obj->type == PLANE)
-		return (hit_plane(r, t_min, t_max, rec, obj));
+		return (hit_plane(data, rec, obj));
 	return (false);
 }
 
-bool hittable_list_hit(t_object *list, t_ray *r, double t_min, double t_max, t_hitrecod *rec)
+bool hittable_list_hit(t_data *data, t_hitrecod *rec)
 {
 	t_hitrecod	tmp_rec;
 	bool		hit_anything;
-	double		closest_so_far;
 	t_object	*tmp;
 
 	hit_anything = false;
-	closest_so_far = t_max;
-	tmp_rec.color_set = false;
-	tmp = list;
+	tmp = data->object;
 	while (tmp)
 	{
-		if (hit(r, t_min, closest_so_far, &tmp_rec, tmp))
+		if (hit(data, &tmp_rec, tmp))
 		{
 			hit_anything = true;
-			closest_so_far = tmp_rec.t;
+			data->r.t_max = tmp_rec.hit_point_distance;
 			*rec = tmp_rec;
 		}
 		tmp = tmp->next;

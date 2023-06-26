@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/24 17:08:58 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/26 04:39:54 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vect c_to_v(t_color color)
 	return (tmp);
 }
 
-bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj)
+bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 {
 	t_vect	oc;
 	double	a;
@@ -44,31 +44,30 @@ bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object 
 	   double		dot; */
 
 	sp = obj->object;
-	oc = vect_sub(r->origin, sp->center);
-	a = vect_dot(r->direction, r->direction);
-	half_b = vect_dot(oc, r->direction);
+	oc = vect_sub(data->r.origin, sp->center);
+	a = vect_dot(data->r.direction, data->r.direction);
+	half_b = vect_dot(oc, data->r.direction);
 	c = vect_dot(oc, oc) - sp->radius * sp->radius;
 	discriminant = pow(half_b, 2) - a * c;
 	if (discriminant < 0)
 		return (false);
-	rec->t = (-half_b - sqrt(discriminant)) / a;
-	if (rec->t < t_min || t_max < rec->t)
+	rec->hit_point_distance = (-half_b - sqrt(discriminant)) / a;
+	if (rec->hit_point_distance < data->r.t_min || data->r.t_max < rec->hit_point_distance)
 	{
-		rec->t = (-half_b + sqrt(discriminant)) / a;
-		if (rec->t < t_min || t_max < rec->t)
+		if (rec->hit_point_distance < data->r.t_min || data->r.t_max < rec->hit_point_distance)
 			return (false);
 	}
-	rec->p = ray_at(r, rec->t);
+	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);
-	set_face_normal(r, rec);
+	set_face_normal(&data->r, rec);
 
-	t_vect		light;
+	/* t_vect		light;
 	double		dot;
 	double		brightness;
-
-	brightness = 1;
+ */
+	/* brightness = 1;
 	light = vect_normalize(vect_new(1, 1, 1));
 	dot = fmax(vect_dot(light, rec->normal), 0.0);
-	rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), brightness));
+	rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), brightness)); */
 	return (true);
 }

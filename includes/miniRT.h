@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/23 18:43:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/26 04:33:48 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "colors.h"
 # include "ray.h"
 # include "objects.h"
-# include "hited.h"
 # include "lighting.h"
 # include "error.h"
 # include "errno.h"
@@ -39,6 +38,7 @@
 # define SUCCESS_RETURN 0
 # define FAILURE_RETURN 1
 # define EPSILON 1e-6
+# define MAX_DEPTH 50
 
 typedef struct	s_data
 {
@@ -48,14 +48,17 @@ typedef struct	s_data
 	t_camera		*camera;
 	t_lighting		*lighting;
 	t_img			img;
-	int			depth;
+	t_ray			r;
+	int				depth;
 }				t_data;
 
-void		rerander(t_data *data);
 
+# include "hited.h"
 # include "parsing.h"
 # include "key_hook.h"
 
-bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);
-bool	hit_plane(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj);
+void	rerander(t_data *data);
+bool	hit_plane(t_data *r, t_hitrecod *rec, t_object *obj);
+t_color	ray_color(t_data *data);
+
 #endif

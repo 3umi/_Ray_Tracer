@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 18:10:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/16 18:16:27 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/25 22:59:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_img
 	double	height;
 	double	aspect_ratio;
 	int		samples_per_pixel;
+	int		samples_count;
 	double	u;
 	double	v;
 }				t_img;
