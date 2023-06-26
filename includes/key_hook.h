@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:03:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/20 15:27:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:45:04 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 
 int	close_win(t_data *mlx);
 int	key_hook(int keycode, t_data *mlx);
+int	lock_key_hook(int keycode, t_data *mlx);
 
 #endif
 

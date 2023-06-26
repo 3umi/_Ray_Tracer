@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:05:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 16:00:26 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:37:55 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	fill_data(t_data **data, char *str)
 	(*data)->lighting = ft_calloc(sizeof(t_lighting), 1);
 	if (!(*data)->lighting)
 		return ;
+	(*data)->object = NULL;
 	buff = read_file(str);
 	if (!buff)
 		__exit_error("FileError: File empty.\n");

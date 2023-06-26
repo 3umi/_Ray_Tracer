@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/20 12:29:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:13:20 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,71 +72,19 @@ t_sphere	*sphere_new(t_vect center, double radius)
 	return (tmp);
 } */
 
-t_color	vec_to_color(t_vect color)
+
+
+t_vect vect_reflect(t_vect v, t_vect n)
 {
-	t_color tmp;
-
-	tmp.r = color.x;
-	tmp.g = color.y;
-	tmp.b = color.z;
-	return (tmp);
-}
-
-t_vect c_to_v(t_color color)
-{
-	t_vect tmp;
-
-	tmp.x = color.r;
-	tmp.y = color.g;
-	tmp.z = color.b;
-	return (tmp);
-}
-bool	hit_sphere(t_ray *r, double t_min, double t_max, t_hitrecod *rec, t_object *obj)
-{
-	t_vect	oc;
-	double	a;
-	double	half_b;
-	double	c;
-	double	discriminant;
-	t_sphere	*sp;
-	/* t_vect		light;
-	   double		dot; */
-
-	sp = obj->object;
-	oc = vect_sub(r->origin, sp->center);
-	a = vect_dot(r->direction, r->direction);
-	half_b = vect_dot(oc, r->direction);
-	c = vect_dot(oc, oc) - sp->radius * sp->radius;
-	discriminant = pow(half_b, 2) - a * c;
-	if (discriminant < 0)
-		return (false);
-	rec->t = (-half_b - sqrt(discriminant)) / a;
-	if (rec->t < t_min || t_max < rec->t)
-	{
-		rec->t = (-half_b + sqrt(discriminant)) / a;
-		if (rec->t < t_min || t_max < rec->t)
-			return (false);
-	}
-	rec->p = ray_at(r, rec->t);
-	rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);
-	set_face_normal(r, rec);
-
-	t_vect		light;
-	double		dot;
-	double		brightness;
-
-	brightness = 1;
-	light = vect_normalize(vect_new(1, 1, 1));
-	dot = fmax(vect_dot(light, rec->normal), 0.0);
-	rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), brightness));
-	return (true);
-
+	return (vect_sub(v, vect_scale(n, 2 * vect_dot(v, n))));
 }
 
 bool	hit(t_ray *r, double t_min, double t_max, t_hitrecod *rec,	t_object *obj)
 {
 	if (obj->type == SPHERE)
 		return (hit_sphere(r, t_min, t_max, rec, obj));
+	else if (obj->type == PLANE)
+		return (hit_plane(r, t_min, t_max, rec, obj));
 	return (false);
 }
 
