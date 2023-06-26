@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 04:42:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/26 05:18:11 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 	denom = vect_dot(pl->normal, data->r.direction);
 	if (fabs(denom) < EPSILON)
 		return (false);
-	/* if (denom > 0)
-		return (false); */
 	t = vect_dot(vect_sub(pl->point, data->r.origin), pl->normal) / denom;
 	if (t < data->r.t_min || t > data->r.t_max)
 		return (false);
@@ -62,9 +60,14 @@ bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 	rec->p = ray_hit_point(&data->r, t);
 	rec->normal = pl->normal;
 	rec->color = pl->color;
-/* 	
-	t_vect light = vect_normalize(vect_new(1, 1, 1));
-	double dot = fmax(vect_dot(rec->normal, light), 0.0);
-	rec->color = c_to_v(vec_to_color(vect_scale(rec->color, dot))); */
+
+	double		dot;
+	t_vect		light;
+	double		bright;
+
+	bright = 1;
+	light = vect_normalize(vect_new(1, 1, 1));
+	dot = vect_dot(rec->normal, light);
+	rec->color = color_scalar(rec->color, bright);
 	return (true);
 }
