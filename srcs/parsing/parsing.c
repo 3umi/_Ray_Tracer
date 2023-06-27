@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:05:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/20 18:37:55 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/26 20:33:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void	__parsing(int argc, char **argv, t_data *data)
 		__exit_error("TypeError: Two arguments are required.\n");
 	check_file(argv[1]);
 	fill_data(&data, argv[1]);
-	printf("%lf \n", data->camera->fov);
 }

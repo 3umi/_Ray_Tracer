@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/26 04:33:48 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:40:09 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct	s_data
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
+	t_object		*head;
 	t_object		*object;
 	t_camera		*camera;
 	t_lighting		*lighting;

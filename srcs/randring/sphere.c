@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 05:47:15 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:13:07 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,13 +103,9 @@ bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 			rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), 0.2));
 			return (false);
 		}
-		/* light = vect_sub(data->lighting->light->point, rec->p);
-		   dot = fmax(vect_dot(rec->normal, light), 0.0);
-		   rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), data->lighting->light->ratio)); */
 
 		obj_tmp = obj_tmp->next;
 	}
-
 
 	dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
 	rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), data->lighting->light->ratio));

@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 05:41:39 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/27 03:23:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,11 @@ void set_face_normal(t_ray *r, t_hitrecod *rec)
 
 //hittable list
 //linked list for hittable list
-t_sphere	*sphere_new(t_vect center, double radius)
-{
-	t_sphere *sp;
 
-	sp = malloc(sizeof(t_sphere));
-	if (!sp)
-		return (NULL);
-	sp->center = center;
-	sp->radius = radius;
-	return (sp);
-}
-
-/* t_vect av_color(t_vect color1, t_vect color2)
-{
-	t_vect tmp;
-
-	if (color1.x == 0 && color1.y == 0 && color1.z == 0)
-		return (color2);
-	if (color2.x == 0 && color2.y == 0 && color2.z == 0)
-		return (color1);
-	tmp.x = (color1.x + color2.x) / 2;
-	tmp.y = (color1.y + color2.y) / 2;
-	tmp.z = (color1.z + color2.z) / 2;
-	return (tmp);
-} */
-
-
-
-t_vect vect_reflect(t_vect v, t_vect n)
+/* t_vect vect_reflect(t_vect v, t_vect n)
 {
 	return (vect_sub(v, vect_scale(n, 2 * vect_dot(v, n))));
-}
+} */
 
 bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 {
@@ -95,19 +68,18 @@ bool hittable_list_hit(t_data *data, t_hitrecod *rec)
 {
 	t_hitrecod	tmp_rec;
 	bool		hit_anything;
-	t_object	*tmp;
 
 	hit_anything = false;
-	tmp = data->object;
-	while (tmp)
+	while (data->object)
 	{
-		if (hit(data, &tmp_rec, tmp))
+		if (hit(data, &tmp_rec, data->object))
 		{
 			hit_anything = true;
 			data->r.t_max = tmp_rec.hit_point_distance;
 			*rec = tmp_rec;
 		}
-		tmp = tmp->next;
+		data->object = data->object->next;
 	}
+	data->object = data->head;
 	return (hit_anything);
 }
