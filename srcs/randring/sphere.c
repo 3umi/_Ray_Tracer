@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/27 08:04:25 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/27 09:51:07 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,31 +33,6 @@ t_vect c_to_v(t_color color)
 	return (tmp);
 }
 
-bool is_shadowed(t_data *data, t_vect point, t_object *obj)
-{
-	t_ray shadow_ray;
-	t_object *obj_tmp;
-	shadow_ray.origin = point;
-	shadow_ray.direction = vect_sub(data->lighting->light->point, point);
-
-	data->r = shadow_ray;
-	obj_tmp = obj;
-	while (obj_tmp)
-	{
-		if (obj_tmp == obj)
-		{
-			obj_tmp = obj_tmp->next;
-			continue;
-		}
-
-		t_hitrecod shadow_rec;
-		if (hit(data , &shadow_rec, obj_tmp))
-			return true; // Shadow ray intersects another object
-		obj_tmp = obj_tmp->next;
-	}
-	return false; // No object found between the point and light source
-}
-
 bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 {
 	t_vect	oc;
@@ -66,7 +41,6 @@ bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 	double	c;
 	double	discriminant;
 	t_sphere	*sp;
-	t_object	*obj_tmp;
 	/* t_vect		light;
 	   double		dot; */
 	double		dot;
@@ -88,24 +62,6 @@ bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);
 	set_face_normal(&data->r, rec);
-
-	obj_tmp = data->object;
-	while (obj_tmp)
-	{
-		if (obj_tmp == obj)
-		{
-			obj_tmp = obj_tmp->next;
-			continue;
-		}
-		if (is_shadowed(data, rec->p, obj_tmp))
-		{
-			dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
-			rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), 0.2));
-			return (false);
-		}
-
-		obj_tmp = obj_tmp->next;
-	}
 
 	dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
 	rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), data->lighting->light->ratio));
