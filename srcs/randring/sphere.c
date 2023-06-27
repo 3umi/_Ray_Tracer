@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 20:13:07 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:04:25 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ bool is_shadowed(t_data *data, t_vect point, t_object *obj)
 	shadow_ray.direction = vect_sub(data->lighting->light->point, point);
 
 	data->r = shadow_ray;
-	obj_tmp = data->object;
+	obj_tmp = obj;
 	while (obj_tmp)
 	{
 		if (obj_tmp == obj)

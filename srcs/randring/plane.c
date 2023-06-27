@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 05:18:11 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/27 08:02:37 by brahim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 	bright = 1;
 	light = vect_normalize(vect_new(1, 1, 1));
 	dot = vect_dot(rec->normal, light);
+	(void)dot;
 	rec->color = color_scalar(rec->color, bright);
 	return (true);
 }
