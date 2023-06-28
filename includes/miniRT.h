@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/28 02:15:11 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:27:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@
 # include "image.h"
 # include "colors.h"
 # include "ray.h"
-# include "objects.h"
 # include "lighting.h"
+# include "objects.h"
 # include "error.h"
 # include "errno.h"
 # include "linked_list_utils.h"
 # include "char_utils.h"
 
-# define WIN_W 760
+# define WIN_W 960
 # define SUCCESS_RETURN 0
 # define FAILURE_RETURN 1
 # define EPSILON 1e-6
@@ -60,5 +60,6 @@ typedef struct	s_data
 void	rerander(t_data *data);
 bool	hit_plane(t_data *r, t_hitrecod *rec, t_object *obj);
 t_color	ray_color(t_data *data);
+t_color	ambient_light(t_data *data, t_color color);
 
 #endif

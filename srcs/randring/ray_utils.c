@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 01:17:08 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 12:13:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ void set_face_normal(t_ray *r, t_hitrecod *rec)
 //hittable list
 //linked list for hittable list
 
-/* t_vect vect_reflect(t_vect v, t_vect n)
-{
-	return (vect_sub(v, vect_scale(n, 2 * vect_dot(v, n))));
-} */
-
 bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 {
 	if (obj->type == SPHERE)
@@ -59,6 +54,58 @@ bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 		return (hit_plane(data, rec, obj));
 	return (false);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+bool is_in_shadow(t_data *data, t_hitrecod *rec) {
+	t_ray shadow_ray;
+	double t_max;
+	t_hitrecod shadow_rec;
+	t_object *tmp;
+
+	shadow_ray.origin = rec->p;
+	shadow_ray.direction = vect_unit(vect_sub(rec->p, data->lighting->light->point));
+	t_max = vect_length(vect_sub(rec->p, data->lighting->light->point));
+	tmp = data->head;
+	while (tmp)
+	{
+		if (tmp == data->object)
+		{
+			tmp = tmp->next;
+			continue;
+		}
+		if (hit(data, &shadow_rec, tmp))
+		{
+			// Check if the shadow ray intersects an object
+			if (shadow_rec.hit_point_distance > EPSILON && shadow_rec.hit_point_distance < t_max)
+			{
+				// The shadow ray intersects an object between the hit point and the light source
+				return true;
+			}
+		}
+		tmp = tmp->next;
+	}
+
+	// No intersection occurred, point is not in shadow
+	return false;
+}
+
+
 
 bool hittable_list_hit(t_data *data, t_hitrecod *rec)
 {
@@ -77,5 +124,25 @@ bool hittable_list_hit(t_data *data, t_hitrecod *rec)
 		data->object = data->object->next;
 	}
 	data->object = data->head;
+	double		dot;
+	if (data->lighting->light->ratio > EPSILON)
+	{
+		if (rec->type == SPHERE)
+		{
+			dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
+			rec->color = color_scalar(rec->color, dot);
+		}
+		/* else if (rec->type == PLANE)
+		{
+			dot = fmax(vect_dot(rec->normal, vect_sub(data->lighting->light->point, rec->p)), 0.0);
+			rec->color = color_scalar(rec->color, dot);
+		} */
+	}
+	rec->color = ambient_light(data, rec->color);
+	if (is_in_shadow(data, rec))
+	{
+	   rec->color = color_scalar(rec->color, 0.2);
+	// rec->color = fill_color(100, 0, 0);
+	}
 	return (hit_anything);
 }

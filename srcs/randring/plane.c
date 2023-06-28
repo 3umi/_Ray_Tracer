@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/27 08:02:37 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/28 09:25:20 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 	pl = obj->object;
 	data->r.direction = vect_normalize(data->r.direction);
 	data->r.origin = vect_normalize(data->r.origin);
-	pl->normal = vect_negate(pl->normal);
 	denom = vect_dot(pl->normal, data->r.direction);
 	if (fabs(denom) < EPSILON)
 		return (false);
@@ -58,17 +57,12 @@ bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 		return (false);
 	rec->hit_point_distance = t;
 	rec->p = ray_hit_point(&data->r, t);
+	rec->type = PLANE;
+
+
 	rec->normal = pl->normal;
 	rec->color = pl->color;
-
-	double		dot;
-	t_vect		light;
-	double		bright;
-
-	bright = 1;
-	light = vect_normalize(vect_new(1, 1, 1));
-	dot = vect_dot(rec->normal, light);
-	(void)dot;
-	rec->color = color_scalar(rec->color, bright);
+	/* dot = fmax(vect_dot(rec->normal, data->lighting->light->point), 0);
+	rec->color = color_scalar(rec->color, dot); */
 	return (true);
 }

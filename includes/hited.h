@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:29:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 06:17:49 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:10:16 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_hitrecod
 	t_vect		p;
 	t_vect		normal;
 	t_color		color;
+	t_type		type;
 	double		hit_point_distance;
 	bool		front_face;
 }				t_hitrecod;

@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 05:59:40 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 09:10:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,47 +61,19 @@ double	color_scale_ratio(double ratio)
 	return (ratio);
 }
 
-t_color	add_amblight(t_color color, t_lighting lighting)
-{
-	t_color tmp;
-	double	ratio;
-
-	ratio = lighting.amb_light->ratio;
-	tmp.r = color.r * ratio;
-	tmp.g = color.g * ratio;
-	tmp.b = color.b * ratio;
-	if (lighting.light->ratio < EPSILON)
-		return (tmp);
-	if (tmp.r < color.r)
-		tmp.r = color.r;
-	if (tmp.g < color.g)
-		tmp.g = color.g;
-	if (tmp.b < color.b)
-		tmp.b = color.b;
-	return (tmp);
-}
-
 bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 {
-
 	t_sphere	*sp;
-	double		dot;
 
 	sp = obj->object;
-
 	rec->hit_point_distance = hit_point(vect_sub(data->r.origin, sp->center),sp->radius, data->r.direction);
 	if (rec->hit_point_distance < data->r.t_min || data->r.t_max < rec->hit_point_distance)
 		return (false);
+	rec->type = SPHERE;
 	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);
 	set_face_normal(&data->r, rec);
 
 	rec->color = sp->color;
-	if (data->lighting->light->ratio > EPSILON)
-	{
-		dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
-		rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(rec->color), dot), data->lighting->light->ratio));
-	}
-	rec->color = add_amblight(rec->color, *data->lighting);
 	return (true);
 }

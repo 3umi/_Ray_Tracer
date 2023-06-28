@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/20 18:37:12 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:37:04 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	parse_plane(t_data **data, char **info)
 		|| __2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	plane->point = vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2]));
-	plane->normal = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
+	plane->normal = vect_normalize(vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2])));
 	plane->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
 	object_add_back(&(*data)->object, new_object(PLANE, plane));
 }

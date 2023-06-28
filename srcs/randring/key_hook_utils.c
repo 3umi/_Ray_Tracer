@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/20 19:08:08 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/06/28 08:51:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	key_hook(int keycode, t_data *mlx)
 	{
 	if (keycode == W_KEY || keycode == 119)
 	{
-		mlx->img.samples_per_pixel = 1;
+		mlx->img.samples_per_pixel = 10;
 		if (mlx->camera->origin_lock == UNLOCKED)
 		{
 			mlx->camera->origin.y += 0.1;
@@ -45,7 +45,7 @@ int	key_hook(int keycode, t_data *mlx)
 	}
 		if (keycode == S_KEY || keycode == 115)
 		{
-			mlx->img.samples_per_pixel = 1;
+			mlx->img.samples_per_pixel = 10;
 			if (mlx->camera->origin_lock == UNLOCKED)
 			{
 				mlx->camera->origin.y -= 0.1;
@@ -60,7 +60,7 @@ int	key_hook(int keycode, t_data *mlx)
 		}
 		else if (keycode == D_KEY || keycode == 100)
 		{
-			mlx->img.samples_per_pixel = 1;
+			mlx->img.samples_per_pixel = 10;
 			if (mlx->camera->origin_lock == UNLOCKED)
 			{
 				mlx->camera->origin.x += 0.1;
@@ -75,7 +75,7 @@ int	key_hook(int keycode, t_data *mlx)
 		}
 		else if (keycode == A_KEY || keycode == 97)
 		{
-			mlx->img.samples_per_pixel = 1;
+			mlx->img.samples_per_pixel = 10;
 			if (mlx->camera->origin_lock == UNLOCKED)
 			{
 				mlx->camera->origin.x -= 0.1;
