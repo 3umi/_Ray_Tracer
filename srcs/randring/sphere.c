@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/27 09:51:07 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 05:59:40 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,75 @@ t_vect c_to_v(t_color color)
 	return (tmp);
 }
 
-bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
+double hit_point(t_vect oc, double radius, t_vect direction)
 {
-	t_vect	oc;
 	double	a;
 	double	half_b;
 	double	c;
 	double	discriminant;
+
+	a = vect_dot(direction, direction);
+	half_b = vect_dot(oc, direction);
+	c = vect_dot(oc, oc) - radius * radius;
+	discriminant = pow(half_b, 2) - a * c;
+	if (discriminant < 0)
+		return (-1.0);
+	else
+		return (- half_b - sqrt(discriminant)) / a;
+	return (discriminant);
+}
+
+double	color_scale_ratio(double ratio)
+{
+	if (ratio > 1.0)
+		ratio = 1;
+	else if (ratio < EPSILON)
+		ratio = 0;
+	ratio *= 255;
+	return (ratio);
+}
+
+t_color	add_amblight(t_color color, t_lighting lighting)
+{
+	t_color tmp;
+	double	ratio;
+
+	ratio = lighting.amb_light->ratio;
+	tmp.r = color.r * ratio;
+	tmp.g = color.g * ratio;
+	tmp.b = color.b * ratio;
+	if (lighting.light->ratio < EPSILON)
+		return (tmp);
+	if (tmp.r < color.r)
+		tmp.r = color.r;
+	if (tmp.g < color.g)
+		tmp.g = color.g;
+	if (tmp.b < color.b)
+		tmp.b = color.b;
+	return (tmp);
+}
+
+bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
+{
+
 	t_sphere	*sp;
-	/* t_vect		light;
-	   double		dot; */
 	double		dot;
 
 	sp = obj->object;
-	oc = vect_sub(data->r.origin, sp->center);
-	a = vect_dot(data->r.direction, data->r.direction);
-	half_b = vect_dot(oc, data->r.direction);
-	c = vect_dot(oc, oc) - sp->radius * sp->radius;
-	discriminant = pow(half_b, 2) - a * c;
-	if (discriminant < 0)
-		return (false);
-	rec->hit_point_distance = (-half_b - sqrt(discriminant)) / a;
+
+	rec->hit_point_distance = hit_point(vect_sub(data->r.origin, sp->center),sp->radius, data->r.direction);
 	if (rec->hit_point_distance < data->r.t_min || data->r.t_max < rec->hit_point_distance)
-	{
-		if (rec->hit_point_distance < data->r.t_min || data->r.t_max < rec->hit_point_distance)
-			return (false);
-	}
+		return (false);
 	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);
 	set_face_normal(&data->r, rec);
 
-	dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
-	rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(sp->color), dot), data->lighting->light->ratio));
+	rec->color = sp->color;
+	if (data->lighting->light->ratio > EPSILON)
+	{
+		dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
+		rec->color = vec_to_color(vect_scale(vect_scale(c_to_v(rec->color), dot), data->lighting->light->ratio));
+	}
+	rec->color = add_amblight(rec->color, *data->lighting);
 	return (true);
 }

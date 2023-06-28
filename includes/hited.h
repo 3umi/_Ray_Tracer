@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:29:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 04:30:26 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 06:17:49 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,6 @@ typedef struct s_hitrecod
 	double		hit_point_distance;
 	bool		front_face;
 }				t_hitrecod;
-
-// typedef struct	s_hittable_list
-// {
-// 	int size;
-// 	int capacity;
-// 	t_object		*objects;
-// 	struct s_hittable_list	*next;
-// }				t_hittable_list;
 
 bool	hit(t_data *data, t_hitrecod *rec, t_object *obj);
 bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj);

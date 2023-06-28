@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 20:40:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 01:02:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void __init(t_data *data)
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->img.width, data->img.height, "miniRT");
 	data->img.img = mlx_new_image(data->mlx_ptr, data->img.width, data->img.height);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel, &data->img.line_length, &data->img.endian);
-	data->img.samples_per_pixel = 10;
+	data->img.samples_per_pixel = 100;
 	data->depth = MAX_DEPTH;
 	data->camera->origin_lock = UNLOCKED;
 	data->camera->view_lock = UNLOCKED;

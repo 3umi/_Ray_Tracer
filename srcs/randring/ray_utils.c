@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/27 09:57:37 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 01:17:08 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ t_ray ray_new(t_camera * cam, double x, double y)
 	ray.direction = vect_add(cam->lower_left_corner, tmp);
 	ray.direction = vect_add(ray.direction, tmp2);
 	ray.direction = vect_sub(ray.direction, cam->origin);
-	/* t_ray ray;
-
-	   ray.origin = origin;
-	   ray.direction = direction; */
 	return (ray);
 }
 

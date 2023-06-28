@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/26 20:40:09 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/06/28 02:15:11 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@
 # include "linked_list_utils.h"
 # include "char_utils.h"
 
-# define WIN_W 800
-# define WIN_H 400
+# define WIN_W 760
 # define SUCCESS_RETURN 0
 # define FAILURE_RETURN 1
 # define EPSILON 1e-6
