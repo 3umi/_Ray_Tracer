@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/28 06:49:41 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/01 21:36:11 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	fill_img(t_data *data)
 {
 	int	x;
 	int	y;
+
+	//camera
 	init_camera(data->camera);
 
 	y = data->img.height - 1;
