@@ -6,18 +6,19 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:06:57 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/12 05:30:07 by brahim           ###   ########.fr       */
+/*   Updated: 2023/07/03 07:39:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTORS_H
 # define VECTORS_H
 
-typedef struct	s_vector
+typedef struct	s_vect
 {
 	double		x;
 	double		y;
 	double		z;
+	double		w;
 }				t_vect;
 
 t_vect		vect_add(t_vect v1, t_vect v2);

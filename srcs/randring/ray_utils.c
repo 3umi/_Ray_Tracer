@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 12:13:22 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/02 00:14:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,6 @@ bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 		return (hit_plane(data, rec, obj));
 	return (false);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 bool is_in_shadow(t_data *data, t_hitrecod *rec) {

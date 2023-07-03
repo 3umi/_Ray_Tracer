@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 04:35:57 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/01 23:51:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		rerander(t_data *data)
 {
-	int	x;
+	/* int	x;
 	int	y;
 	t_color	pixel_color = fill_color(0, 0, 0);
 
@@ -39,5 +39,6 @@ void		rerander(t_data *data)
 		}
 		data->img.samples_count++;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 0, 0); */
+	(void)data;
 }

@@ -32,7 +32,7 @@ PARSING_DIR	= parsing/
 # #================================= Files to compile ===================================
 SRC_RENDER	= rerander ray_utils vectors_utils key_hook_utils sphere plane
 SRC_UTILS 	= camera_utils char_utils colors_utils image_utils linked_list_utils \
-			  light_utils
+			  light_utils matrix_utils
 SRC_PARSING	= parsing check parse_env parse_objects
 
 SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program

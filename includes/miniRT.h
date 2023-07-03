@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/28 09:27:34 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/03 10:41:30 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,19 @@ typedef struct	s_data
 # include "hited.h"
 # include "parsing.h"
 # include "key_hook.h"
+# include "matrix.h"
 
 void	rerander(t_data *data);
 bool	hit_plane(t_data *r, t_hitrecod *rec, t_object *obj);
 t_color	ray_color(t_data *data);
 t_color	ambient_light(t_data *data, t_color color);
 
+
+// raytracing challenge book
+
+typedef struct	s_intersection
+{
+	double		t;
+	t_sphere	*sphere;
+}				t_intersection;
 #endif

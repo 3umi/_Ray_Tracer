@@ -6,7 +6,7 @@
 /*   By: brahim <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 04:08:57 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/17 11:23:43 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/03 15:50:25 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ double		vect_dot(t_vect v1, t_vect v2)
 	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
-double sqrt(double x)
+/* double sqrt(double x)
 {
 	double		res;
 	double		tmp;
@@ -94,7 +94,7 @@ double sqrt(double x)
 		i++;
 	}
 	return (res);
-}
+} */
 
 double		vect_magnitude(t_vect v)
 {
@@ -106,6 +106,8 @@ t_vect vect_normalize(t_vect v)
 	double		magnitude;
 
 	magnitude = vect_magnitude(v);
+	if (magnitude == 0)
+		return (v);
 	return (vect_scale(v, 1 / magnitude));
 }
 
@@ -126,6 +128,7 @@ t_vect vect_new(double x, double y, double z)
 	v.x = x;
 	v.y = y;
 	v.z = z;
+	v.w = 1;
 	return (v);
 }
 

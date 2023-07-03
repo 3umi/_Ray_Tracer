@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 01:02:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/01 23:52:10 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void __init(t_data *data)
 {
-	data->mlx_ptr = mlx_init();
+	/* data->mlx_ptr = mlx_init();
 	data->img.aspect_ratio = 16.0 / 9.0;
 	data->camera->aspect_ratio = data->img.aspect_ratio;
 	data->camera->lookat = vect_new(0, 0, 0);
@@ -27,5 +27,6 @@ void __init(t_data *data)
 	data->depth = MAX_DEPTH;
 	data->camera->origin_lock = UNLOCKED;
 	data->camera->view_lock = UNLOCKED;
-	data->head = data->object;
+	data->head = data->object; */
+	(void)data;
 }
