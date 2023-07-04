@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/03 22:03:48 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/04 18:52:21 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,40 @@ t_color	get_pixel_color(t_data *data, int x, int y)
 
 t_ray	comput_primary_ray(t_data *data, int x, int y)
 {
-	/* t_ray		ray;
-	t_camera	*cam;
-	t_vect	origin;
-	t_vect	direction;
-
-	cam = data->camera;
-	origin = cam->origin;
-	direction = cam->lookat;
-	ray.origin = origin;
-	ray.direction = direction; */
-	t_ray	ray;
-
-	ray.origin = vect_new(0, 0, 1);
-	ray.direction = vect_new(x- data->img.width / 2, y - data->img.height / 2, -1);
-	return (ray);
+	(void)data;
+	(void)x;
+	(void)y;
+	return (data->r);
 }
 
-void	intersect_sphere(t_ray r, t_object *obj, double *t, t_vect *hit_point, t_vect *hit_normal)
+bool	intersect_sphere(t_ray r, t_object *obj, double *t, t_vect *hit_point, t_vect *hit_normal)
 {
+	t_vect	oc;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	double	t0;
+	t_sphere	*sphere;
+
+	sphere = obj->object;
+	oc = vect_sub(r.origin, sphere->center);
+	a = vect_dot(r.direction, r.direction);
+	b = 2 * vect_dot(oc, r.direction);
+	c = vect_dot(oc, oc) - sphere->radius * sphere->radius;
+	discriminant = b * b - 4 * a * c;
+	if (discriminant < 0)
+		return (false);
+	t0 = (-b - sqrt(discriminant)) / (2 * a);
+	if (t0 > 0)
+	{
+		*t = t0;
+		*hit_point = vect_add(r.origin, vect_scale(r.direction, t0));
+		*hit_normal = vect_sub(*hit_point, sphere->center);
+		*hit_normal = vect_scale(*hit_normal, 1 / vect_length(*hit_normal));
+		return (true);
+	}
+	return (false);
 }
 
 t_color	cast_ray(t_data *data)
@@ -63,12 +78,8 @@ t_color	cast_ray(t_data *data)
 	{
 		if (obj->type == SPHERE)
 		{
-			intersect_sphere(data->r, obj, &t, &hit_point, &hit_normal);
-			if (t > 0 && t < t_min)
-			{
-				t_min = t;
-				color = fill_color(0, 255, 0);
-			}
+			if (intersect_sphere(data->r, obj, &t, &hit_point, &hit_normal))
+				color = fill_color(255, 0, 0);
 		}
 		obj = obj->next;
 	}
@@ -101,7 +112,7 @@ void	__draw(t_data *data)
 		while (++x < data->img.width)
 		{
 			//compute primary ray
-			data->r = comput_primary_ray(data, x, y);
+			data->r = comput_primary_ray(data, data->img.u, data->img.v);
 			//cast ray in the scene and search for intersection
 			color = cast_ray(data);
 			//put pixel in the image
