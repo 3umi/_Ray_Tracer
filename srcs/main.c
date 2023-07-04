@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/28 06:49:41 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/04 02:04:48 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,8 @@ t_color ray_color(t_data *data)
 
 	if (data->depth <= 0)
 		return (fill_color(0, 0, 0));
-	data->r.t_min = 0;
-	data->r.t_max = INFINITY;
 	if (hittable_list_hit(data, &rec))
-	{
 		return (rec.color);
-	}
 	return (fill_color(0, 0, 0));
 }
 

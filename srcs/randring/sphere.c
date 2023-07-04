@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 09:10:34 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/04 02:23:38 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_vect c_to_v(t_color color)
 	return (tmp);
 }
 
-double hit_point(t_vect oc, double radius, t_vect direction)
+static double hit_point(t_vect oc, double radius, t_vect direction)
 {
 	double	a;
 	double	half_b;
@@ -72,8 +72,7 @@ bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 	rec->type = SPHERE;
 	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);
-	set_face_normal(&data->r, rec);
-
+	rec->normal = vect_normalize(rec->normal);
 	rec->color = sp->color;
 	return (true);
 }
