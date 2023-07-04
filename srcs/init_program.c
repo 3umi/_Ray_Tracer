@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 01:02:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/04 19:27:07 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void __init(t_data *data)
 	data->mlx_ptr = mlx_init();
 	data->img.aspect_ratio = 16.0 / 9.0;
 	data->camera->aspect_ratio = data->img.aspect_ratio;
-	data->camera->lookat = vect_new(0, 0, 0);
+	data->camera->lookat = vect_new(0, 0, -2);
 	data->img.width = WIN_W;
 	data->img.height = data->img.width / data->img.aspect_ratio;
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->img.width, data->img.height, "miniRT");
