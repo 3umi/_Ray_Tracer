@@ -37,8 +37,7 @@ SRC_PARSING	= parsing check parse_env parse_objects
 
 SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program
 
-CFLAGS		= -Wall -Wextra -Werror -funroll-loops -g 
-#-fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -funroll-loops -g -fsanitize=address
 # #======================================================================================
 
 # #===================================== Standard =======================================
