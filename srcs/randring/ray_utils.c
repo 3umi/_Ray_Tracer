@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/04 04:54:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/05 10:00:39 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,26 +61,46 @@ bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 }
 
 
+bool	intesect_shadow(t_ray r, t_object *obj)
+{
+	t_vect	oc;
+	double	a;
+	double	b;
+	double	c;
+	double	discriminant;
+	double	t0;
+	t_sphere	*sphere;
 
+	sphere = obj->object;
+	oc = vect_sub(r.origin, sphere->center);
+	a = vect_dot(r.direction, r.direction);
+	b = 2 * vect_dot(oc, r.direction);
+	c = vect_dot(oc, oc) - sphere->radius * sphere->radius;
+	discriminant = b * b - 4 * a * c;
+	if (discriminant < 0)
+		return (false);
+	t0 = (-b - sqrt(discriminant)) / (2 * a);
+	if (t0 > 0)
+	{
+		return (true);
+	}
+	return (false);
+}
 
 bool	is_in_shadow(t_data *data, t_hitrecod *rec)
 {
 	t_vect ray_to_light;
 	t_ray shadow_ray;
-	t_hitrecod shadow_rec;
 	t_object *tmp;
 
 	ray_to_light = vect_sub(data->lighting->light->point, rec->p);
-	shadow_ray.origin = vect_add(rec->p, vect_normalize(rec->normal));
+	shadow_ray.origin = rec->p;
 	shadow_ray.direction = ray_to_light;
 	tmp = data->head;
 	while (tmp)
 	{
-		if (hit(data, &shadow_rec, tmp))
-		{
-			if (shadow_rec.hit_point_distance < vect_length(ray_to_light))
-				return (true);
-		}
+		if (intesect_shadow(shadow_ray, tmp))
+			return (true);
 		tmp = tmp->next;
 	}
 	return (false);
