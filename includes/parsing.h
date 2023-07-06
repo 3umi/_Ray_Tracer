@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:52:28 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 10:48:19 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:32:55 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	parse_camera(t_data *data, char **info);
 void	iterate_line(t_data *data, t_parse *parse, char *line);
 
 //----------------------Parsing------------------------------//
+void	cleanse(t_data *data);
+char	*free_2d(char **tab);
 void	__parsing(int argc, char **argv, t_data *data);
 void	__init(t_data *data);
 

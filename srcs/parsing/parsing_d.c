@@ -6,11 +6,25 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/28 08:37:04 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:45:26 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
+char	*free_2d(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
+}
 
 static void	parse_sphere(t_data **data, char **info)
 {
@@ -29,10 +43,12 @@ static void	parse_sphere(t_data **data, char **info)
 	if (__2d_len(center) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	sphere->center = vect_new(ft_atod(center[0]), ft_atod(center[1]), ft_atod(center[2]));
+	free_2d(center);
 	color = ft_split(info[3], ',');
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	sphere->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	free_2d(color);
 	object_add_back(&(*data)->object, new_object(SPHERE, sphere));
 }
 
@@ -60,6 +76,9 @@ static void	parse_cylinder(t_data **data, char **info)
 	cylinder->center = vect_new(ft_atod(center[0]), ft_atod(center[1]), ft_atod(center[2]));
 	cylinder->normal = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
 	cylinder->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	free_2d(center);
+	free_2d(normalized);
+	free_2d(color);
 	object_add_back(&(*data)->object, new_object(CYLINDER, cylinder));
 }
 
@@ -84,6 +103,9 @@ static void	parse_plane(t_data **data, char **info)
 	plane->point = vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2]));
 	plane->normal = vect_normalize(vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2])));
 	plane->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	free_2d(point);
+	free_2d(normalized);
+	free_2d(color);
 	object_add_back(&(*data)->object, new_object(PLANE, plane));
 }
 
@@ -109,4 +131,5 @@ void	iterate_line(t_data *data, t_parse *parse, char *line)
 		parse_plane(&data, info);
 	else if (!ft_strcmp(info[i], "cy"))
 		parse_cylinder(&data, info);
+	free_2d(info);
 }
