@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/06/28 08:51:46 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:22:53 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ int	key_hook(int keycode, t_data *mlx)
 		close_win(mlx);
 	if (mlx->camera->origin_lock == UNLOCKED || mlx->camera->view_lock == UNLOCKED)
 	{
-	if (keycode == W_KEY || keycode == 119)
-	{
-		mlx->img.samples_per_pixel = 10;
-		if (mlx->camera->origin_lock == UNLOCKED)
+		if (keycode == W_KEY || keycode == 119)
 		{
-			mlx->camera->origin.y += 0.1;
+			mlx->img.samples_per_pixel = 10;
+			if (mlx->camera->origin_lock == UNLOCKED)
+			{
+				mlx->camera->origin.y += 0.1;
+			}
+			if (mlx->camera->view_lock == UNLOCKED)
+			{
+				mlx->camera->lookat.y += 0.1;
+				sphere->center.y += 0.1;
+			}
+			init_camera(mlx->camera);
+			rerander(mlx);
 		}
-		if (mlx->camera->view_lock == UNLOCKED)
-		{
-			mlx->camera->lookat.y += 0.1;
-			sphere->center.y += 0.1;
-		}
-		init_camera(mlx->camera);
-		rerander(mlx);
-	}
 		if (keycode == S_KEY || keycode == 115)
 		{
 			mlx->img.samples_per_pixel = 10;
@@ -88,6 +88,30 @@ int	key_hook(int keycode, t_data *mlx)
 			init_camera(mlx->camera);
 			rerander(mlx);
 		}
+	}
+	else if (keycode == LEFT_AROW)
+	{
+		mlx->lighting->light->point.x -= 1;
+		// init_camera(mlx->camera);
+		rerander(mlx);
+	}
+	else if (keycode == RIGHT_AROW)
+	{
+		mlx->lighting->light->point.x += 1;
+		// init_camera(mlx->camera);
+		rerander(mlx);
+	}
+	else if (keycode == UP_AROW)
+	{
+		mlx->lighting->light->point.z += 1;
+		// init_camera(mlx->camera);
+		rerander(mlx);
+	}
+	else if (keycode == DOWN_AROW)
+	{
+		mlx->lighting->light->point.z -= 1;
+		// init_camera(mlx->camera);
+		rerander(mlx);
 	}
 	if (mlx->camera->origin_lock == LOCKED)
 		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FF0000, "Origin : locked");
