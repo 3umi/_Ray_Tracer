@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/05 10:00:39 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/05 11:19:51 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,11 +149,11 @@ bool hittable_list_hit(t_data *data, t_hitrecod *rec)
 			dot = fmax(vect_dot(data->lighting->light->point, rec->normal), 0.0);
 			rec->color = color_scalar(rec->color, dot);
 		}
-		else if (rec->type == PLANE)
+		/* else if (rec->type == PLANE)
 		{
 			dot = fmax(vect_dot(rec->normal, vect_sub(data->lighting->light->point, rec->p)), 0.0);
 			rec->color = color_scalar(rec->color, dot);
-		}
+		} */
 	}
 	rec->color = ambient_light(data, rec->color);
 	return (hit_anything);
