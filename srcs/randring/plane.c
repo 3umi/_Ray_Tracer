@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/06 17:43:30 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/07 05:14:16 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,30 @@
 // n = normal of plane 
 // t = distance from origin to plane 
 
+/* t_plane	*pl;
+   double	denom;
+   double	t;
+// t_vect	p;
+
+pl = obj->object;
+pl->normal = vect_normalize(pl->normal);
+denom = vect_dot(pl->normal, data->r.direction);
+if (fabs(denom) < EPSILON)
+return (false);
+t = vect_dot(vect_sub(pl->point, data->r.origin), pl->normal) / denom;
+if (t < data->r.t_min || t > data->r.t_max)
+return (false);
+rec->hit_point_distance = t;
+rec->p = ray_hit_point(&data->r, t);
+rec->type = PLANE;
+
+
+rec->normal = pl->normal;
+rec->color = pl->color;
+return (true); */
+
 bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 {
-	/* t_plane	*pl;
-	double	denom;
-	double	t;
-	// t_vect	p;
-
-	pl = obj->object;
-	pl->normal = vect_normalize(pl->normal);
-	denom = vect_dot(pl->normal, data->r.direction);
-	if (fabs(denom) < EPSILON)
-		return (false);
-	t = vect_dot(vect_sub(pl->point, data->r.origin), pl->normal) / denom;
-	if (t < data->r.t_min || t > data->r.t_max)
-		return (false);
-	rec->hit_point_distance = t;
-	rec->p = ray_hit_point(&data->r, t);
-	rec->type = PLANE;
-
-
-	rec->normal = pl->normal;
-	rec->color = pl->color;
-	return (true); */
 	double	denom;
 	t_plane	*plane;
 
@@ -59,5 +60,6 @@ bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 	rec->type = PLANE;
 	rec->normal = plane->normal;
 	rec->color = plane->color;
+	rec->obj = obj;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:29:00 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 09:10:16 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/07 04:56:30 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_hitrecod
 	t_type		type;
 	double		hit_point_distance;
 	bool		front_face;
+	t_object	*obj;
 }				t_hitrecod;
 
 bool	hit(t_data *data, t_hitrecod *rec, t_object *obj);

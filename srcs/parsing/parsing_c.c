@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/06 19:05:17 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/07 01:51:20 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,13 @@ void	parse_light(t_data *data, char **info)
 	point = ft_split(info[1], ',');
 	if (__2d_len(point) != 3)
 		__exit_error("TypeError: Bad information structure\n");
-	data->lighting->light->point = vect_normalize(vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2])));
+	data->lighting->light->point = vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2]));
 	free_2d(point);
 	color = ft_split(info[3], ',');
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->light->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
+	printf("color: %f %f %f\n", data->lighting->light->color.r, data->lighting->light->color.g, data->lighting->light->color.b);
 	free_2d(color);
 }
 
