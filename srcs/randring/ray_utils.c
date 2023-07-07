@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/06 18:17:27 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/07 17:13:58 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,10 @@ bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 		return (hit_sphere(data, rec, obj));
 	else if (obj->type == PLANE)
 		return (hit_plane(data, rec, obj));
+	// else if (obj->type == CYLINDER)
+	// 	return (hit_cylinder(data, rec, obj));
 	return (false);
 }
-
-
-
 
 bool hittable_list_hit(t_data *data, t_hitrecod *rec)
 {
