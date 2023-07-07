@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/07 05:12:26 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/07 09:31:07 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	sphere_shadow(t_ray r, t_sphere *sphere)
 		return (false);
 	t0 = (-b - sqrt(discriminant)) / (2 * a);
 	t1 = (-b + sqrt(discriminant)) / (2 * a);
-	
+
 	if (t0 > EPSILON || t1 > EPSILON)
 		return (true);
 	return (false);
@@ -87,29 +87,68 @@ bool	is_in_shadow(t_data *data, t_hitrecod *rec)
 	return (false);
 }
 
-void	calculate_shading(t_data *data, t_hitrecod *rec)
+// calaculate dot product of light and normal
+// if dot > 0
+// calculate specular and diffuse
+// apply specular and diffuse
+// apply ambient
+// else	
+// apply ambient
+// end
+
+t_vect	vect_reflect(t_vect light, t_vect normal)
+{
+	return (vect_sub(light, vect_scale(normal, 2 * vect_dot(light, normal))));
+}
+
+t_color	_color_clap(t_color color)
+{
+	t_color	tmp;
+
+	tmp = color;
+	if (tmp.r > 255)
+		tmp.r = 255;
+	if (tmp.g > 255)
+		tmp.g = 255;
+	if (tmp.b > 255)
+		tmp.b = 255;
+	return (tmp);
+}
+
+void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 {
 	double		dot;
 	t_vect		light_normalized;
+	t_vect		view_dir;
 
-	light_normalized = vect_normalize(data->lighting->light->point);
-	if (data->lighting->light->ratio > EPSILON)
+	if (shadow)
 	{
-		if (rec->type == SPHERE)
-		{
-			dot = fmax(vect_dot(light_normalized, rec->normal), 0.0);
-			rec->color = color_scalar(rec->color, dot);
-		}
-
+		rec->color = color_scalar(rec->color, data->lighting->amb_light->ratio);
+		return ;
 	}
+	light_normalized = vect_normalize(data->lighting->light->point);
+	dot = fmax(vect_dot(light_normalized, rec->normal), 0.0);
+
+	view_dir = vect_normalize(vect_sub(data->camera->origin, rec->p));
+	if (rec->type == SPHERE)
+	{
+		double		specular;
+		t_color		specular_color;
+
+		specular = pow(fmax(vect_dot(vect_reflect(light_normalized, rec->normal), view_dir), 0.0), 32);
+		// specular_color = color_scalar(data->lighting->light->color, specular);
+		specular_color = fill_color(0, 255, 255);
+		rec->color = _color_clap(color_add(rec->color, specular_color));
+		rec->color = color_scalar(rec->color, dot);
+		return ;
+	}
+	rec->color = color_scalar(rec->color, data->lighting->amb_light->ratio);
 }
 
 void	aplly_light(t_data *data, t_hitrecod *rec)
 {
+	bool	shadow;
 
-	if (is_in_shadow(data, rec))
-		rec->color = color_scalar(rec->color, 0.5);
-	else
-		calculate_shading(data, rec);
-	rec->color = ambient_light(data, rec->color);
+	shadow = is_in_shadow(data, rec);
+	calculate_and_apply_light(data, rec, shadow);
 }
