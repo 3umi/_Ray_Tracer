@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/07 09:31:07 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/07 09:32:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,13 +132,13 @@ void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 	view_dir = vect_normalize(vect_sub(data->camera->origin, rec->p));
 	if (rec->type == SPHERE)
 	{
-		double		specular;
+		/* double		specular;
 		t_color		specular_color;
 
 		specular = pow(fmax(vect_dot(vect_reflect(light_normalized, rec->normal), view_dir), 0.0), 32);
-		// specular_color = color_scalar(data->lighting->light->color, specular);
+		specular_color = color_scalar(data->lighting->light->color, specular);
 		specular_color = fill_color(0, 255, 255);
-		rec->color = _color_clap(color_add(rec->color, specular_color));
+		rec->color = _color_clap(color_add(rec->color, specular_color)); */
 		rec->color = color_scalar(rec->color, dot);
 		return ;
 	}
