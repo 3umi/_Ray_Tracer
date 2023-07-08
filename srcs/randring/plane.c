@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/07 05:14:16 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/08 10:14:24 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,23 @@ bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	rec->type = PLANE;
 	rec->normal = plane->normal;
-	rec->color = plane->color;
+
+
+	int x = floor(rec->p.x);
+	int z = floor(rec->p.z);
+
+	bool checker = false;
+
+	if (x % 2 == 0 && z % 2 == 0)
+		checker = true;
+	else if (x % 2 != 0 && z % 2 != 0)
+		checker = true;
+
+	if (checker)
+		rec->color = plane->color;
+	else
+		rec->color = fill_color(0, 1, 1);
+	// rec->color = plane->color;
 	rec->obj = obj;
 	return (true);
 }

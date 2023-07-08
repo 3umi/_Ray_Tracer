@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/08 06:56:50 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/08 09:24:49 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,20 +125,29 @@ t_color	_color_clap(t_color color)
 void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 {
 	t_color		diffuse;
-	t_color		specular;
+	// t_color		specular;
 	t_vect		light_normalized;
-	t_vect		reflect;
-	double		specular_factor;
+	// t_vect		reflect;
+	// double		specular_factor;
 
 	if (rec->type == SPHERE)
 	{
 		light_normalized = vect_normalize(data->lighting->light->point);
 		diffuse = color_scalar(rec->color, (dot * data->lighting->light->ratio));
-		reflect = vect_reflect(light_normalized, rec->normal);
-		specular_factor = pow(fmax(vect_dot(reflect, data->r.direction), 0.0), 32);
-		specular = color_scalar(data->lighting->light->color, specular_factor);
-		rec->color = color_add(diffuse, specular);
+		// reflect = vect_reflect(light_normalized, rec->normal);
+		// specular_factor = pow(fmax(vect_dot(reflect, data->r.direction), 0.0), 32);
+		// specular = color_scalar(data->lighting->light->color, specular_factor);
+		// rec->color = color_add(diffuse, specular);
+		rec->color = diffuse;
 		rec->color = _color_clap(rec->color);
+	}
+	else if (rec->type == CYLINDER)
+	{
+		double		dot2;
+
+		light_normalized = vect_normalize(data->lighting->light->point);
+		dot2 = fmax(vect_dot(light_normalized, rec->normal), 0.0);
+		rec->color = color_scalar(rec->color, (dot * data->lighting->light->ratio));
 	}
 }
 
