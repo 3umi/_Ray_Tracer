@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/07 01:43:18 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/08 03:42:51 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void		rerander(t_data *data)
 	t_color	pixel_color = fill_color(0, 0, 0);
 
 	init_camera(data->camera);
-	printf("light data:\n");
-	printf("light point: %f %f %f\n", data->lighting->light->point.x, data->lighting->light->point.y, data->lighting->light->point.z);
 	y = 0;
 	data->img.samples_count = 0;
 	while (data->img.samples_count < data->img.samples_per_pixel)

@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 08:47:01 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/22 15:53:59 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/08 03:46:13 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	init_camera(t_camera *camera)
 	camera->fov_rad = camera->fov * M_PI / 180;
 	camera->focal_length = 1.0;
 	h = tan(camera->fov_rad / 2);
-	printf("h = %f\n", h);
 	camera->viewport_height = 2.0 * h;
 	camera->viewport_width = camera->aspect_ratio * camera->viewport_height;
 	camera->w = vect_unit(vect_sub(camera->origin, camera->lookat));
