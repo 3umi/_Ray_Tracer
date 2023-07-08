@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/08 07:43:55 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/08 08:47:06 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,71 @@ bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 	discriminant = pow(b, 2) - 4 * a * c;
 	if (discriminant > 0)
 	{
-		rec->hit_point_distance = (-b - sqrt(discriminant)) / (2 * a);
+		/* rec->hit_point_distance = (-b - sqrt(discriminant)) / (2 * a);
 		if (rec->hit_point_distance < 0)
-			rec->hit_point_distance = (-b + sqrt(discriminant)) / (2 * a);
+			rec->hit_point_distance = (-b + sqrt(discriminant)) / (2 * a); */
+		// double t1 = rec->hit_point_distance;
+		// Check if the intersection points are within the finite cylinder
+		/* bool hit1 = (t1 >= 0 
+				&& (t1 * data->r.direction.y + data->r.origin.y >= cy->center.y - cy->height / 2)
+				&& (t1 * data->r.direction.y + data->r.origin.y <= cy->center.y + cy->height / 2)); */
+		double t1 = (-b - sqrt(discriminant)) / (2 * a);
+		double t2 = (-b + sqrt(discriminant)) / (2 * a);
+
+		bool hit1 = (t1 >= 0 
+				&& (t1 * data->r.direction.y + data->r.origin.y >= cy->center.y - cy->height / 2)
+				&& (t1 * data->r.direction.y + data->r.origin.y <= cy->center.y + cy->height / 2));
+
+		bool hit2 = (t2 >= 0
+				&& (t2 * data->r.direction.y + data->r.origin.y >= cy->center.y - cy->height / 2)
+				&& (t2 * data->r.direction.y + data->r.origin.y <= cy->center.y + cy->height / 2));
+
+		if (hit1 && hit2)
+		{
+			rec->hit_point_distance = fmin(t1, t2);
+		}
+		else if (hit1)
+		{
+			rec->hit_point_distance = t1;
+		}
+		else if (hit2)
+		{
+			rec->hit_point_distance = t2;
+		}
+		else
+		{
+			return (false);
+		}
 		rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
-		rec->normal = vect_unit(vect_sub(vect_sub(rec->p, cy->center), vect_scale(cy->normal, cy->height)));
+		double y = rec->p.y - cy->center.y;
+	
+		if (y <= -cy->height / 2)
+		{
+			rec->normal = cy->normal;
+		}
+		else if (y >= cy->height / 2)
+		{
+			rec->normal = cy->normal;
+		}
+		else
+		{
+			rec->normal = vect_unit(vect_sub(vect_sub(rec->p, cy->center), vect_scale(cy->normal, y)));
+		}
 		rec->type = CYLINDER;
 		rec->color = cy->color;
 		rec->obj = obj;
 		return (true);
+        // Determine the valid intersection point and set the hit point distance
+        /* if (hit1)
+        {
+            // Only the first intersection point is valid
+            rec->hit_point_distance = t1;
+        } */
+        /* else
+        {
+            // No valid intersection points
+            return false;
+        } */
 	}
 	return (false);
 }
