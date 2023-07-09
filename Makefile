@@ -2,13 +2,12 @@
 OS			= $(shell uname -s)
 # #=============================================================================
 
-LIB			= libs/
 # #=============== wish flags to use to compile depending on the os ============
 ifeq ($(OS), Darwin)
-	MLXCC	= -L $(LIB)minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
+	MLXCC		= -L $(LIB)minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
 	MLX_PATH	= mlx
 else
-	MLXCC = -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
+	MLXCC		= -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
 	MLX_PATH	= mlx_linux
 endif
 # #======================================================================================
@@ -30,18 +29,21 @@ PARSING_DIR	= parsing/
 # #======================================================================================
 
 # #================================= Files to compile ===================================
-SRC_RENDER	= rerander ray_utils vectors_utils key_hook_utils sphere plane
+SRC_RENDER	= rerander ray_utils vectors_utils key_hook_utils sphere plane cylinder
 SRC_UTILS 	= camera_utils char_utils colors_utils image_utils linked_list_utils \
 			  light_utils matrix_utils
 SRC_PARSING	= parsing check parse_env parse_objects
 
 SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program
 
-CFLAGS		= -Wall -Wextra -Werror -funroll-loops -g -fsanitize=address
+CFLAGS		= -Wall -Wextra -Werror -funroll-loops
+#-g -fsanitize=address
 # #======================================================================================
 
 # #===================================== Standard =======================================
 NAME		= miniRT
+
+LIB			= libs/
 
 AUTHOR		= BELKARTO && OHALIM
 
@@ -51,9 +53,9 @@ OBJ_DIR		= objs/
 
 CC			= cc 
 
-LIBFT_PATH		=		libs/libft/
+LIBFT_PATH	= $(LIB)/libft/
 
-LIBFT_LIB		=		$(LIBFT_PATH)libft.a
+LIBFT_LIB	= $(LIBFT_PATH)libft.a
 
 OBJF		=	.cache_exists
 # #======================================================================================

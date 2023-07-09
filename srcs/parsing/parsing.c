@@ -6,11 +6,22 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:05:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/26 20:33:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/06 18:40:13 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
+
+void	cleanse(t_data *data)
+{
+	(void)data;
+	// free(data->lighting);
+	// while (data.object)
+	// {
+	// 	free(data.object);
+	// 	data.object = data.object->next;
+	// }
+}
 
 static char	*read_file(char *str)
 {
@@ -54,9 +65,15 @@ static void	fill_data(t_data **data, char *str)
 	if (!line[i])
 		__exit_error("FileError: File empty.\n");
 	while (line[i])
-		iterate_line(*data, &parse, line[i++]);
+	{
+		iterate_line(*data, &parse, line[i]);
+		free(line[i]);
+		i++;
+	}
 	if (!parse.A || !parse.C || !parse.L)
 		__exit_error("ValueError: An identifier type is missing.\n");
+	free(buff);
+	free(line);
 }
 
 void	__parsing(int argc, char **argv, t_data *data)

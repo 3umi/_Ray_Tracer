@@ -6,13 +6,13 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:12:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/03 15:45:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/09 09:17:16 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-void	print_mat4(t_mat4 mat)
+/* void	print_mat4(t_mat4 mat)
 {
 	printf("matrix:\n");
 	printf("\t|\t%.2f\t%.2f\t%.2f\t%.2f\t|\n", 
@@ -23,7 +23,7 @@ void	print_mat4(t_mat4 mat)
 			mat.m[2][0], mat.m[2][1], mat.m[2][2], mat.m[2][3]);
 	printf("\t|\t%.2f\t%.2f\t%.2f\t%.2f\t|\n", 
 			mat.m[3][0], mat.m[3][1], mat.m[3][2], mat.m[3][3]);
-}
+} */
 
 t_mat4		mat4_identity(void)
 {

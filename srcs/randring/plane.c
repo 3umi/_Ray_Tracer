@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/28 09:25:20 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/09 08:57:25 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,50 +19,25 @@
 // v = direction of ray 
 // n = normal of plane 
 // t = distance from origin to plane 
-/*
-static t_color	vec_to_color(t_vect color)
-{
-	t_color tmp;
 
-	tmp.r = color.x;
-	tmp.g = color.y;
-	tmp.b = color.z;
-	return (tmp);
-}
-
-static t_vect c_to_v(t_color color)
-{
-	t_vect tmp;
-
-	tmp.x = color.r;
-	tmp.y = color.g;
-	tmp.z = color.b;
-	return (tmp);
-} */
 bool hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 {
-	t_plane	*pl;
 	double	denom;
-	double	t;
-	// t_vect	p;
+	t_plane	*plane;
 
-	pl = obj->object;
-	data->r.direction = vect_normalize(data->r.direction);
-	data->r.origin = vect_normalize(data->r.origin);
-	denom = vect_dot(pl->normal, data->r.direction);
-	if (fabs(denom) < EPSILON)
+	plane = obj->object;
+	plane->normal = vect_normalize(plane->normal);
+
+	denom = vect_dot(plane->normal, data->r.direction);
+	if (fabs(denom) < EPSILON || denom > 0)
 		return (false);
-	t = vect_dot(vect_sub(pl->point, data->r.origin), pl->normal) / denom;
-	if (t < data->r.t_min || t > data->r.t_max)
+	rec->hit_point_distance = vect_dot(vect_sub(plane->point, data->r.origin), plane->normal) / denom;
+	if (rec->hit_point_distance < data->r.t_min || rec->hit_point_distance > data->r.t_max)
 		return (false);
-	rec->hit_point_distance = t;
-	rec->p = ray_hit_point(&data->r, t);
+	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	rec->type = PLANE;
-
-
-	rec->normal = pl->normal;
-	rec->color = pl->color;
-	/* dot = fmax(vect_dot(rec->normal, data->lighting->light->point), 0);
-	rec->color = color_scalar(rec->color, dot); */
+	rec->normal = plane->normal;
+	rec->color = plane->color;
+	rec->obj = obj;
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/01 21:37:10 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/09 07:37:07 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	parse_ambient_light(t_data *data, char **info)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->amb_light->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
 	check_color(data->lighting->amb_light->color);
+	free_2d(color);
 }
 
 void	parse_light(t_data *data, char **info)
@@ -50,11 +51,13 @@ void	parse_light(t_data *data, char **info)
 	if (__2d_len(point) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->light->point = vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2]));
+	free_2d(point);
 	color = ft_split(info[3], ',');
 	if (__2d_len(color) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->light->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
 	check_color(data->lighting->light->color);
+	free_2d(color);
 }
 
 void	parse_camera(t_data *data, char **info)
@@ -74,9 +77,11 @@ void	parse_camera(t_data *data, char **info)
 	if (__2d_len(origin) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->camera->origin = vect_new(ft_atod(origin[0]), ft_atod(origin[1]), ft_atod(origin[2]));
+	free_2d(origin);
 	normalized = ft_split(info[2], ',');
 	if (__2d_len(normalized) != 3)
 		__exit_error("TypeError: Bad information structure\n");
 	data->camera->normalized = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
 	check_normalized(data->camera->normalized);
+	free_2d(normalized);
 }
