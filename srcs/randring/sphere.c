@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/07 05:16:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:11:30 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,26 @@ t_vect c_to_v(t_color color)
 	return (tmp);
 }
 
-static double hit_point(t_vect oc, double radius, t_vect direction)
+/* static double hit_point(t_vect oc, double radius, t_vect direction)
 {
-	double	a;
-	double	half_b;
-	double	c;
-	double	discriminant;
+} */
+// static t_qua_sol calc_quadratic(t_vect oc, t_vect direction, double radius)
+static t_qua_sol calc_quadratic(t_ray r, t_sphere *sp)
+{
+	double		a;
+	double		half_b;
+	double		c;
+	t_qua_sol	solution;
 
-	a = vect_dot(direction, direction);
-	half_b = vect_dot(oc, direction);
-	c = vect_dot(oc, oc) - radius * radius;
-	discriminant = pow(half_b, 2) - a * c;
-	if (discriminant < 0)
-		return (-1.0);
-	else
-		return (- half_b - sqrt(discriminant)) / a;
-	return (discriminant);
+	a = vect_dot(r.direction, r.direction);
+	half_b = vect_dot(vect_sub(r.origin, sp->center), r.direction);
+	c = vect_dot(vect_sub(r.origin, sp->center), vect_sub(r.origin, sp->center)) - sp->radius * sp->radius;
+	solution.delta = pow(half_b, 2) - a * c;
+	if (solution.delta < 0)
+		return (solution);
+	solution.t1 = (-half_b - sqrt(solution.delta)) / a;
+	solution.t2 = (-half_b + sqrt(solution.delta)) / a;
+	return (solution);
 }
 
 double	color_scale_ratio(double ratio)
@@ -64,11 +68,16 @@ double	color_scale_ratio(double ratio)
 bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 {
 	t_sphere	*sp;
+	t_qua_sol	solution;
 
 	sp = obj->object;
-	rec->hit_point_distance = hit_point(vect_sub(data->r.origin, sp->center),sp->radius, data->r.direction);
-	if (rec->hit_point_distance < data->r.t_min || data->r.t_max < rec->hit_point_distance)
+
+	solution = calc_quadratic(data->r, sp);
+	if (solution.delta < 0)
 		return (false);
+	if (solution.t1 < data->r.t_min || data->r.t_max < solution.t1)
+		return (false);
+	rec->hit_point_distance = solution.t1;
 	rec->type = SPHERE;
 	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
 	// rec->normal = vect_scale(vect_sub(rec->p, sp->center), 1 / sp->radius);

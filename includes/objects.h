@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:31:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/02 10:19:49 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:01:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ typedef enum e_type
 	PLANE,
 	CYLINDER
 }				t_type;
+
+typedef struct s_qua_sol
+{
+	double		t1;
+	double		t2;
+	double		delta;
+}				t_qua_sol;
 
 typedef struct s_sphere
 {
