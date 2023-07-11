@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/09 14:10:13 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/10 08:25:56 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static	t_qua_sol	calculate_quadratic_solution(t_ray r, t_cylinder *cy)
 	double		b;
 	double		c;
 	
-	a = pow(r.direction.z, 2) + pow(r.direction.y, 2);
-	b = 2 * (r.direction.z * (r.origin.z - cy->center.z) + r.direction.y * (r.origin.y - cy->center.y));
-	c = pow(r.origin.z - cy->center.z, 2) + pow(r.origin.y - cy->center.y, 2) - pow(cy->diameter / 2, 2);
+	a = pow(r.direction.x, 2) + pow(r.direction.y, 2);
+	b = 2 * (r.direction.x * (r.origin.x - cy->center.x) + r.direction.y * (r.origin.y - cy->center.y));
+	c = pow(r.origin.x - cy->center.x, 2) + pow(r.origin.y - cy->center.y, 2) - pow(cy->radius, 2);
 	
 	solution.delta = pow(b, 2) - 4 * a * c;
 	if (solution.delta < 0)
@@ -37,15 +37,13 @@ static bool	get_closet_hit(t_data *data, t_hitrecod *rec, t_cylinder *cy, t_qua_
 	double	hit2;
 
 	hit1 = (solution.t1 >= 0 
-			&& (solution.t1 * data->r.direction.x + data->r.origin.x >= cy->center.x - cy->height / 2)
-			&& (solution.t1 * data->r.direction.x + data->r.origin.x <= cy->center.x + cy->height / 2));
+			&& (solution.t1 * data->r.direction.z + data->r.origin.x >= cy->center.z - cy->height / 2)
+			&& (solution.t1 * data->r.direction.z + data->r.origin.x <= cy->center.z + cy->height / 2));
 	hit2 = (solution.t2 >= 0
-			&& (solution.t2 * data->r.direction.x + data->r.origin.x >= cy->center.x - cy->height / 2)
-			&& (solution.t2 * data->r.direction.x + data->r.origin.x <= cy->center.x + cy->height / 2));
+			&& (solution.t2 * data->r.direction.z + data->r.origin.x >= cy->center.z - cy->height / 2)
+			&& (solution.t2 * data->r.direction.z + data->r.origin.x <= cy->center.z + cy->height / 2));
 	if (hit1 && hit2)
-	{
 		rec->hit_point_distance = fmin(solution.t1, solution.t2);
-	}
 	else if (hit1)
 		rec->hit_point_distance = solution.t1;
 	else if (hit2)
