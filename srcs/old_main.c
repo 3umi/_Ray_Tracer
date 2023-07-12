@@ -6,22 +6,14 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/09 08:47:50 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/01 21:36:11 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
-
-t_color	get_pixel_color(t_data *data, int x, int y)
-{
-	t_img	*img;
-	char	*dst;
-	int		color;
-	img = &data->img;
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	color = *(unsigned int *)dst;
-	return (fill_color((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF));
-}
+#include <float.h>
+#include <limits.h>
+#include <stdio.h>
 
 int	rgb(t_color color)
 {
@@ -44,8 +36,12 @@ t_color ray_color(t_data *data)
 
 	if (data->depth <= 0)
 		return (fill_color(0, 0, 0));
+	data->r.t_min = 0;
+	data->r.t_max = INFINITY;
 	if (hittable_list_hit(data, &rec))
+	{
 		return (rec.color);
+	}
 	return (fill_color(0, 0, 0));
 }
 
@@ -58,6 +54,8 @@ void	fill_img(t_data *data)
 {
 	int	x;
 	int	y;
+
+	//camera
 	init_camera(data->camera);
 
 	y = data->img.height - 1;

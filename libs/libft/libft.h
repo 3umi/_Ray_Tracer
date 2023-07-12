@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 15:24:46 by belkarto          #+#    #+#             */
-/*   Updated: 2023/03/22 02:18:37 by brahim           ###   ########.fr       */
+/*   Updated: 2023/06/17 05:38:50 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int			ft_printf(const char *str, ...);
 char		*ft_strdup_gnl(char *s1);
 char		*ft_strjoin_gnl(char *s1, char const *s2);
 char		*get_next_line(int fd);
+double		ft_atod(char* str);
 
 // linked list
 t_list		*ft_lstnew(void *content);
