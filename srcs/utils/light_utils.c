@@ -6,13 +6,13 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/09 10:47:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 00:21:45 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 
-t_color		ambient_light(t_data *data, t_color color)
+t_color	ambient_light(t_data *data, t_color color)
 {
 	double	ratio;
 	t_color	tmp;
@@ -32,25 +32,12 @@ t_color		ambient_light(t_data *data, t_color color)
 
 bool	sphere_shadow(t_ray r, t_sphere *sphere)
 {
-	t_vect	oc;
-	double	a;
-	double	b;
-	double	c;
-	double	discriminant;
-	double	t0;
-	double	t1;
+	t_qua_sol	solution;
 
-	oc = vect_sub(r.origin, sphere->center);
-	a = vect_dot(r.direction, r.direction);
-	b = 2 * vect_dot(oc, r.direction);
-	c = vect_dot(oc, oc) - sphere->radius * sphere->radius;
-	discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
+	solution = calc_quadratic_sphere(r, sphere);
+	if (solution.delta < 0)
 		return (false);
-	t0 = (-b - sqrt(discriminant)) / (2 * a);
-	t1 = (-b + sqrt(discriminant)) / (2 * a);
-
-	if (t0 > EPSILON || t1 > EPSILON)
+	if (solution.t1 > EPSILON || solution.t2 > EPSILON)
 		return (true);
 	return (false);
 }
@@ -64,12 +51,11 @@ bool	intesect_shadow(t_ray r, t_object *obj)
 
 bool	is_in_shadow(t_data *data, t_hitrecod *rec)
 {
-	t_vect ray_to_light;
-	t_ray shadow_ray;
-	t_object *tmp;
+	t_vect		ray_to_light;
+	t_ray		shadow_ray;
+	t_object	*tmp;
 
-	// ray_to_light = vect_sub(data->lighting->light->point, rec->p);
-	ray_to_light = data->lighting->light->point;
+	ray_to_light = vect_sub(data->lighting->light->point, rec->p);
 	shadow_ray.origin = rec->p;
 	shadow_ray.direction = ray_to_light;
 	tmp = data->head;
@@ -96,18 +82,6 @@ bool	is_in_shadow(t_data *data, t_hitrecod *rec)
 // apply ambient
 // end
 
-t_vect	vect_reflect(t_vect light, t_vect normal)
-{
-	// t_vect	normalized;
-
-	/* normalized = vect_normalize(normal);
-	normalized = vect_scale(normalized, 2 * vect_dot(light, normalized));
-	// normalized = vect_normalize(normalized);
-	return (normalized);
-	// return (vect_sub(light, vect_scale(normalized, 2 * vect_dot(light, normalized)))); */
-	return (vect_sub(light, vect_scale(normal, 2 * vect_dot(light, normal))));
-}
-
 t_color	_color_clap(t_color color)
 {
 	t_color	tmp;
@@ -125,29 +99,21 @@ t_color	_color_clap(t_color color)
 void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 {
 	t_color		diffuse;
-	// t_color		specular;
 	t_vect		light_normalized;
-	// t_vect		reflect;
-	// double		specular_factor;
 
 	if (rec->type == SPHERE)
 	{
 		light_normalized = vect_normalize(data->lighting->light->point);
-		diffuse = color_scalar(rec->color, (dot * data->lighting->light->ratio));
-		// reflect = vect_reflect(light_normalized, rec->normal);
-		// specular_factor = pow(fmax(vect_dot(reflect, data->r.direction), 0.0), 32);
-		// specular = color_scalar(data->lighting->light->color, specular_factor);
-		// rec->color = color_add(diffuse, specular);
+		diffuse = color_scalar(rec->color,
+				(dot * data->lighting->light->ratio));
 		rec->color = diffuse;
 		rec->color = _color_clap(rec->color);
 	}
 	else if (rec->type == CYLINDER)
 	{
-		double		dot2;
-
 		light_normalized = vect_normalize(data->lighting->light->point);
-		dot2 = fmax(vect_dot(light_normalized, rec->normal), 0.0);
-		rec->color = color_scalar(rec->color, (dot * data->lighting->light->ratio));
+		rec->color = color_scalar(rec->color,
+				(dot * data->lighting->light->ratio));
 	}
 }
 
@@ -163,11 +129,6 @@ void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 	}
 	light_normalized = vect_normalize(data->lighting->light->point);
 	dot = fmax(vect_dot(light_normalized, rec->normal), 0.0);
-	/* if (rec->type == SPHERE)
-	{
-		rec->color = color_scalar(rec->color, (dot * data->lighting->light->ratio));
-		return ;
-	} */
 	calculate_diffuse(data, rec, dot);
 }
 

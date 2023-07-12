@@ -29,9 +29,9 @@ PARSING_DIR	= parsing/
 # #======================================================================================
 
 # #================================= Files to compile ===================================
-SRC_RENDER	= rerander ray_utils vectors_utils key_hook_utils sphere plane cylinder
+SRC_RENDER	= rerander hittable key_hook_utils sphere plane cylinder
 SRC_UTILS 	= camera_utils char_utils colors_utils image_utils linked_list_utils \
-			  light_utils matrix_utils
+			  light_utils ray_utils matrix_utils vectors_utils vectors_utils_2
 SRC_PARSING	= parsing check parse_env parse_objects
 
 SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program
@@ -107,13 +107,14 @@ $(OBJF):
 ## # == rule deleting compiled files : the cache folder ==
 clean : header
 	@rm -rf $(OBJ_DIR)
-	@make clean -C libs/libft
 	@printf "$(BLUE)clean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n"
+
+# @make clean -C libs/libft
 # # =====================================================
 
 # # == Rule calling clean and deleting the final file ==
+# @make fclean -C libs/libft
 fclean	: header clean
-	@make fclean -C libs/libft
 	@rm -f $(NAME)
 	@printf "$(BLUE)fclean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n\n"
 # # ====================================================

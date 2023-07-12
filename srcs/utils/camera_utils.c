@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 08:47:01 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/09 08:46:52 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 00:02:01 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 // camera viewport is lookat
 void	init_camera(t_camera *camera)
 {
-	double half_width;
-	t_vect tmp;
-	t_vect vup;
+	double	half_width;
+	t_vect	tmp;
+	t_vect	vup;
 
 	vup = camera->normalized;
 	camera->fov_rad = camera->fov * M_PI / 180;

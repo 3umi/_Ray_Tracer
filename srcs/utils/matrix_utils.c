@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 11:12:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/09 09:17:16 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 00:27:26 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 			mat.m[3][0], mat.m[3][1], mat.m[3][2], mat.m[3][3]);
 } */
 
-t_mat4		mat4_identity(void)
+t_mat4	mat4_identity(void)
 {
 	t_mat4	mat;
 	int		i;
@@ -45,7 +45,7 @@ t_mat4		mat4_identity(void)
 	return (mat);
 }
 
-t_mat4		mat4_mult(t_mat4 a, t_mat4 b)
+t_mat4	mat4_mult(t_mat4 a, t_mat4 b)
 {
 	t_mat4	mat;
 	int		i;
@@ -67,7 +67,7 @@ t_mat4		mat4_mult(t_mat4 a, t_mat4 b)
 	return (mat);
 }
 
-t_mat4		mat4_scale(t_vect v)
+t_mat4	mat4_scale(t_vect v)
 {
 	t_mat4	mat;
 
@@ -78,7 +78,7 @@ t_mat4		mat4_scale(t_vect v)
 	return (mat);
 }
 
-t_mat4		mat4_translate(t_vect v)
+t_mat4	mat4_translate(t_vect v)
 {
 	t_mat4	mat;
 
@@ -136,7 +136,7 @@ t_mat4	mat4_rotate(t_vect v)
 	return (mat);
 }
 
-t_vect		mat4_mult_vect(t_mat4 m, t_vect v)
+t_vect	mat4_mult_vect(t_mat4 m, t_vect v)
 {
 	t_vect	res;
 

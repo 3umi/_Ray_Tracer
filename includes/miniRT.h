@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/09 07:32:19 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 00:14:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ typedef struct	s_data
 # include "key_hook.h"
 # include "matrix.h"
 
-void	rerander(t_data *data);
-bool	hit_plane(t_data *r, t_hitrecod *rec, t_object *obj);
-t_color	ray_color(t_data *data);
-t_color	ambient_light(t_data *data, t_color color);
-void	aplly_light(t_data *data, t_hitrecod *rec);
+void		rerander(t_data *data);
+bool		hit_plane(t_data *r, t_hitrecod *rec, t_object *obj);
+t_color		ray_color(t_data *data);
+t_color		ambient_light(t_data *data, t_color color);
+void		aplly_light(t_data *data, t_hitrecod *rec);
+t_ray		calculate_ray(t_data *data, int x, int y);
+t_qua_sol	calc_quadratic_sphere(t_ray r, t_sphere *sp);
 
 #endif

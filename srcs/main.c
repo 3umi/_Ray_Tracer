@@ -6,72 +6,30 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/09 08:47:50 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:27:29 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/miniRT.h"
 
-t_color	get_pixel_color(t_data *data, int x, int y)
-{
-	t_img	*img;
-	char	*dst;
-	int		color;
-	img = &data->img;
-	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	color = *(unsigned int *)dst;
-	return (fill_color((color >> 16) & 0xFF, (color >> 8) & 0xFF, color & 0xFF));
-}
-
-int	rgb(t_color color)
-{
-	int	rgb;
-
-	rgb = 0x00;
-	rgb += (int)color.r << 16;
-	rgb += (int)color.g << 8;
-	rgb += (int)color.b;
-	return (rgb);
-}
-
-// ray color is function that takes a ray send from camera to a pixel in 
-// the screen and return the color of the pixel after the ray hit the object
-// in the scene
-t_color ray_color(t_data *data) 
-{
-	t_hitrecod	rec;
-	// t_vect		target;
-
-	if (data->depth <= 0)
-		return (fill_color(0, 0, 0));
-	if (hittable_list_hit(data, &rec))
-		return (rec.color);
-	return (fill_color(0, 0, 0));
-}
-
-void	av_color(t_color *pixel_color, t_color color)
-{
-		*pixel_color = color_scalar(color_add(*pixel_color, color), 0.5);
-}
-
 void	fill_img(t_data *data)
 {
-	int	x;
-	int	y;
-	init_camera(data->camera);
+	int		x;
+	int		y;
+	t_color	pixel_color;
 
+	pixel_color = fill_color(0, 0, 0);
+	init_camera(data->camera);
 	y = data->img.height - 1;
-	t_color	pixel_color = fill_color(0, 0, 0);
 	data->img.samples_count = 0;
 	while (data->img.samples_count < data->img.samples_per_pixel)
 	{
-		while (y >= 0)	{
+		while (y >= 0)
+		{
 			x = 0;
 			while (x <= data->img.width)
 			{
-				data->img.u = (double)(x + ((double)data->img.samples_count / 10)) / (data->img.width - 1);
-				data->img.v = (double)(data->img.height - y + (double)data->img.samples_count / 10) / (data->img.height - 1);
-				data->r = ray_new(data->camera, data->img.u, data->img.v);
+				data->r = calculate_ray(data, x, y);
 				av_color(&pixel_color, ray_color(data));
 				my_mlx_pixel_put(&data->img, x, y, rgb(pixel_color));
 				x++;
@@ -96,5 +54,4 @@ int	main(int argc, char **argv)
 	mlx_key_hook(data.win_ptr, lock_key_hook, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
-
 }

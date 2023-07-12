@@ -1,45 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray_utils.c                                        :+:      :+:    :+:   */
+/*   hittable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/09 08:42:53 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:50:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT.h"
 #include <stdbool.h>
-
-t_ray ray_new(t_camera * cam, double x, double y)
-{
-	t_ray ray;
-	t_vect tmp;
-	t_vect tmp2;
-
-	tmp = vect_scale(cam->horizontal, x);
-	tmp2 = vect_scale(cam->vertical, y);
-	ray.origin = cam->origin;
-	ray.direction = vect_add(cam->lower_left_corner, tmp);
-	ray.direction = vect_add(ray.direction, tmp2);
-	ray.direction = vect_sub(ray.direction, cam->origin);
-	return (ray);
-}
-
-//ray at is used to determine the point at which the ray hits the sphere
-t_vect	ray_hit_point(t_ray *r, double t)
-{
-	t_vect tmp;
-
-	tmp = vect_scale(r->direction, t);
-	tmp = vect_add(r->origin, tmp);
-	return (tmp);
-}
-
-//hittable list
-//linked list for hittable list
 
 bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 {
@@ -52,7 +24,7 @@ bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 	return (false);
 }
 
-bool hittable_list_hit(t_data *data, t_hitrecod *rec)
+bool	hittable_list_hit(t_data *data, t_hitrecod *rec)
 {
 	t_hitrecod	tmp_rec;
 	bool		hit_anything;

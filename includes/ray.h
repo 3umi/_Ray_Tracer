@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:29:17 by belkarto          #+#    #+#             */
-/*   Updated: 2023/06/26 04:07:27 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:11:11 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct	s_ray
 	double	t_max;
 }				t_ray;
 
-// t_ray			ray_new(t_vect origin, t_vect direction);
-t_ray ray_new(t_camera *cam, double x, double y);
-t_vect		ray_hit_point(t_ray *r, double t);
+t_ray	ray_new(t_camera *cam, double x, double y);
+t_vect	ray_hit_point(t_ray *r, double t);
 #endif
