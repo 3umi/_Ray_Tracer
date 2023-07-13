@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/13 04:42:00 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:29:49 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include "../libs/minilibx-linux/mlx.h"
+# include "../libs/linux/mlx.h"
 # include "../libs/libft/libft.h"
 # include "vectors.h"
 # include "camera.h"

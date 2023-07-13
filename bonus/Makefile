@@ -7,8 +7,8 @@ ifeq ($(OS), Darwin)
 	MLXCC		= -L $(LIB)minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
 	MLX_PATH	= mlx
 else
-	MLXCC		= -L $(LIB)minilibx-linux -lmlx -lm -lX11 -lXext -lpthread
-	MLX_PATH	= mlx_linux
+	MLXCC		= -L $(LIB)linux -lmlx -lm -lX11 -lXext -lpthread
+	MLX_PATH	= linux
 endif
 # #======================================================================================
 

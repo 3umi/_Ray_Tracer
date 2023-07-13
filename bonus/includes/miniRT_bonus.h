@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:06:56 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 05:23:08 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:29:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <errno.h>
-# include "../libs/minilibx-linux/mlx.h"
+# include "../libs/linux/mlx.h"
 # include "../libs/libft/libft.h"
 # include "vectors_bonus.h"
 # include "camera_bonus.h"

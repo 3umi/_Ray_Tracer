@@ -6,12 +6,12 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 05:37:04 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 05:38:16 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/13 22:28:34 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../../includes/miniRT.h" 
+#include "../../includes/miniRT_bonus.h" 
 
 static void	initialize_utils(t_atod_utils *utils)
 {

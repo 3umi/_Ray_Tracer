@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 00:21:45 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:07:56 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 		rec->color = color_scalar(rec->color,
 				(dot * data->lighting->light->ratio));
 	}
+	(void)light_normalized;
 }
 
 void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
