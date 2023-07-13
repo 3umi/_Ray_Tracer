@@ -23,33 +23,48 @@ BLUE		= \033[0;1;3;34m
 # #======================================================================================
 
 # #=================================files directories ===================================
+SRC_DIR			= srcs/
+OBJ_DIR			= objs/
+SRC_BONUS_DIR	= srcs_bonus/
+OBJ_BONUS_DIR	= objs_bonus/
 RNDR_DIR	= randring/
 UTILS_DIR	= utils/
 PARSING_DIR	= parsing/
 # #======================================================================================
 
 # #================================= Files to compile ===================================
+SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program
+
 SRC_RENDER	= rerander hittable key_hook_utils sphere plane cylinder
+
 SRC_UTILS 	= camera_utils char_utils colors_utils image_utils linked_list_utils \
 			  light_utils ray_utils matrix_utils vectors_utils vectors_utils_2
 SRC_PARSING	= parsing check parse_env parse_objects
 
-SRC_FILES	= 	main $(RENDER) $(UTILS) $(PARSING) error init_program
+# #======================================================================================
+SRC_BONUS_FILES		=	main_bonus $(RENDER_BONUS) $(UTILS_BONUS) $(PARSING_BONUS) \
+						error_bonus init_program_bonus
+SRC_BONUS_RENDER	=	rerander_bonus hittable_bonus key_hook_utils_bonus sphere_bonus \
+						plane_bonus cylinder_bonus
+SRC_BONUS_UTILS 	=	camera_utils_bonus char_utils_bonus colors_utils_bonus \
+						image_utils_bonus linked_list_utils_bonus light_utils_bonus \
+						ray_utils_bonus matrix_utils_bonus vectors_utils_bonus \
+						vectors_utils_2_bonus
 
-CFLAGS		= -Wall -Wextra -Werror -funroll-loops
+SRC_BONUS_PARSING	=	parsing_bonus check_bonus parse_env_bonus parse_objects_bonus
+
+CFLAGS				=	-Wall -Wextra -Werror -funroll-loops
 #-g -fsanitize=address
 # #======================================================================================
 
 # #===================================== Standard =======================================
-NAME		= miniRT
+NAME			= miniRT
 
-LIB			= libs/
+NAME_BONUS		= miniRT_bonus
 
-AUTHOR		= BELKARTO && OHALIM
+LIB				= libs/
 
-SRC_DIR		= srcs/
-
-OBJ_DIR		= objs/
+AUTHOR			= BELKARTO && OHALIM
 
 CC			= cc 
 
@@ -58,21 +73,37 @@ LIBFT_PATH	= $(LIB)/libft/
 LIBFT_LIB	= $(LIBFT_PATH)libft.a
 
 OBJF		=	.cache_exists
+OBJF_BONUS	=	.cache_exists_bonus
 # #======================================================================================
 
 
 # # ===Better not to touch ===#
 SRC 		= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
+OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
 RENDER		=	$(addprefix $(RNDR_DIR), $(addsuffix , $(SRC_RENDER)))
 UTILS		=	$(addprefix $(UTILS_DIR), $(addsuffix , $(SRC_UTILS)))
 PARSING		=	$(addprefix $(PARSING_DIR), $(addsuffix , $(SRC_PARSING)))
-OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+
+SRC_BONUS	= 	$(addprefix $(SRC_BONUS_DIR), $(addsuffix .c, $(SRC_BONUS_FILES)))
+OBJ_BONUS	= 	$(addprefix $(OBJ_BONUS_DIR), $(addsuffix .o, $(SRC_BONUS_FILES)))
+RENDER_BONUS=	$(addprefix $(RNDR_DIR), $(addsuffix , $(SRC_BONUS_RENDER)))
+UTILS_BONUS	=	$(addprefix $(UTILS_DIR), $(addsuffix , $(SRC_BONUS_UTILS)))
+PARSING_BONUS=	$(addprefix $(PARSING_DIR), $(addsuffix , $(SRC_BONUS_PARSING)))
 # #===========================#
 
 all : header MAKE_LIBS $(NAME)
 
+bonus : header MAKE_LIBS $(NAME_BONUS)
+
 # # == Rule that compile source files into object files ==
 $(OBJ_DIR)%.o	: $(SRC_DIR)%.c | $(OBJF)
+	@$(CC) $(CFLAGS) $(MLX_O) -c $< -o $@
+	@printf "$(GRAY)\r- Creating little RayTracer ...⌛$(NO_COLOR)"
+	@sleep 0.03
+	@printf "$(GRAY)\r- Creating little RayTracer ...⏳$(NO_COLOR)"
+	@sleep 0.03
+
+$(OBJ_BONUS_DIR)%.o	: $(SRC_BONUS_DIR)%.c | $(OBJF_BONUS)
 	@$(CC) $(CFLAGS) $(MLX_O) -c $< -o $@
 	@printf "$(GRAY)\r- Creating little RayTracer ...⌛$(NO_COLOR)"
 	@sleep 0.03
@@ -93,8 +124,11 @@ $(NAME) : $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) $(MLXCC) $(LIBFT_LIB) -o $(NAME)
 	@printf "$(GREEN)\n- Little RayTracer is ready ✅🥳\n$(NO_COLOR)"
 # #===========================================
+$(NAME_BONUS) : $(OBJ_BONUS)
+	@$(CC) $(CFLAGS) $(OBJ_BONUS) $(MLXCC) $(LIBFT_LIB) -o $(NAME_BONUS)
+	@printf "$(GREEN)\n- Little RayTracer is ready ✅🥳\n$(NO_COLOR)"
 
-# #=======================#
+# #=============================================================================#
 
 # #== rule that called if object folder doesn't exist ==
 $(OBJF):
@@ -102,11 +136,18 @@ $(OBJF):
 	@mkdir -p $(OBJ_DIR)$(RNDR_DIR)
 	@mkdir -p $(OBJ_DIR)$(UTILS_DIR)
 	@mkdir -p $(OBJ_DIR)$(PARSING_DIR)
+
+$(OBJF_BONUS):
+	@mkdir -p $(OBJ_BONUS_DIR)
+	@mkdir -p $(OBJ_BONUS_DIR)$(RNDR_DIR)
+	@mkdir -p $(OBJ_BONUS_DIR)$(UTILS_DIR)
+	@mkdir -p $(OBJ_BONUS_DIR)$(PARSING_DIR)
 # #=====================================================
 
 ## # == rule deleting compiled files : the cache folder ==
 clean : header
 	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_BONUS_DIR)
 	@printf "$(BLUE)clean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n"
 
 # @make clean -C libs/libft
@@ -116,6 +157,7 @@ clean : header
 # @make fclean -C libs/libft
 fclean	: header clean
 	@rm -f $(NAME)
+	@rm -f $(NAME_BONUS)
 	@printf "$(BLUE)fclean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n\n"
 # # ====================================================
 
