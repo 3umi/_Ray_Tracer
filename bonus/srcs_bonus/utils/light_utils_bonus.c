@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 05:24:28 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/13 23:43:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 	t_color		diffuse;
 	t_vect		light_normalized;
 
+	(void)light_normalized;
 	if (rec->type == SPHERE)
 	{
 		light_normalized = vect_normalize(data->lighting->light->point);
