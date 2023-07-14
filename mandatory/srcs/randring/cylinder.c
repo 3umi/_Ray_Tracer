@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/10 08:25:56 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/14 10:02:32 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static	t_qua_sol	calculate_quadratic_solution(t_ray r, t_cylinder *cy)
 	double		b;
 	double		c;
 	
-	a = pow(r.direction.x, 2) + pow(r.direction.y, 2);
-	b = 2 * (r.direction.x * (r.origin.x - cy->center.x) + r.direction.y * (r.origin.y - cy->center.y));
-	c = pow(r.origin.x - cy->center.x, 2) + pow(r.origin.y - cy->center.y, 2) - pow(cy->radius, 2);
+	a = pow(r.direction.x, 2) + pow(r.direction.z, 2);
+	b = 2 * (r.direction.x * (r.origin.x - cy->center.x) + r.direction.z * (r.origin.z - cy->center.z));
+	c = pow(r.origin.x - cy->center.x, 2) + pow(r.origin.z - cy->center.z, 2) - pow(cy->radius, 2);
 	
 	solution.delta = pow(b, 2) - 4 * a * c;
 	if (solution.delta < 0)
@@ -31,17 +31,17 @@ static	t_qua_sol	calculate_quadratic_solution(t_ray r, t_cylinder *cy)
 	return (solution);
 }
 
-static bool	get_closet_hit(t_data *data, t_hitrecod *rec, t_cylinder *cy, t_qua_sol solution)
+static bool	get_closet_hit(t_ray r, t_hitrecod *rec, t_cylinder *cy, t_qua_sol solution)
 {
 	double	hit1;
 	double	hit2;
 
 	hit1 = (solution.t1 >= 0 
-			&& (solution.t1 * data->r.direction.z + data->r.origin.x >= cy->center.z - cy->height / 2)
-			&& (solution.t1 * data->r.direction.z + data->r.origin.x <= cy->center.z + cy->height / 2));
+			&& (solution.t1 * r.direction.y + r.origin.y >= cy->center.y - cy->height / 2)
+			&& (solution.t1 * r.direction.y + r.origin.y <= cy->center.y + cy->height / 2));
 	hit2 = (solution.t2 >= 0
-			&& (solution.t2 * data->r.direction.z + data->r.origin.x >= cy->center.z - cy->height / 2)
-			&& (solution.t2 * data->r.direction.z + data->r.origin.x <= cy->center.z + cy->height / 2));
+			&& (solution.t2 * r.direction.y + r.origin.y >= cy->center.y - cy->height / 2)
+			&& (solution.t2 * r.direction.y + r.origin.y <= cy->center.y + cy->height / 2));
 	if (hit1 && hit2)
 		rec->hit_point_distance = fmin(solution.t1, solution.t2);
 	else if (hit1)
@@ -58,21 +58,30 @@ bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 	t_cylinder	*cy;
 	t_qua_sol	solution;
 	bool		hit;
-
+	t_ray		rotated_ray;
+	t_mat4		mat;
+	
 	cy = obj->object;
-	solution = calculate_quadratic_solution(data->r, cy);
-	if (solution.delta> 0)
+	mat = mat4_rotate(cy->normal);//mat4_rotate_y(90 * (M_PI / 180));
+	rotated_ray.direction = mat4_mult_vect(mat, data->r.direction);
+	rotated_ray.origin = mat4_mult_vect(mat, data->r.origin);
+	rotated_ray.t_max = data->r.t_max;
+	rotated_ray.t_min = data->r.t_min;
+	solution = calculate_quadratic_solution(rotated_ray, cy);
+	if (solution.delta > 0)
 	{
-		hit = get_closet_hit(data, rec, cy, solution);
+		hit = get_closet_hit(rotated_ray, rec, cy, solution);
 		if (!hit)
 			return (false);
-		rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
-		double y = rec->p.z - cy->center.z;
+		rec->p = ray_hit_point(&rotated_ray, rec->hit_point_distance);
+		double y = rec->p.y - cy->center.y;
 	
+		// mat = mat4_rotate_y(90 * (M_PI / 180));
+		mat = mat4_rotate(vect_scale(cy->normal, -1));
 		if (y <= -cy->height / 2 || y >= cy->height / 2)
-			rec->normal = cy->normal;
+			rec->normal = vect_normalize(mat4_mult_vect(mat, cy->normal));
 		else
-			rec->normal = vect_unit(vect_sub(vect_sub(rec->p, cy->center), vect_scale(cy->normal, y)));
+			rec->normal = vect_normalize(mat4_mult_vect(mat, vect_unit(vect_sub(vect_sub(rec->p, cy->center), vect_scale(cy->normal, y)))));
 		rec->type = CYLINDER;
 		rec->color = cy->color;
 		rec->obj = obj;
