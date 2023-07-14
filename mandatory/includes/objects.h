@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:31:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 00:15:01 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:28:46 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_cylinder
 	t_vect		center;
 	t_vect		normal;
 	double		radius;
-	double		diameter;
 	double		height;
 	t_color		color;
 }				t_cylinder;

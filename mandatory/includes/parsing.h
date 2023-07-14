@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:52:28 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/13 04:34:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:34:52 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ typedef struct s_parse
 }	t_parse;
 
 //----------------------Parsing_b------------------------------//
-void	check_color(t_color color);
-void	check_normalized(t_vect normal);
+void	check_normalized_and_color(t_color color, t_vect normal);
 int		check_argc(int argc);
 void	check_file(char *str);
 void	check_identifier(char *identifier, t_parse *parse);
