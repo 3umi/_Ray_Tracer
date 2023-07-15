@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/13 05:42:47 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/15 02:33:51 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,28 +121,5 @@ int	lock_key_hook(int keycode, t_data *mlx)
 			mlx->camera->view_lock = UNLOCKED;
 	}
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img.img, 300, 0);
-	if (mlx->camera->origin_lock == LOCKED)
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FF0000, "Origin : locked");
-	else
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 10, 0x00FF0000, "Origin : unlocked");
-	if (mlx->camera->view_lock == LOCKED)
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FF0000, "View   : locked");
-	else
-		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FF0000, "View   : unlocked");
-	//printf origin
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 50, 0x00FF0000, "Origin : ");
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 100, 50, 0x00FF0000, ft_itoa(mlx->camera->origin.x));
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 150, 50, 0x00FF0000, ft_itoa(mlx->camera->origin.y));
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 200, 50, 0x00FF0000, ft_itoa(mlx->camera->origin.z));
-	//printf view
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 70, 0x00FF0000, "View   : ");
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 100, 70, 0x00FF0000, ft_itoa(mlx->camera->lookat.x));
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 150, 70, 0x00FF0000, ft_itoa(mlx->camera->lookat.y));
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 200, 70, 0x00FF0000, ft_itoa(mlx->camera->lookat.z));
-	//printf light
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 90, 0x00FF0000, "Light  : ");
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 100, 90, 0x00FF0000, ft_itoa(mlx->lighting->light->point.x));
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 150, 90, 0x00FF0000, ft_itoa(mlx->lighting->light->point.y));
-	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 200, 90, 0x00FF0000, ft_itoa(mlx->lighting->light->point.z));
 	return (0);
 }
