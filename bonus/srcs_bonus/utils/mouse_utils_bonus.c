@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 01:56:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 02:45:51 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 05:13:44 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	hit_checkbox(t_data *data, int y)
 	if (y >= 10 && y <= 30)
 		data->switches.checkboard_plane = !data->switches.checkboard_plane;
 	else if (y >= 40 && y <= 60)
-		data->switches.specular_sphere = !data->switches.specular_sphere;
+		data->switches.specular = !data->switches.specular;
 	else if (y >= 70 && y <= 90)
 		data->switches.sphere_gradient = !data->switches.sphere_gradient;
 	/* else if (y >= 100 && y <= 120)

@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 02:44:59 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 05:13:26 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	put_text(t_data *data)
 		mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 10, 0x0000C0FF, "X");
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 40, 40, 0x0000C0FF,
 			"Sphere specular");
-	if (data->switches.specular_sphere)
+	if (data->switches.specular)
 		mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 40, 0x0000C0FF, "X");
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 40, 70, 0x0000C0FF,
 			"Sphere gradient");

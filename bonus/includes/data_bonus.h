@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:11:37 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 01:49:44 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 05:12:02 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct s_switch
 {
 	bool		checkboard_plane;
-	bool		specular_sphere;
+	bool		specular;
 	bool		sphere_gradient;
 }				t_switch;
 

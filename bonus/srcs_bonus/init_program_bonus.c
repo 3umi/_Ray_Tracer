@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 02:46:06 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 05:12:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	init_menu(t_data *data)
 	data->menu_img.width = 300;
 	data->menu_img.height = data->img.height;
 	fill_menu(data);
-	data->switches.specular_sphere = 0;
+	data->switches.specular = 0;
 	data->switches.checkboard_plane = 0;
 	data->switches.sphere_gradient = 0;
 }
