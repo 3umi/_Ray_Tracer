@@ -6,23 +6,23 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:55:19 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/13 05:21:04 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:12:43 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT_bonus.h"
 
-void	check_color(t_color color)
+void	check_normalized_and_color(t_color color_a, t_color color_b,
+		t_vect normal)
 {
-	if(!(color.r >= 0 && color.r <= 255 && color.g >= 0 && color.g <= 255
-		&& color.b >= 0 && color.b <= 255))
+	if (!(color_a.r >= 0 && color_a.r <= 255 && color_a.g >= 0
+			&& color_a.g <= 255 && color_a.b >= 0 && color_a.b <= 255))
 		__exit_error("ValueError: Required R,G,B range is [0 ; 255]\n");
-}
-
-void	check_normalized(t_vect normal)
-{
+	if (!(color_b.r >= 0 && color_b.r <= 255 && color_b.g >= 0
+			&& color_b.g <= 255 && color_b.b >= 0 && color_b.b <= 255))
+		__exit_error("ValueError: Required R,G,B range is [0 ; 255]\n");
 	if (!(normal.x >= -1 && normal.x <= 1 && normal.y >= -1 && normal.y <= 1
-		&& normal.z >= -1 && normal.z <= 1))
+			&& normal.z >= -1 && normal.z <= 1))
 		__exit_error("ValueError: Required normal vertor range is [-1 ; 1]\n");
 }
 
@@ -56,14 +56,14 @@ void	check_identifier(char *identifier, t_parse *parse)
 		&& ft_strcmp(identifier, "L") != 0 && ft_strcmp(identifier, "sp") != 0
 		&& ft_strcmp(identifier, "pl") != 0 && ft_strcmp(identifier, "cy") != 0)
 		__exit_error("TypeError: Unkown identifier type.\n");
-	if ((!ft_strcmp(identifier, "A") && parse->A)
-		|| (!ft_strcmp(identifier, "C") && parse->C)
-		|| (!ft_strcmp(identifier, "L") && parse->L))
+	if ((!ft_strcmp(identifier, "A") && parse->a)
+		|| (!ft_strcmp(identifier, "C") && parse->c)
+		|| (!ft_strcmp(identifier, "L") && parse->l))
 		__exit_error("TypeError: Identifier type redefinition.\n");
 	if (!ft_strcmp(identifier, "A"))
-		parse->A = 1;
+		parse->a = 1;
 	else if (!ft_strcmp(identifier, "C"))
-		parse->C = 1;
+		parse->c = 1;
 	else if (!ft_strcmp(identifier, "L"))
-		parse->L = 1;
+		parse->l = 1;
 }

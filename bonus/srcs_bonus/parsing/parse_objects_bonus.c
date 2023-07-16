@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/13 05:21:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 19:14:15 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,88 +29,70 @@ char	*free_2d(char **tab)
 static void	parse_sphere(t_data **data, char **info)
 {
 	t_sphere	*sphere;
-	char		**center;
-	char		**color;
+	int			info_len;
 
-	if (__2d_len(info) != 4)
+	info_len = __2d_len(info);
+	if (info_len != 4 && info_len != 5)
 		__exit_error("TypeError: Bad information structure\n");
 	sphere = ft_calloc(sizeof(t_sphere), 1);
 	if (!sphere)
 		return ;
-	sphere->diameter = ft_atod(info[2]);
-	sphere->radius = sphere->diameter / 2;
-	center = ft_split(info[1], ',');
-	if (__2d_len(center) != 3)
-		__exit_error("TypeError: Bad information structure\n");
-	sphere->center = vect_new(ft_atod(center[0]), ft_atod(center[1]), ft_atod(center[2]));
-	free_2d(center);
-	color = ft_split(info[3], ',');
-	if (__2d_len(color) != 3)
-		__exit_error("TypeError: Bad information structure\n");
-	sphere->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
-	check_color(sphere->color);
-	free_2d(color);
+	sphere->radius = ft_atod(info[2]) / 2;
+	sphere->center = parse_vect(parse_data(info[1]));
+	sphere->color_a = parse_color(parse_data(info[3]));
+	if (info_len == 5)
+		sphere->color_b = parse_color(parse_data(info[4]));
+	else
+		sphere->color_b = sphere->color_a;
+	check_normalized_and_color(sphere->color_a, sphere->color_b,
+		vect_new(0, 0, 0));
 	object_add_back(&(*data)->object, new_object(SPHERE, sphere));
 }
 
 static void	parse_cylinder(t_data **data, char **info)
 {
 	t_cylinder	*cylinder;
-	char		**center;
-	char		**normalized;
-	char		**color;
+	int			info_len;
 
-	if (__2d_len(info) != 6)
+	info_len = __2d_len(info);
+	if (info_len != 6 && info_len != 7)
 		__exit_error("TypeError: Bad information structure\n");
 	cylinder = ft_calloc(sizeof(t_cylinder), 1);
 	if (!cylinder)
 		return ;
-	cylinder->diameter = ft_atod(info[3]);
-	cylinder->radius = cylinder->diameter / 2;
+	cylinder->radius = ft_atod(info[3]) / 2;
 	cylinder->height = ft_atod(info[4]);
-	center = ft_split(info[1], ',');
-	normalized = ft_split(info[2], ',');
-	color = ft_split(info[5], ',');
-	if (__2d_len(center) != 3 || __2d_len(normalized) != 3
-		|| __2d_len(color) != 3)
-		__exit_error("TypeError: Bad information structure\n");
-	cylinder->center = vect_new(ft_atod(center[0]), ft_atod(center[1]), ft_atod(center[2]));
-	cylinder->normal = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
-	check_normalized(cylinder->normal);
-	cylinder->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
-	check_color(cylinder->color);
-	free_2d(center);
-	free_2d(normalized);
-	free_2d(color);
+	cylinder->center = parse_vect(parse_data(info[1]));
+	cylinder->normal = parse_vect(parse_data(info[2]));
+	cylinder->color_a = parse_color(parse_data(info[5]));
+	if (info_len == 7)
+		cylinder->color_a = parse_color(parse_data(info[6]));
+	else
+		cylinder->color_b = cylinder->color_a;
+	check_normalized_and_color(cylinder->color_a, cylinder->color_b,
+		cylinder->normal);
 	object_add_back(&(*data)->object, new_object(CYLINDER, cylinder));
 }
 
 static void	parse_plane(t_data **data, char **info)
 {
 	t_plane	*plane;
-	char	**point;
-	char	**normalized;
-	char	**color;
+	int		info_len;
 
-	if (__2d_len(info) != 4)
+	info_len = __2d_len(info);
+	if (info_len != 4 && info_len != 5)
 		__exit_error("TypeError: Bad information structure\n");
 	plane = ft_calloc(sizeof(t_plane), 1);
 	if (!plane)
 		return ;
-	point = ft_split(info[1], ',');
-	normalized = ft_split(info[2], ',');
-	color = ft_split(info[3], ',');
-	if (__2d_len(point) != 3 || __2d_len(normalized) != 3
-		|| __2d_len(color) != 3)
-		__exit_error("TypeError: Bad information structure\n");
-	plane->point = vect_new(ft_atod(point[0]), ft_atod(point[1]), ft_atod(point[2]));
-	plane->normal = vect_new(ft_atod(normalized[0]), ft_atod(normalized[1]), ft_atod(normalized[2]));
-	check_normalized(plane->normal);
-	plane->color = fill_color(ft_atod(color[0]), ft_atod(color[1]), ft_atod(color[2]));
-	check_color(plane->color);
-	free_2d(point);
-	free_2d(normalized);
-	free_2d(color);
+	plane->point = parse_vect(parse_data(info[1]));
+	plane->normal = parse_vect(parse_data(info[2]));
+	plane->color_a = parse_color(parse_data(info[3]));
+	if (info_len == 5)
+		plane->color_b = parse_color(parse_data(info[4]));
+	else
+		plane->color_b = plane->color_a;
+	check_normalized_and_color(plane->color_a, plane->color_b, plane->normal);
 	object_add_back(&(*data)->object, new_object(PLANE, plane));
 }
 
