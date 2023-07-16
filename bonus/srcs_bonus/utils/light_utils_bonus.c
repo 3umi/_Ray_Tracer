@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 23:43:57 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/16 02:40:46 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,6 @@ bool	is_in_shadow(t_data *data, t_hitrecod *rec)
 // else	
 // apply ambient
 // end
-
-t_color	_color_clap(t_color color)
-{
-	t_color	tmp;
-
-	tmp = color;
-	if (tmp.r > 255)
-		tmp.r = 255;
-	if (tmp.g > 255)
-		tmp.g = 255;
-	if (tmp.b > 255)
-		tmp.b = 255;
-	return (tmp);
-}
 
 void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 {
