@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:06:56 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 22:29:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:24:16 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_color		ray_color(t_data *data);
 t_color		ambient_light(t_data *data, t_color color);
 void		aplly_light(t_data *data, t_hitrecod *rec);
 t_ray		calculate_ray(t_data *data, int x, int y);
+bool		get_closet_hit(t_ray r, t_hitrecod *rec, t_cylinder *cy, t_qua_sol solution);
 t_qua_sol	calc_quadratic_sphere(t_ray r, t_sphere *sp);
+t_qua_sol	calculate_quadratic_cylinder(t_ray r, t_cylinder *cy);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/15 02:33:51 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 00:59:48 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.y += 0.1;
 				sphere->center.y += 0.1;
 			}
-			rerander(mlx);
 		}
 		if (keycode == S_KEY || keycode == 115)
 		{
@@ -51,7 +50,6 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.y -= 0.1;
 				sphere->center.y -= 0.1;
 			}
-			rerander(mlx);
 		}
 		else if (keycode == D_KEY || keycode == 100)
 		{
@@ -64,7 +62,6 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.x += 0.1;
 				sphere->center.x += 0.1;
 			}
-			rerander(mlx);
 		}
 		else if (keycode == A_KEY || keycode == 97)
 		{
@@ -77,28 +74,15 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.x -= 0.1;
 				sphere->center.x -= 0.1;
 			}
-			rerander(mlx);
 		}
 		else if (keycode == LEFT_AROW)
-		{
 			mlx->lighting->light->point.x -= 1;
-			rerander(mlx);
-		}
 		else if (keycode == RIGHT_AROW)
-		{
 			mlx->lighting->light->point.x += 1;
-			rerander(mlx);
-		}
 		else if (keycode == UP_AROW)
-		{
 			mlx->lighting->light->point.z -= 1;
-			rerander(mlx);
-		}
 		else if (keycode == DOWN_AROW)
-		{
 			mlx->lighting->light->point.z += 1;
-			rerander(mlx);
-		}
 	}
 	printf("keycode %d\n", keycode);
 	return (0);

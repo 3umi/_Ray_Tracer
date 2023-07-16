@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 23:43:57 by marvin           ###   ########.fr       */
+/*   Updated: 2023/07/16 06:11:58 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,35 @@ bool	sphere_shadow(t_ray r, t_sphere *sphere)
 	return (false);
 }
 
+bool	cylinder_shadow(t_ray r, t_cylinder *cy)
+{
+	t_qua_sol	solution;
+	bool		hit;
+	t_ray		rotated_ray;
+	t_mat4		mat;
+
+	mat = mat4_rotate(cy->normal);//mat4_rotate_y(90 * (M_PI / 180));
+	rotated_ray.direction = mat4_mult_vect(mat, r.direction);
+	rotated_ray.origin = mat4_mult_vect(mat, r.origin);
+	rotated_ray.t_max = r.t_max;
+	rotated_ray.t_min = r.t_min;
+	solution = calculate_quadratic_cylinder(rotated_ray, cy);
+	if (solution.delta > 0)
+	{
+		hit = get_closet_hit(rotated_ray, NULL, cy, solution);
+		if (!hit)
+			return (false);
+		return (true);
+	}
+	return (false);
+}
+
 bool	intesect_shadow(t_ray r, t_object *obj)
 {
 	if (obj->type == SPHERE)
 		return (sphere_shadow(r, obj->object));
+	else if (obj->type == CYLINDER)
+		return (cylinder_shadow(r, obj->object));
 	return (false);
 }
 
@@ -82,42 +107,52 @@ bool	is_in_shadow(t_data *data, t_hitrecod *rec)
 // apply ambient
 // end
 
-t_color	_color_clap(t_color color)
+t_vect	vect_reflect(t_vect light, t_vect normal)
+{
+	// t_vect	normalized;
+
+	/* normalized = vect_normalize(normal);
+	   normalized = vect_scale(normalized, 2 * vect_dot(light, normalized));
+	// normalized = vect_normalize(normalized);
+	return (normalized);
+	// return (vect_sub(light, vect_scale(normalized, 2 * vect_dot(light, normalized)))); */
+	return (vect_sub(light, vect_scale(normal, 2 * vect_dot(light, normal))));
+}
+
+t_color	color_merge(t_color c1, t_color c2)
 {
 	t_color	tmp;
 
-	tmp = color;
-	if (tmp.r > 255)
-		tmp.r = 255;
-	if (tmp.g > 255)
-		tmp.g = 255;
-	if (tmp.b > 255)
-		tmp.b = 255;
+	tmp.r = c1.r + c2.r / 2;
+	tmp.g = c1.g + c2.g / 2;
+	tmp.b = c1.b + c2.b / 2;
 	return (tmp);
 }
 
 void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 {
 	t_color		diffuse;
-	t_vect		light_normalized;
+	t_color		specular;
+	// t_vect		light_normalized;
+	t_vect		reflect;
+	double		specular_factor;
 
-	(void)light_normalized;
-	if (rec->type == SPHERE)
+	if (rec->type != PLANE)
 	{
-		light_normalized = vect_normalize(data->lighting->light->point);
-		diffuse = color_scalar(rec->color,
-				(dot * data->lighting->light->ratio));
-		rec->color = diffuse;
-		rec->color = _color_clap(rec->color);
+		diffuse = color_scalar(rec->color, (dot * data->lighting->light->ratio));
+		if (data->switches.specular)
+		{
+			reflect = vect_reflect(vect_normalize(data->lighting->light->point), rec->normal);
+			specular_factor = pow(fmax(vect_dot(reflect, vect_normalize(data->r.direction)), 0.0), 32);
+			specular = color_scalar(data->lighting->light->color, specular_factor);
+			rec->color = color_add(diffuse, specular);
+		}
+		else
+			rec->color = diffuse;
 	}
-	else if (rec->type == CYLINDER)
-	{
-		light_normalized = vect_normalize(data->lighting->light->point);
-		rec->color = color_scalar(rec->color,
-				(dot * data->lighting->light->ratio));
-	}
+	// av_color(&rec->color, data->lighting->light->color);
+	rec->color = _color_clap(rec->color);
 }
-
 void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 {
 	double		dot;
