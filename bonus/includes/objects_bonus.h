@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:10:30 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 19:01:46 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/16 19:18:56 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,6 @@ typedef struct s_object
 	void			*object;
 	struct s_object	*next;
 }				t_object;
-
-typedef struct s_info
-{
-	int		len;
-	char	**tab;
-}	t_info;
-
 
 t_sphere	*sphere_new(t_vect center, double radius);
 #endif
