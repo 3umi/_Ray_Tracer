@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/16 04:03:42 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/16 04:20:48 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_qua_sol	calculate_quadratic_cylinder(t_ray r, t_cylinder *cy)
 	a = pow(r.direction.x, 2) + pow(r.direction.z, 2);
 	b = 2 * (r.direction.x * (r.origin.x - cy->center.x) + r.direction.z * (r.origin.z - cy->center.z));
 	c = pow(r.origin.x - cy->center.x, 2) + pow(r.origin.z - cy->center.z, 2) - pow(cy->radius, 2);
-
 	solution.delta = pow(b, 2) - 4 * a * c;
 	if (solution.delta < 0)
 		return (solution);
@@ -71,7 +70,7 @@ bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 	t_mat4		mat;
 
 	cy = obj->object;
-	mat = mat4_rotate(cy->normal);//mat4_rotate_y(90 * (M_PI / 180));
+	mat = mat4_rotate(cy->normal);
 	rotated_ray.direction = mat4_mult_vect(mat, data->r.direction);
 	rotated_ray.origin = mat4_mult_vect(mat, data->r.origin);
 	rotated_ray.t_max = data->r.t_max;
@@ -85,7 +84,6 @@ bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 		rec->p = ray_hit_point(&rotated_ray, rec->hit_point_distance);
 		double y = rec->p.y - cy->center.y;
 
-		// mat = mat4_rotate_y(90 * (M_PI / 180));
 		mat = mat4_rotate(vect_scale(cy->normal, -1));
 		if (y <= -cy->height / 2 || y >= cy->height / 2)
 			rec->normal = vect_normalize(mat4_mult_vect(mat, cy->normal));
