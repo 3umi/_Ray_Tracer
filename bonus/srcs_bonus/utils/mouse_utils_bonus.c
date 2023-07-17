@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/15 01:56:47 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 14:36:11 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:08:56 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,24 +39,27 @@ void	rotation_camera(t_data *data, int x, int y)
 	{
 		mat = mat4_rotate_x(90 * M_PI / 180);
 		data->camera->origin = mat4_mult_vect(mat, data->camera->origin);
+		printf("up x %d y %d\n", x, y);
 	}
 	else if (x >= 106 && x <= 192 && y >= 470 && y <= 500)
 	{
-		mat4_rotate_x(-90 * M_PI / 180);
+		mat4_rotate_x(-1 * (90 * M_PI / 180));
 		data->camera->origin = mat4_mult_vect(mat, data->camera->origin);
-
+		printf("x %d y %d\n", x, y);
 	}
-	else if (x >= 10 && x <= 96 && y >= 500 && y <= 500)
+	else if (x >= 10 && x <= 96 && y >= 470 && y <= 500)
 	{
 		mat4_rotate_y(90 * M_PI / 180);
 		data->camera->origin = mat4_mult_vect(mat, data->camera->origin);
+		printf("x %d y %d\n", x, y);
 	}
-	else if (x >= 202 && x <= 288 && y >= 500 && y <= 500)
+	else if (x >= 202 && x <= 288 && y >= 470 && y <= 500)
 	{
 		mat4_rotate_y(-90 * M_PI / 180);
 		data->camera->origin = mat4_mult_vect(mat, data->camera->origin);
+		printf("x %d y %d\n", x, y);
 	}
-	printf("x %d y %d\n", x, y);
+	//printf("x %d y %d\n", x, y);
 }
 int	mouse_release(int key, int x, int y, t_data *data)
 {

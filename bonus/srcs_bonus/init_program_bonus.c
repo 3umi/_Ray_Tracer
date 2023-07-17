@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 12:32:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:30:39 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	init_menu(t_data *data)
 	data->switches.specular = 0;
 	data->switches.checkboard_plane = 0;
 	data->switches.sphere_gradient = 0;
+	data->switches.cylinder_gradient = 1;
 }
 
 void	__init(t_data *data)

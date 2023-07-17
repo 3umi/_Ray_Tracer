@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 11:52:01 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:19:21 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	sphere_gradient(t_hitrecod *rec, t_sphere *sp)
 	double		y_dist;
 	double		t;
 
-	y_dist = rec->p.x - sp->center.x;
+	y_dist = rec->p.y - sp->center.y;
 	t = (y_dist + sp->radius) / (2 * sp->radius);
 	rec->color = gradient(sp->color_a, sp->color_b, t);
 }

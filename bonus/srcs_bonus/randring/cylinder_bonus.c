@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 11:53:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 16:53:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,15 @@ bool	get_closet_hit(t_ray r, t_hitrecod *rec, t_cylinder *cy, t_qua_sol solution
 		return (false);
 	return (true);
 }
+void	cylinder_gradient(t_hitrecod *rec, t_cylinder *cy)
+{
+	double		y_dist;
+	double		t;
 
+	y_dist = rec->p.y - cy->center.y;
+	t = (y_dist + cy->radius) / (2 * cy->radius);
+	rec->color = gradient(cy->color_a, cy->color_b, t);
+}
 bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 {
 	t_cylinder	*cy;
@@ -89,8 +97,11 @@ bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 			rec->normal = vect_normalize(mat4_mult_vect(mat, cy->normal));
 		else
 			rec->normal = vect_normalize(mat4_mult_vect(mat, vect_unit(vect_sub(vect_sub(rec->p, cy->center), vect_scale(cy->normal, y)))));
+		if (data->switches.cylinder_gradient)
+			cylinder_gradient(rec, cy);
+		else
+			rec->color = cy->color_a;
 		rec->type = CYLINDER;
-		rec->color = cy->color_a;
 		rec->obj = obj;
 		return (true);
 	}

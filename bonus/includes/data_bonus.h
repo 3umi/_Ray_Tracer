@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:11:37 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 05:12:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 15:11:15 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef struct s_switch
 	bool		checkboard_plane;
 	bool		specular;
 	bool		sphere_gradient;
+	bool		cylinder_gradient;
 }				t_switch;
 
 typedef struct s_data

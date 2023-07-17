@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/16 19:14:15 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/17 16:55:07 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,12 @@ static void	parse_cylinder(t_data **data, char **info)
 	cylinder->normal = parse_vect(parse_data(info[2]));
 	cylinder->color_a = parse_color(parse_data(info[5]));
 	if (info_len == 7)
-		cylinder->color_a = parse_color(parse_data(info[6]));
+		cylinder->color_b = parse_color(parse_data(info[6]));
 	else
 		cylinder->color_b = cylinder->color_a;
+	printf("%f %f %f\n", cylinder->color_a.r, cylinder->color_a.g, cylinder->color_a.b);
+	printf("%s\n", info[5]);
+
 	check_normalized_and_color(cylinder->color_a, cylinder->color_b,
 		cylinder->normal);
 	object_add_back(&(*data)->object, new_object(CYLINDER, cylinder));
