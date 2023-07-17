@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 18:12:40 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/14 06:52:30 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:52:59 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static t_color	checkboard_plane(t_plane *plane, t_vect p)
 
 	sines = sin(10 * p.x) * sin(10 * p.y) * sin(10 * p.z);
 	if (sines < 0)
-		color = plane->color;
+		color = plane->color_a;
 	else
-		color = fill_color(20, 20, 100);
+		color = plane->color_b;
 	return (color);
 }
 
@@ -47,7 +47,6 @@ bool	hit_plane(t_data *data, t_hitrecod *rec, t_object *obj)
 	if (data->switches.checkboard_plane)
 		rec->color = checkboard_plane(plane, rec->p);
 	else
-		rec->color = plane->color;
-	// rec->color = plane->color;
+		rec->color = plane->color_a;
 	return (true);
 }

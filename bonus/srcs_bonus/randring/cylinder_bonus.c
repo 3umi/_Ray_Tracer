@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylinder_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/16 04:22:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:53:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 		else
 			rec->normal = vect_normalize(mat4_mult_vect(mat, vect_unit(vect_sub(vect_sub(rec->p, cy->center), vect_scale(cy->normal, y)))));
 		rec->type = CYLINDER;
-		rec->color = cy->color;
+		rec->color = cy->color_a;
 		rec->obj = obj;
 		return (true);
 	}

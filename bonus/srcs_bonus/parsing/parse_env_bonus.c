@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/15 17:32:05 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/17 11:54:47 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	parse_ambient_light(t_data *data, char **info)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->amb_light->color = fill_color(ft_atod(color[0]),
 			ft_atod(color[1]), ft_atod(color[2]));
-	check_normalized_and_color(data->lighting->amb_light->color,
-		vect_new(0, 0, 0));
+	// check_normalized_and_color(data->lighting->amb_light->color,
+	// 	vect_new(0, 0, 0));
 	free_2d(color);
 }
 
@@ -60,7 +60,7 @@ void	parse_light(t_data *data, char **info)
 		__exit_error("TypeError: Bad information structure\n");
 	data->lighting->light->color = fill_color(ft_atod(color[0]),
 			ft_atod(color[1]), ft_atod(color[2]));
-	check_normalized_and_color(data->lighting->light->color, vect_new(0, 0, 0));
+	// check_normalized_and_color(data->lighting->light->color, vect_new(0, 0, 0));
 	free_2d(color);
 }
 
@@ -88,6 +88,6 @@ void	parse_camera(t_data *data, char **info)
 		__exit_error("TypeError: Bad information structure\n");
 	data->camera->normalized = vect_new(ft_atod(normalized[0]),
 			ft_atod(normalized[1]), ft_atod(normalized[2]));
-	check_normalized_and_color(fill_color(0, 0, 0), data->camera->normalized);
+	// check_normalized_and_color(fill_color(0, 0, 0), data->camera->normalized);
 	free_2d(normalized);
 }

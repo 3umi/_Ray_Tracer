@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   rerander_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 05:13:26 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:50:25 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT_bonus.h"
-
-void	put_loading(t_data *data, int x, int y)
-{
-	(void)data;
-	(void)x;
-	(void)y;
-}
 
 void	put_text(t_data *data)
 {

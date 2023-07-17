@@ -40,7 +40,8 @@ SRC_BONUS_UTILS 	=	camera_utils_bonus char_utils_bonus colors_utils_bonus \
 						ray_utils_bonus matrix_utils_bonus vectors_utils_bonus \
 						vectors_utils_2_bonus mouse_utils_bonus
 
-SRC_BONUS_PARSING	=	parsing_bonus check_bonus parse_env_bonus parse_objects_bonus
+SRC_BONUS_PARSING	=	parsing_bonus check_bonus parse_env_bonus parse_objects_bonus \
+						parse_data_bonus
 # #======================================================================================
 CFLAGS				=	-Wall -Wextra -Werror -funroll-loops 
 #-g -fsanitize=address
@@ -88,7 +89,7 @@ MAKE_LIBS	:
 	@make -C $(LIBFT_PATH) all
 	@echo
 mlx:
-	@make -C $(MLX_PATH)
+	@make -C $(LIB)/$(MLX_PATH)
 	@echo
 
 

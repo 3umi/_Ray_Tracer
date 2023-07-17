@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 17:45:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 05:43:52 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 11:52:01 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	sphere_gradient(t_hitrecod *rec, t_sphere *sp)
 
 	y_dist = rec->p.x - sp->center.x;
 	t = (y_dist + sp->radius) / (2 * sp->radius);
-	rec->color = gradient(fill_color(255, 0, 0), sp->color, t);
+	rec->color = gradient(sp->color_a, sp->color_b, t);
 }
 
 bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
@@ -72,6 +72,6 @@ bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj)
 	if (data->switches.sphere_gradient)
 		sphere_gradient(rec, sp);
 	else
-		rec->color = sp->color;
+		rec->color = sp->color_a;
 	return (true);
 }
