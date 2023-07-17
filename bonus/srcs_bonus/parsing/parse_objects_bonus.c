@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 16:55:07 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:25:59 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	parse_sphere(t_data **data, char **info)
 		sphere->color_b = parse_color(parse_data(info[4]));
 	else
 		sphere->color_b = sphere->color_a;
-	check_normalized_and_color(sphere->color_a, sphere->color_b,
-		vect_new(0, 0, 0));
+	check_color(sphere->color_a);
+	check_color(sphere->color_b);
 	object_add_back(&(*data)->object, new_object(SPHERE, sphere));
 }
 
@@ -69,11 +69,12 @@ static void	parse_cylinder(t_data **data, char **info)
 		cylinder->color_b = parse_color(parse_data(info[6]));
 	else
 		cylinder->color_b = cylinder->color_a;
-	printf("%f %f %f\n", cylinder->color_a.r, cylinder->color_a.g, cylinder->color_a.b);
+	printf("%f %f %f\n", cylinder->color_a.r, cylinder->color_a.g,
+		cylinder->color_a.b);
 	printf("%s\n", info[5]);
-
-	check_normalized_and_color(cylinder->color_a, cylinder->color_b,
-		cylinder->normal);
+	check_color(cylinder->color_a);
+	check_color(cylinder->color_b);
+	check_normalized(cylinder->normal);
 	object_add_back(&(*data)->object, new_object(CYLINDER, cylinder));
 }
 
@@ -95,7 +96,9 @@ static void	parse_plane(t_data **data, char **info)
 		plane->color_b = parse_color(parse_data(info[4]));
 	else
 		plane->color_b = plane->color_a;
-	check_normalized_and_color(plane->color_a, plane->color_b, plane->normal);
+	check_color(plane->color_a);
+	check_color(plane->color_b);
+	check_normalized(plane->normal);
 	object_add_back(&(*data)->object, new_object(PLANE, plane));
 }
 
