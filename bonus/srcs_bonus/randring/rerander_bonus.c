@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 14:40:14 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:45:23 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ void	put_text(t_data *data)
 			"Sphere gradient");
 	if (data->switches.sphere_gradient)
 		mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 70, 0x0000C0FF, "X");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 40, 100, 0x0000C0FF,
+			"Cylinder gradient");
+	if (data->switches.cylinder_gradient)
+		mlx_string_put(data->mlx_ptr, data->win_ptr, 15, 100, 0x0000C0FF, "X");
+	// put up down left right for camera
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 130, 440, 0x0000C0FF,
+			"UP");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 130, 480, 0x0000C0FF,
+			"DOWN");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 30, 480, 0x0000C0FF,
+			"LEFT");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 230, 480, 0x0000C0FF,
+			"RIGHT");
 }
 
 void	rerander(t_data *data)

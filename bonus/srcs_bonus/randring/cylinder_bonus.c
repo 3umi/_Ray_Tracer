@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 16:53:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:02:52 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,12 @@ void	cylinder_gradient(t_hitrecod *rec, t_cylinder *cy)
 	double		y_dist;
 	double		t;
 
-	y_dist = rec->p.y - cy->center.y;
-	t = (y_dist + cy->radius) / (2 * cy->radius);
-	rec->color = gradient(cy->color_a, cy->color_b, t);
+	y_dist = (rec->p.y - cy->center.y) *  2;
+	t = (y_dist + cy->radius * 2) / cy->height;
+	t = fmin(t, 1);
+	t = fmax(t, 0);
+	rec->color = gradient(cy->color_b, cy->color_a, t);
+	rec->color = _color_clap(rec->color);
 }
 bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 {
