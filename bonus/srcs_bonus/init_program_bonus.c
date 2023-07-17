@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_program_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 05:12:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 12:32:36 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,23 @@ void	draw_box(t_data *data, t_vect corr, t_vect width_and_hieght, t_color color)
 	}
 }
 
+void	put_camera_rotation_button(t_data *data, t_color color)
+{
+	t_vect	corr;
+	t_vect	size;
+
+	size = vect_new(86, 30, 0);
+	corr = vect_new(10, 470, 0);
+	draw_box(data, corr, size, color);
+	corr.x += 86 + 10;
+	draw_box(data, corr, size, color);
+	corr.x += 86 + 10;
+	draw_box(data, corr, size, color);
+	corr.x = 86 + 20;
+	corr.y = 470 - 40;
+	draw_box(data, corr, size, color);
+}
+
 void	fill_menu(t_data *data)
 {
 	int	i;
@@ -70,6 +87,7 @@ void	fill_menu(t_data *data)
 	size.x = 280;
 	size.y = 40;
 	draw_box(data, corrd, size, fill_color(0xF7, 0xcE, 0x78));
+	put_camera_rotation_button(data, fill_color(0xAA, 0x11, 0xAA));
 }
 
 
