@@ -1,3 +1,18 @@
+## Mlx related
+Makefile.gen
+/test/mlx-test
+
+## Editor
+.vscode/*
+*~
+\#*\#
+
+## Other
+.DS_STORE
+
+
+
+## Template from https://github.com/github/gitignore
 # Prerequisites
 *.d
 
@@ -45,16 +60,8 @@
 # Kernel Module Compile Results
 *.mod*
 *.cmd
-# macOS
-*.DS_Store
-*.dmg
-*.app
-
-.vscode
-
+.tmp_versions/
 modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-miniRT
-miniRT_bonus
