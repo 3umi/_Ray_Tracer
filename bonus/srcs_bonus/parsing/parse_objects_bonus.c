@@ -6,24 +6,36 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 21:25:59 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/17 23:51:19 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/miniRT_bonus.h"
 
-char	*free_2d(char **tab)
+static void	parse_triangle(t_data **data, char **info)
 {
-	int	i;
+	t_triangle	*triangle;
+	int			info_len;
 
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
+	info_len = __2d_len(info);
+	if (info_len != 6 && info_len != 7)
+		__exit_error("TypeError: Bad information structure\n");
+	triangle = ft_calloc(sizeof(t_triangle), 1);
+	if (!triangle)
+		return ;
+	triangle->point_a = parse_vect(parse_data(info[1]));
+	triangle->point_b = parse_vect(parse_data(info[2]));
+	triangle->point_c = parse_vect(parse_data(info[3]));
+	triangle->normalized = parse_vect(parse_data(info[4]));
+	check_normalized(triangle->normalized);
+	triangle->color_a = parse_color(parse_data(info[5]));
+	check_color(triangle->color_a);
+	if (info_len == 7)
+		triangle->color_b = parse_color(parse_data(info[6]));
+	else
+		triangle->color_b = triangle->color_a;
+	check_color(triangle->color_b);
+	object_add_back(&(*data)->object, new_object(TRIANGLE, triangle));
 }
 
 static void	parse_sphere(t_data **data, char **info)
@@ -40,11 +52,11 @@ static void	parse_sphere(t_data **data, char **info)
 	sphere->radius = ft_atod(info[2]) / 2;
 	sphere->center = parse_vect(parse_data(info[1]));
 	sphere->color_a = parse_color(parse_data(info[3]));
+	check_color(sphere->color_a);
 	if (info_len == 5)
 		sphere->color_b = parse_color(parse_data(info[4]));
 	else
 		sphere->color_b = sphere->color_a;
-	check_color(sphere->color_a);
 	check_color(sphere->color_b);
 	object_add_back(&(*data)->object, new_object(SPHERE, sphere));
 }
@@ -64,17 +76,14 @@ static void	parse_cylinder(t_data **data, char **info)
 	cylinder->height = ft_atod(info[4]);
 	cylinder->center = parse_vect(parse_data(info[1]));
 	cylinder->normal = parse_vect(parse_data(info[2]));
+	check_normalized(cylinder->normal);
 	cylinder->color_a = parse_color(parse_data(info[5]));
+	check_color(cylinder->color_a);
 	if (info_len == 7)
 		cylinder->color_b = parse_color(parse_data(info[6]));
 	else
 		cylinder->color_b = cylinder->color_a;
-	printf("%f %f %f\n", cylinder->color_a.r, cylinder->color_a.g,
-		cylinder->color_a.b);
-	printf("%s\n", info[5]);
-	check_color(cylinder->color_a);
 	check_color(cylinder->color_b);
-	check_normalized(cylinder->normal);
 	object_add_back(&(*data)->object, new_object(CYLINDER, cylinder));
 }
 
@@ -91,14 +100,14 @@ static void	parse_plane(t_data **data, char **info)
 		return ;
 	plane->point = parse_vect(parse_data(info[1]));
 	plane->normal = parse_vect(parse_data(info[2]));
+	check_normalized(plane->normal);
 	plane->color_a = parse_color(parse_data(info[3]));
+	check_color(plane->color_a);
 	if (info_len == 5)
 		plane->color_b = parse_color(parse_data(info[4]));
 	else
 		plane->color_b = plane->color_a;
-	check_color(plane->color_a);
 	check_color(plane->color_b);
-	check_normalized(plane->normal);
 	object_add_back(&(*data)->object, new_object(PLANE, plane));
 }
 
@@ -124,5 +133,7 @@ void	iterate_line(t_data *data, t_parse *parse, char *line)
 		parse_plane(&data, info);
 	else if (!ft_strcmp(info[i], "cy"))
 		parse_cylinder(&data, info);
+	else if (!ft_strcmp(info[i], "tr"))
+		parse_triangle(&data, info);
 	free_2d(info);
 }

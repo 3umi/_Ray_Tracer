@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:55:19 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 21:25:43 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/17 23:57:53 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	check_identifier(char *identifier, t_parse *parse)
 {
 	if (ft_strcmp(identifier, "A") != 0 && ft_strcmp(identifier, "C") != 0
 		&& ft_strcmp(identifier, "L") != 0 && ft_strcmp(identifier, "sp") != 0
-		&& ft_strcmp(identifier, "pl") != 0 && ft_strcmp(identifier, "cy") != 0)
+		&& ft_strcmp(identifier, "pl") != 0 && ft_strcmp(identifier, "cy") != 0
+		&& ft_strcmp(identifier, "tr") != 0)
 		__exit_error("TypeError: Unkown identifier type.\n");
 	if ((!ft_strcmp(identifier, "A") && parse->a)
 		|| (!ft_strcmp(identifier, "C") && parse->c)

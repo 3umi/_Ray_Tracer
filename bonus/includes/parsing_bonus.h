@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:14:07 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 21:21:40 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/17 23:39:13 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ t_vect	parse_vect(char **info);
 t_color	parse_color(char **info);
 
 //-------------------------Parsing------------------------------//
-void	cleanse(t_data *data);
 char	*free_2d(char **tab);
 void	__parsing(int argc, char **argv, t_data *data);
 void	__init(t_data *data);
