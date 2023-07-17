@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:37:28 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 11:50:25 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:40:14 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	rerander(t_data *data)
 	int		y;
 	t_color	pixel_color;
 
+	printf("randring\n");
 	pixel_color = fill_color(0, 0, 0);
 	init_camera(data->camera);
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->empty_img.img, 300, 0);
@@ -58,4 +59,5 @@ void	rerander(t_data *data)
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img.img, 300, 0);
 	put_text(data);
+	printf("done\n");
 }

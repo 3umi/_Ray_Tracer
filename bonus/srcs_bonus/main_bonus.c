@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:43:44 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/15 01:47:08 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/17 14:04:11 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	main(int argc, char **argv)
 	mlx_hook(data.win_ptr, 2, 0, key_hook, &data);
 	mlx_key_hook(data.win_ptr, key_hook, &data);
 	mlx_key_hook(data.win_ptr, lock_key_hook, &data);
-	mlx_hook(data.win_ptr, 5, 0, mouse_release, &data);
+	// mlx_hook(data.win_ptr, 5, 0, mouse_release, &data);
+	mlx_mouse_hook(data.win_ptr, mouse_release, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
