@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:10:30 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 19:18:56 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/18 00:59:41 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ typedef enum e_type
 	NONE,
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
+	TRIANGLE
 }				t_type;
 
 typedef struct s_qua_sol
@@ -56,6 +57,16 @@ typedef struct s_cylinder
 	t_color		color_a;
 	t_color		color_b;
 }				t_cylinder;
+
+typedef struct	s_triangle
+{
+	t_vect		point_a;
+	t_vect		point_b;
+	t_vect		point_c;
+	t_vect		normalized;
+	t_color		color_a;
+	t_color		color_b;
+}	t_triangle;
 
 typedef struct s_object
 {
