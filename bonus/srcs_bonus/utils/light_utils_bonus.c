@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 06:11:58 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:02:21 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,14 @@ void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 void	aplly_light(t_data *data, t_hitrecod *rec)
 {
 	bool	shadow;
+	t_light	*tmp;
 
-	shadow = is_in_shadow(data, rec);
-	calculate_and_apply_light(data, rec, shadow);
+	tmp = data->lighting->light;
+	while (data->lighting->light)
+	{
+		shadow = is_in_shadow(data, rec);
+		calculate_and_apply_light(data, rec, shadow);
+		data->lighting->light = data->lighting->light->next;
+	}
+	data->lighting->light = tmp;
 }

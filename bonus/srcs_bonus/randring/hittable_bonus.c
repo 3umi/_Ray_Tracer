@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hittable_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/18 00:37:36 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:06:33 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ bool	hit(t_data *data, t_hitrecod *rec,	t_object *obj)
 		return (hit_plane(data, rec, obj));
 	else if (obj->type == CYLINDER)
 		return (hit_cylinder(data, rec, obj));
-	// else if (obj->type == TRIENGLE)
-	if (obj->next == NULL)
+	else if (obj->type == TRIANGLE)
 		return (hit_triangle(data, rec, obj));
 	return (false);
 }
