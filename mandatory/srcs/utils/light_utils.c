@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 04:44:59 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:07:37 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 	}
 	light_normalized = vect_normalize(data->lighting->light->point);
 	dot = fmax(vect_dot(light_normalized, rec->normal), 0.0);
+	if (dot < data->lighting->amb_light->ratio)
+		dot = data->lighting->amb_light->ratio;
 	calculate_diffuse(data, rec, dot);
 }
 
