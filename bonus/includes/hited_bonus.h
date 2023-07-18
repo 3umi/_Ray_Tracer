@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:11:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 05:16:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/18 00:38:19 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_hitrecod
 bool	hit(t_data *data, t_hitrecod *rec, t_object *obj);
 bool	hit_sphere(t_data *data, t_hitrecod *rec, t_object *obj);
 bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj);
+bool	hit_triangle(t_data *data, t_hitrecod *rec, t_object *obj);
 void	set_face_normal(t_ray *r, t_hitrecod *rec);
 bool	hittable_list_hit(t_data *data, t_hitrecod *rec);
 

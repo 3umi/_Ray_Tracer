@@ -34,7 +34,7 @@ PARSING_DIR	= parsing/
 SRC_BONUS_FILES		=	main_bonus $(RENDER_BONUS) $(UTILS_BONUS) $(PARSING_BONUS) \
 						error_bonus init_program_bonus
 SRC_BONUS_RENDER	=	rerander_bonus hittable_bonus key_hook_utils_bonus sphere_bonus \
-						plane_bonus cylinder_bonus
+						plane_bonus cylinder_bonus triangle_bonus
 SRC_BONUS_UTILS 	=	camera_utils_bonus char_utils_bonus colors_utils_bonus \
 						image_utils_bonus linked_list_utils_bonus light_utils_bonus \
 						ray_utils_bonus matrix_utils_bonus vectors_utils_bonus \
