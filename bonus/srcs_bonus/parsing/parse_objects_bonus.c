@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 02:02:50 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 23:51:19 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/18 01:43:21 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,8 @@ void	iterate_line(t_data *data, t_parse *parse, char *line)
 	check_identifier(info[i], parse);
 	if (!ft_strcmp(info[i], "A"))
 		parse_ambient_light(data, info);
-	else if (!ft_strcmp(info[i], "L"))
-		parse_light(data, info);
+	else if (!ft_strcmp(info[i], "l"))
+		parse_light(&data, info);
 	else if (!ft_strcmp(info[i], "C"))
 		parse_camera(data, info);
 	else if (!ft_strcmp(info[i], "sp"))

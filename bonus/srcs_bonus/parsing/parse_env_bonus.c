@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:54:26 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 23:56:43 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/18 01:44:57 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,29 @@ void	parse_ambient_light(t_data *data, char **info)
 	check_color(data->lighting->amb_light->color);
 }
 
-void	parse_light(t_data *data, char **info)
+void	parse_light(t_data **data, char **info)
 {
-	if (__2d_len(info) != 4)
+	t_light	*light;
+	int		info_len;
+
+	info_len = __2d_len(info);
+	if (info_len != 6)
 		__exit_error("TypeError: Bad information structure\n");
-	data->lighting->light = ft_calloc(sizeof(t_light), 1);
-	if (!data->lighting->light)
+	light = ft_calloc(sizeof(t_light), 1);
+	if (!light)
 		return ;
-	data->lighting->light->ratio = ft_atod(info[2]);
-	if (!(data->lighting->light->ratio >= 0.0
-			&& data->lighting->light->ratio <= 1.0))
-		__exit_error("ValueError: Required 'L' ratio range is [0.0 ; 1.0]\n");
-	data->lighting->light->point = parse_vect(parse_data(info[1]));
-	data->lighting->light->color = parse_color(parse_data(info[3]));
-	check_color(data->lighting->light->color);
+	light->ratio = ft_atod(info[2]);
+	if (!(light->ratio >= 0.0
+			&& light->ratio <= 1.0))
+		__exit_error("ValueError: Required 'l' ratio range is [0.0 ; 1.0]\n");
+	light->point = parse_vect(parse_data(info[1]));
+	light->normalized = parse_vect(parse_data(info[3]));
+	check_normalized(light->normalized);
+	light->color = parse_color(parse_data(info[5]));
+	check_color(light->color);
+	light->angle = ft_atod(info[4]);
+	light_add_back(&(*data)->lighting->light, new_light(light));
+	free(light);
 }
 
 void	parse_camera(t_data *data, char **info)

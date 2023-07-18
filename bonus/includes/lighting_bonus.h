@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighting_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:14:34 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/13 05:16:58 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/18 01:02:28 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ typedef struct s_amb_light
 	t_color	color;
 }			t_amb_light;
 
-typedef struct s_ligh
+typedef struct s_light
 {
-	double	ratio;
-	t_vect	point;
-	t_color	color;
+	double			ratio;
+	t_vect			point;
+	t_color			color;
+	t_vect			normalized;
+	double			angle;
+	struct s_light	*next;
 }			t_light;
 
 typedef struct s_lighting

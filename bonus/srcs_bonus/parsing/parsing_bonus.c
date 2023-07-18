@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 15:05:10 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 23:39:00 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/18 01:41:48 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	initialize(t_parse *parse, int *i)
 {
 	parse->a = 0;
 	parse->c = 0;
-	parse->l = 0;
 	*(i) = -1;
 }
 
@@ -77,7 +76,7 @@ static void	fill_data(t_data **data, char *str)
 		iterate_line(*data, &parse, line[i]);
 		free(line[i]);
 	}
-	if (!parse.a || !parse.c || !parse.l)
+	if (!parse.a || !parse.c)
 		__exit_error("ValueError: An identifier type is missing.\n");
 	free(buff);
 	free(line);

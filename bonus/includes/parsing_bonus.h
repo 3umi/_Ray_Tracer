@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:14:07 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 23:39:13 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/18 01:14:00 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef struct s_parse
 {
 	bool	a;
 	bool	c;
-	bool	l;
 }	t_parse;
 
 //--------------------------Check------------------------------//
@@ -31,7 +30,7 @@ void	check_identifier(char *identifier, t_parse *parse);
 
 //-----------------------Parsing_c------------------------------//
 void	parse_ambient_light(t_data *data, char **info);
-void	parse_light(t_data *data, char **info);
+void	parse_light(t_data **data, char **info);
 void	parse_camera(t_data *data, char **info);
 
 //------------------------Parse_env------------------------------//
