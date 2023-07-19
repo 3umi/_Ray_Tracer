@@ -1,3 +1,0 @@
-We need to implement at least these geometric objects: plane, sphere, cylinder.
-each color mush be in range of 0-255. throw erreor if not.
-
