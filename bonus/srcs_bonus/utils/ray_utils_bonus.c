@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 22:54:27 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 00:57:29 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 08:07:30 by soran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,12 @@ t_vect	ray_hit_point(t_ray *r, double t)
 t_color	ray_color(t_data *data)
 {
 	t_hitrecod	rec;
-	double		t;
+	// double		t;
 
-	if (data->depth <= 0)
-		return (fill_color(0, 0, 0));
 	if (hittable_list_hit(data, &rec))
 		return (rec.color);
-	t = 0.5 * (data->r.direction.y + 1.0);
+	return (fill_color(20, 20, 20));
+	/* t = 0.5 * (data->r.direction.y + 1.0);
 	return (color_add(color_scalar(fill_color(255, 255, 255), 1.0 - t),
-			color_scalar(fill_color(127, 178, 255), t)));
+			color_scalar(fill_color(127, 178, 255), t))); */
 }

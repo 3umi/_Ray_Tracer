@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 04:52:16 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 08:49:06 by soran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ bool	triangle_shadow(t_ray r, t_triangle *tr)
 {	
 	t_vect edge0;
 	t_vect edge1;
-	double area;
 	double normal_dot_ray_dir;
 	double t;
 
@@ -78,7 +77,6 @@ bool	triangle_shadow(t_ray r, t_triangle *tr)
 
 	tr->normalized = vect_cross(edge0, edge1);
 
-	area = vect_length(tr->normalized);
 	normal_dot_ray_dir = vect_dot(tr->normalized, r.direction);
 	// check if ray and plane are parallel
 	if (fabs(normal_dot_ray_dir) < EPSILON)
@@ -153,16 +151,6 @@ t_vect	vect_reflect(t_vect light, t_vect normal)
 	return (vect_sub(light, vect_scale(normal, 2 * vect_dot(light, normal))));
 }
 
-t_color	color_merge(t_color c1, t_color c2)
-{
-	t_color	tmp;
-
-	tmp.r = c1.r + c2.r / 2;
-	tmp.g = c1.g + c2.g / 2;
-	tmp.b = c1.b + c2.b / 2;
-	return (tmp);
-}
-
 void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 {
 	t_color		specular;
@@ -171,6 +159,7 @@ void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 
 	if (dot > rec->light_ratio)
 		rec->light_ratio = dot;
+	av_color(&rec->light_color, data->lighting->light->color);
 	if (rec->type != PLANE && rec->type != TRIANGLE)
 	{
 		if (data->switches.specular)
@@ -204,19 +193,22 @@ void	aplly_light(t_data *data, t_hitrecod *rec)
 	bool	shadow;
 	t_light	*tmp;
 
-	tmp = data->lighting->light;
+	rec->light_color = fill_color(255, 255, 255);
+		tmp = data->lighting->light;
 	while (data->lighting->light)
 	{
+		// printf("light ratio %f %f \n", data->lighting->light->ratio, 
 		shadow = is_in_shadow(data, rec);
 		calculate_and_apply_light(data, rec, shadow);
 		data->lighting->light = data->lighting->light->next;
 	}
 	rec->color = color_scalar(rec->color, rec->shadow_ratio);
+	av_color(&rec->color, rec->light_color);
 	if (rec->type != PLANE && rec->type != TRIANGLE)
 	{
 		rec->color = color_add(rec->color, rec->specular);
 		rec->color = color_scalar(rec->color, rec->light_ratio);
-		rec->color = _color_clap(rec->color);
 	}
+	rec->color = _color_clap(rec->color);
 	data->lighting->light = tmp;
 }

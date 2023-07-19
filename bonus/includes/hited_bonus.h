@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:11:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/18 22:53:06 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 08:40:47 by soran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_hitrecod
 	bool		front_face;
 	double		light_ratio;
 	double		shadow_ratio;
+	t_color		light_color;
 	t_color		specular;
 	t_object	*obj;
 }				t_hitrecod;

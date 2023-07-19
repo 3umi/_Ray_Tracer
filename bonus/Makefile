@@ -43,8 +43,7 @@ SRC_BONUS_UTILS 	=	camera_utils_bonus char_utils_bonus colors_utils_bonus \
 SRC_BONUS_PARSING	=	parsing_bonus check_bonus parse_env_bonus parse_objects_bonus \
 						parse_data_bonus
 # #======================================================================================
-CFLAGS				=	-Wall -Wextra -Werror -funroll-loops 
-#-g -fsanitize=address
+CFLAGS				=	-Wall -Wextra -Werror -funroll-loops -g -fsanitize=address
 # #======================================================================================
 
 # #===================================== Standard =======================================

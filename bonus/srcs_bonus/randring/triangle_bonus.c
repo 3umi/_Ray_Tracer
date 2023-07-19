@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 23:44:32 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 04:46:55 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 07:44:14 by soran            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ bool	hit_triangle(t_data *data, t_hitrecod *rec, t_object *obj)
 	tr = obj->object;
 	t_vect edge0;
 	t_vect edge1;
-	double area;
 	double normal_dot_ray_dir;
 	double t;
 
@@ -28,7 +27,6 @@ bool	hit_triangle(t_data *data, t_hitrecod *rec, t_object *obj)
 
 	tr->normalized = vect_cross(edge0, edge1);
 
-	area = vect_length(tr->normalized);
 	normal_dot_ray_dir = vect_dot(tr->normalized, data->r.direction);
 	// check if ray and plane are parallel
 	if (fabs(normal_dot_ray_dir) < EPSILON)
