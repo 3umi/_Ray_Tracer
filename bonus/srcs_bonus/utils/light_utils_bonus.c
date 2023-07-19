@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 08:49:06 by soran            ###   ########.fr       */
+/*   Updated: 2023/07/19 11:51:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 
 	if (dot > rec->light_ratio)
 		rec->light_ratio = dot;
-	av_color(&rec->light_color, data->lighting->light->color);
+	rec->light_color = color_add(rec->light_color, data->lighting->light->color);
 	if (rec->type != PLANE && rec->type != TRIANGLE)
 	{
 		if (data->switches.specular)
@@ -178,6 +178,7 @@ void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 
 	if (shadow)
 	{
+		rec->shadow_num++;
 		rec->shadow_ratio *= data->lighting->amb_light->ratio;
 		return ;
 	}
@@ -188,22 +189,47 @@ void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 	calculate_diffuse(data, rec, dot);
 }
 
+t_color	light_add(t_color color1, t_color color2)
+{
+	t_color	tmp;
+
+	tmp.r = color1.r + color2.r - 255;
+	tmp.g = color1.g + color2.g - 255;
+	tmp.b = color1.b + color2.b	- 255;
+	tmp = _color_clap(tmp);
+	return (tmp);
+}
+
+t_color	color_mult(t_color color1, t_color color2)
+{
+	t_color	tmp;
+
+	tmp.r = color1.r + color2.r;
+	tmp.g = color1.g + color2.g;
+	tmp.b = color1.b + color2.b;
+	//tmp = _color_clap(tmp);
+	return (tmp);
+}
+
 void	aplly_light(t_data *data, t_hitrecod *rec)
 {
 	bool	shadow;
 	t_light	*tmp;
 
-	rec->light_color = fill_color(255, 255, 255);
-		tmp = data->lighting->light;
+	rec->light_color = fill_color(0,0,0);
+	rec->shadow_num = 0;
+	tmp = data->lighting->light;
 	while (data->lighting->light)
-	{
-		// printf("light ratio %f %f \n", data->lighting->light->ratio, 
+	{ 
 		shadow = is_in_shadow(data, rec);
 		calculate_and_apply_light(data, rec, shadow);
 		data->lighting->light = data->lighting->light->next;
 	}
-	rec->color = color_scalar(rec->color, rec->shadow_ratio);
-	av_color(&rec->color, rec->light_color);
+	if (rec->shadow_num > 0)
+		rec->color = color_scalar(rec->color, rec->shadow_ratio);
+	else
+		rec->color = color_mult(rec->color, color_scalar(rec->light_color, rec->shadow_ratio));
+	//rec->color = color_add(rec->color, rec->light_color);
 	if (rec->type != PLANE && rec->type != TRIANGLE)
 	{
 		rec->color = color_add(rec->color, rec->specular);

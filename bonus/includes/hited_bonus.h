@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hited_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:11:57 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 08:40:47 by soran            ###   ########.fr       */
+/*   Updated: 2023/07/19 10:07:54 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_hitrecod
 	bool		front_face;
 	double		light_ratio;
 	double		shadow_ratio;
+	int			shadow_num;
 	t_color		light_color;
 	t_color		specular;
 	t_object	*obj;
