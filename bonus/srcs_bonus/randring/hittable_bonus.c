@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:40:15 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/18 16:06:33 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 00:59:26 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ bool	hittable_list_hit(t_data *data, t_hitrecod *rec)
 		data->object = data->object->next;
 	}
 	data->object = data->head;
+	rec->shadow_ratio = 1;
+	rec->light_ratio = 0;
+	rec->specular = fill_color(0, 0, 0);
 	if (hit_anything == true)
 		aplly_light(data, rec);
 	return (hit_anything);

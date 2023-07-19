@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/18 22:57:29 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 00:59:30 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,24 +98,9 @@ bool	is_in_shadow(t_data *data, t_hitrecod *rec)
 	return (false);
 }
 
-// calaculate dot product of light and normal
-// if dot > 0
-// calculate specular and diffuse
-// apply specular and diffuse
-// apply ambient
-// else	
-// apply ambient
-// end
 
 t_vect	vect_reflect(t_vect light, t_vect normal)
 {
-	// t_vect	normalized;
-
-	/* normalized = vect_normalize(normal);
-	   normalized = vect_scale(normalized, 2 * vect_dot(light, normalized));
-	// normalized = vect_normalize(normalized);
-	return (normalized);
-	// return (vect_sub(light, vect_scale(normalized, 2 * vect_dot(light, normalized)))); */
 	return (vect_sub(light, vect_scale(normal, 2 * vect_dot(light, normal))));
 }
 
@@ -131,9 +116,7 @@ t_color	color_merge(t_color c1, t_color c2)
 
 void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 {
-	// t_color		diffuse;
 	t_color		specular;
-	// t_vect		light_normalized;
 	t_vect		reflect;
 	double		specular_factor;
 
@@ -141,20 +124,14 @@ void	calculate_diffuse(t_data *data, t_hitrecod *rec, double dot)
 		rec->light_ratio = dot;
 	if (rec->type != PLANE && rec->type != TRIANGLE)
 	{
-		// diffuse = color_scalar(rec->color, (dot));
 		if (data->switches.specular)
 		{
 			reflect = vect_reflect(vect_normalize(data->lighting->light->point), rec->normal);
 			specular_factor = pow(fmax(vect_dot(reflect, vect_normalize(data->r.direction)), 0.0), 32);
 			specular = color_scalar(data->lighting->light->color, specular_factor);
 			rec->specular = color_add(rec->specular, specular);
-			// rec->color = color_add(diffuse, specular);
 		}
-		/* else
-		   rec->color = diffuse; */
 	}
-	// av_color(&rec->color, data->lighting->light->color);
-	// rec->color = _color_clap(rec->color);
 }
 void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 {
@@ -164,7 +141,6 @@ void	calculate_and_apply_light(t_data *data, t_hitrecod *rec, bool shadow)
 	if (shadow)
 	{
 		rec->shadow_ratio *= data->lighting->amb_light->ratio;
-		// rec->color = color_scalar(rec->color, data->lighting->amb_light->ratio);
 		return ;
 	}
 	light_normalized = vect_normalize(data->lighting->light->point);
@@ -179,9 +155,6 @@ void	aplly_light(t_data *data, t_hitrecod *rec)
 	bool	shadow;
 	t_light	*tmp;
 
-	rec->shadow_ratio = 1;
-	rec->light_ratio = 0;
-	rec->specular = fill_color(0, 0, 0);
 	tmp = data->lighting->light;
 	while (data->lighting->light)
 	{
