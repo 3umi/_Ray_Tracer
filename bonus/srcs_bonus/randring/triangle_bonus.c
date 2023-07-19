@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 23:44:32 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 02:55:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 04:46:55 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ bool	hit_triangle(t_data *data, t_hitrecod *rec, t_object *obj)
 	t_triangle *tr;
 
 	tr = obj->object;
-	t_vect v0v1;
-	t_vect v0v2;
+	t_vect edge0;
+	t_vect edge1;
 	double area;
 	double normal_dot_ray_dir;
 	double t;
 
-	v0v1 = vect_sub(tr->point_b, tr->point_a);
-	v0v2 = vect_sub(tr->point_c, tr->point_a);
+	edge0 = vect_sub(tr->point_b, tr->point_a);
+	edge1 = vect_sub(tr->point_c, tr->point_a);
 
-	tr->normalized = vect_cross(v0v1, v0v2);
+	tr->normalized = vect_cross(edge0, edge1);
 
 	area = vect_length(tr->normalized);
 	normal_dot_ray_dir = vect_dot(tr->normalized, data->r.direction);
+	// check if ray and plane are parallel
 	if (fabs(normal_dot_ray_dir) < EPSILON)
 		return (false);
 	double d = -vect_dot(tr->normalized, tr->point_a);
@@ -41,83 +42,28 @@ bool	hit_triangle(t_data *data, t_hitrecod *rec, t_object *obj)
 	t_vect p;
 	p = vect_add(data->r.origin, vect_scale(data->r.direction, t));
 
+	// check if p inside triangle
 	t_vect c;
 	t_vect vp0;
 	vp0 = vect_sub(p, tr->point_a);
-	c = vect_cross(v0v1, vp0);
+	c = vect_cross(edge0, vp0);
 	if (vect_dot(tr->normalized, c) < 0)
 		return (false);
 	t_vect vp1;
 	vp1 = vect_sub(p, tr->point_b);
-	v0v1 = vect_sub(tr->point_c, tr->point_b);
-	c = vect_cross(v0v1, vp1);
+	edge0 = vect_sub(tr->point_c, tr->point_b);
+	c = vect_cross(edge0, vp1);
 	if (vect_dot(tr->normalized, c) < 0)
 		return (false);
 	t_vect vp2;
 	vp2 = vect_sub(p, tr->point_c);
-	v0v1 = vect_sub(tr->point_a, tr->point_c);
-	c = vect_cross(v0v1, vp2);
+	edge0 = vect_sub(tr->point_a, tr->point_c);
+	c = vect_cross(edge0, vp2);
 	if (vect_dot(tr->normalized, c) < 0)
 		return (false);
 	rec->hit_point_distance = t;
 	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
-	rec->normal = tr->normalized;
-	rec->color = fill_color(0xFF, 0, 0);
+	rec->normal = vect_scale(tr->normalized, -1);
+	rec->color = tr->color_a;
 	return (true);
-	
 }
-
-/*{
-	t_triangle *tr;
-	
-	tr = obj->object;
-	t_vect v0v1;
-	t_vect v0v2;
-	double area;
-	double t;
-	v0v1 = vect_sub(tr->point_b, tr->point_a);
-	v0v2 = vect_sub(tr->point_c, tr->point_a);
-	tr->normalized = vect_normalize(vect_cross(v0v1, v0v2));
-	area = vect_length(tr->normalized);
-
-	//find p
-	double dot;
-
-	dot = vect_dot(tr->normalized, data->r.direction);
-	if (fabs(dot) < EPSILON)
-		return (false);
-	t = vect_dot(vect_sub(tr->point_a, data->r.origin), tr->normalized) / dot;
-	if (t < data->r.t_min || t > data->r.t_max)
-		return (false);
-	t_vect p;
-	p = vect_add(data->r.origin, vect_scale(data->r.direction, t));
-	t_vect c;
-	t_vect vp0;
-
-	vp0 = vect_sub(p, tr->point_a);
-	c = vect_cross(v0v1, vp0);
-	if (vect_dot(tr->normalized, c) < 0)
-		return (false);
-	t_vect vp1;
-
-	vp1 = vect_sub(p, tr->point_b);
-	c = vect_cross(v0v2, vp1);
-	if (vect_dot(tr->normalized, c) < 0)
-		return (false);
-
-	t_vect v1v2;
-	t_vect vp2;
-
-	v1v2 = vect_sub(tr->point_a, tr->point_b);
-	vp2 = vect_sub(p, tr->point_c);
-	c = vect_cross(v1v2, vp2);
-	if (vect_dot(tr->normalized, c) < 0)
-		return (false);
-
-
-	rec->hit_point_distance = t;
-	rec->p = ray_hit_point(&data->r, rec->hit_point_distance);
-	rec->normal = tr->normalized;
-	rec->color = fill_color(0xFF, 0, 0);
-	return (true);
-} */

@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 00:59:30 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 04:52:16 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,61 @@ bool	cylinder_shadow(t_ray r, t_cylinder *cy)
 	return (false);
 }
 
+bool	triangle_shadow(t_ray r, t_triangle *tr)
+{	
+	t_vect edge0;
+	t_vect edge1;
+	double area;
+	double normal_dot_ray_dir;
+	double t;
+
+	edge0 = vect_sub(tr->point_b, tr->point_a);
+	edge1 = vect_sub(tr->point_c, tr->point_a);
+
+	tr->normalized = vect_cross(edge0, edge1);
+
+	area = vect_length(tr->normalized);
+	normal_dot_ray_dir = vect_dot(tr->normalized, r.direction);
+	// check if ray and plane are parallel
+	if (fabs(normal_dot_ray_dir) < EPSILON)
+		return (false);
+	double d = -vect_dot(tr->normalized, tr->point_a);
+
+	t = -(vect_dot(tr->normalized, r.origin) + d) / normal_dot_ray_dir;
+
+	t_vect p;
+	p = vect_add(r.origin, vect_scale(r.direction, t));
+
+	// check if p inside triangle
+	t_vect c;
+	t_vect vp0;
+	vp0 = vect_sub(p, tr->point_a);
+	c = vect_cross(edge0, vp0);
+	if (vect_dot(tr->normalized, c) < 0)
+		return (false);
+	t_vect vp1;
+	vp1 = vect_sub(p, tr->point_b);
+	edge0 = vect_sub(tr->point_c, tr->point_b);
+	c = vect_cross(edge0, vp1);
+	if (vect_dot(tr->normalized, c) < 0)
+		return (false);
+	t_vect vp2;
+	vp2 = vect_sub(p, tr->point_c);
+	edge0 = vect_sub(tr->point_a, tr->point_c);
+	c = vect_cross(edge0, vp2);
+	if (vect_dot(tr->normalized, c) < 0)
+		return (false);
+	return (true);
+}
+
 bool	intesect_shadow(t_ray r, t_object *obj)
 {
 	if (obj->type == SPHERE)
 		return (sphere_shadow(r, obj->object));
 	else if (obj->type == CYLINDER)
 		return (cylinder_shadow(r, obj->object));
+	else if (obj->type == TRIANGLE)
+		return (triangle_shadow(r, obj->object));
 	return (false);
 }
 
