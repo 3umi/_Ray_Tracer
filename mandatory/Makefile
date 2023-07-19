@@ -33,10 +33,11 @@ PARSING_DIR	= parsing/
 # #================================= Files to compile ===================================
 SRC_FILES	=	main $(RENDER) $(UTILS) $(PARSING) error init_program
 
-SRC_RENDER	=	rerander hittable key_hook_utils sphere plane cylinder
+SRC_RENDER	=	rerander hittable key_hook_utils sphere plane cylinder cylindata
 
-SRC_UTILS 	=	camera_utils char_utils colors_utils image_utils linked_list_utils \
-			  	light_utils ray_utils matrix_utils vectors_utils vectors_utils_2
+SRC_UTILS 	=	camera_utils char_utils colors_utils image_utils linked_list_utils 		\
+			  	light_utils_data light_utils ray_utils matrix_utils_a matrix_utils_b	\
+				vectors_utils_2 vectors_utils
 SRC_PARSING	=	parsing check parse_env parse_objects
 
 # #======================================================================================

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light_utils_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 06:43:53 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 11:51:12 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:24:05 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ bool	intesect_shadow(t_ray r, t_object *obj)
 		return (sphere_shadow(r, obj->object));
 	else if (obj->type == CYLINDER)
 		return (cylinder_shadow(r, obj->object));
-	else if (obj->type == TRIANGLE)
-		return (triangle_shadow(r, obj->object));
+	// else if (obj->type == TRIANGLE)
+	// 	return (triangle_shadow(r, obj->object));
 	return (false);
 }
 
@@ -204,9 +204,9 @@ t_color	color_mult(t_color color1, t_color color2)
 {
 	t_color	tmp;
 
-	tmp.r = color1.r + color2.r;
-	tmp.g = color1.g + color2.g;
-	tmp.b = color1.b + color2.b;
+	tmp.r = color1.r * color2.r;
+	tmp.g = color1.g * color2.g;
+	tmp.b = color1.b * color2.b;
 	//tmp = _color_clap(tmp);
 	return (tmp);
 }
@@ -227,9 +227,9 @@ void	aplly_light(t_data *data, t_hitrecod *rec)
 	}
 	if (rec->shadow_num > 0)
 		rec->color = color_scalar(rec->color, rec->shadow_ratio);
-	else
-		rec->color = color_mult(rec->color, color_scalar(rec->light_color, rec->shadow_ratio));
-	//rec->color = color_add(rec->color, rec->light_color);
+	// else
+		// rec->color = color_mult(rec->color, color_scalar(rec->light_color, rec->shadow_ratio));
+	// rec->color = color_add(rec->color, rec->light_color);
 	if (rec->type != PLANE && rec->type != TRIANGLE)
 	{
 		rec->color = color_add(rec->color, rec->specular);

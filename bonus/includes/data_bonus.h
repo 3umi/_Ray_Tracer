@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:11:37 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/17 15:11:15 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 15:24:30 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_data
 	t_img		menu_img;
 	t_img		empty_img;
 	t_ray		r;
-	int			depth;
 	t_switch	switches;
 }				t_data;
 

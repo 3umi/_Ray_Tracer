@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_program_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 08:03:20 by soran            ###   ########.fr       */
+/*   Updated: 2023/07/19 15:24:52 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ void	__init(t_data *data)
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bits_per_pixel,
 			&data->img.line_length, &data->img.endian);
 	data->img.samples_per_pixel = 100;
-	data->depth = MAX_DEPTH;
 	data->camera->origin_lock = UNLOCKED;
 	data->camera->view_lock = UNLOCKED;
 	data->head = data->object;

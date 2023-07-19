@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 05:37:04 by ohalim            #+#    #+#             */
-/*   Updated: 2023/06/17 05:38:16 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/19 16:49:43 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static void	initialize_utils(t_atod_utils *utils)
 {
 	utils->decimal = 0.0;
-	utils->hasDecimal = 0;
+	utils->hasdecimal = 0;
 	utils->result = 0.0;
 	utils->sign = 1;
 }
@@ -35,7 +35,7 @@ double ft_atod(char* str)
 	{
         if (*str >= '0' && *str <= '9') 
 		{
-            if (utils.hasDecimal) 
+            if (utils.hasdecimal) 
 			{
                 utils.decimal *= 10.0;
                 utils.result += (*str - '0') / utils.decimal;
@@ -45,7 +45,7 @@ double ft_atod(char* str)
         } 
 		else if (*str == '.') 
 		{
-            utils.hasDecimal = 1;
+            utils.hasdecimal = 1;
             utils.decimal = 1.0;
         } 
 		else

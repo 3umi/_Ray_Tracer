@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:55:19 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/14 20:35:37 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/19 16:52:11 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ void	check_identifier(char *identifier, t_parse *parse)
 		&& ft_strcmp(identifier, "L") != 0 && ft_strcmp(identifier, "sp") != 0
 		&& ft_strcmp(identifier, "pl") != 0 && ft_strcmp(identifier, "cy") != 0)
 		__exit_error("TypeError: Unkown identifier type.\n");
-	if ((!ft_strcmp(identifier, "A") && parse->A)
-		|| (!ft_strcmp(identifier, "C") && parse->C)
-		|| (!ft_strcmp(identifier, "L") && parse->L))
+	if ((!ft_strcmp(identifier, "A") && parse->a)
+		|| (!ft_strcmp(identifier, "C") && parse->c)
+		|| (!ft_strcmp(identifier, "L") && parse->l))
 		__exit_error("TypeError: Identifier type redefinition.\n");
 	if (!ft_strcmp(identifier, "A"))
-		parse->A = 1;
+		parse->a = 1;
 	else if (!ft_strcmp(identifier, "C"))
-		parse->C = 1;
+		parse->c = 1;
 	else if (!ft_strcmp(identifier, "L"))
-		parse->L = 1;
+		parse->l = 1;
 }

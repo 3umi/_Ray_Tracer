@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:51:52 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/13 04:54:10 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 16:49:31 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ typedef struct s_atod_utils
 	double	result;
 	double	decimal;
 	int		sign;
-	int		hasDecimal;
+	int		hasdecimal;
 }			t_atod_utils;
 
 #endif

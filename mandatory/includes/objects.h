@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 02:31:21 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/16 04:00:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:11:56 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ typedef struct s_object
 }				t_object;
 
 t_sphere	*sphere_new(t_vect center, double radius);
+
 #endif

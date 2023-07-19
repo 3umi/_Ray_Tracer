@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:21:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/16 04:09:35 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:26:36 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,26 @@
 # include "matrix.h"
 
 void		rerander(t_data *data);
+void		aplly_light(t_data *data, t_hitrecod *rec);
+void		initialize_rotated_ray(t_ray *rotated_ray, t_ray r, t_mat4 mat);
+
 bool		hit_plane(t_data *r, t_hitrecod *rec, t_object *obj);
+bool		get_closet_hit(t_ray r, t_hitrecod *rec, t_cylinder *cy, t_qua_sol solution);
+bool		does_t(t_ray r, double t, t_cylinder *cy);
+bool		sphere_shadow(t_ray r, t_sphere *sphere);
+bool		cylinder_shadow(t_ray r, t_cylinder *cy);
+bool		intesect_shadow(t_ray r, t_object *obj);
+
 t_color		ray_color(t_data *data);
 t_color		ambient_light(t_data *data, t_color color);
-void		aplly_light(t_data *data, t_hitrecod *rec);
-t_ray		calculate_ray(t_data *data, int x, int y);
-bool		get_closet_hit(t_ray r, t_hitrecod *rec, t_cylinder *cy, t_qua_sol solution);
+t_color		ambient_light(t_data *data, t_color color);
+t_color		_color_clap(t_color color);
+
+
 t_qua_sol	calc_quadratic_sphere(t_ray r, t_sphere *sp);
 t_qua_sol	calculate_quadratic_cylinder(t_ray r, t_cylinder *cy);
 
+t_vect		calculate_normal(t_hitrecod *rec, t_cylinder *cy, t_mat4 mat, double y);
+
+t_ray		calculate_ray(t_data *data, int x, int y);
 #endif

@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/07 02:01:51 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:15:52 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.y += 0.1;
 				sphere->center.y += 0.1;
 			}
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 		if (keycode == S_KEY || keycode == 115)
@@ -55,7 +54,6 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.y -= 0.1;
 				sphere->center.y -= 0.1;
 			}
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 		else if (keycode == D_KEY || keycode == 100)
@@ -70,7 +68,6 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.x += 0.1;
 				sphere->center.x += 0.1;
 			}
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 		else if (keycode == A_KEY || keycode == 97)
@@ -85,31 +82,26 @@ int	key_hook(int keycode, t_data *mlx)
 				mlx->camera->lookat.x -= 0.1;
 				sphere->center.x -= 0.1;
 			}
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 		else if (keycode == LEFT_AROW)
 		{
 			mlx->lighting->light->point.x -= 1;
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 		else if (keycode == RIGHT_AROW)
 		{
 			mlx->lighting->light->point.x += 1;
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 		else if (keycode == UP_AROW)
 		{
 			mlx->lighting->light->point.z -= 1;
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 		else if (keycode == DOWN_AROW)
 		{
 			mlx->lighting->light->point.z += 1;
-			// init_camera(mlx->camera);
 			rerander(mlx);
 		}
 	}
@@ -142,17 +134,14 @@ int	lock_key_hook(int keycode, t_data *mlx)
 		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FF0000, "View   : locked");
 	else
 		mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 30, 0x00FF0000, "View   : unlocked");
-	//printf origin
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 50, 0x00FF0000, "Origin : ");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 100, 50, 0x00FF0000, ft_itoa(mlx->camera->origin.x));
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 150, 50, 0x00FF0000, ft_itoa(mlx->camera->origin.y));
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 200, 50, 0x00FF0000, ft_itoa(mlx->camera->origin.z));
-	//printf view
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 70, 0x00FF0000, "View   : ");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 100, 70, 0x00FF0000, ft_itoa(mlx->camera->lookat.x));
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 150, 70, 0x00FF0000, ft_itoa(mlx->camera->lookat.y));
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 200, 70, 0x00FF0000, ft_itoa(mlx->camera->lookat.z));
-	//printf light
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 10, 90, 0x00FF0000, "Light  : ");
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 100, 90, 0x00FF0000, ft_itoa(mlx->lighting->light->point.x));
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 150, 90, 0x00FF0000, ft_itoa(mlx->lighting->light->point.y));
