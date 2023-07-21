@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   char_utils_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:11:13 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/21 03:22:21 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:17:35 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_atod_utils
 {
 	double	result;
 	double	decimal;
+	bool	hasdecimal;
 	int		sign;
 }			t_atod_utils;
 

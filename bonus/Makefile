@@ -5,7 +5,7 @@ OS			= $(shell uname -s)
 # #=============== wish flags to use to compile depending on the os ============
 ifeq ($(OS), Darwin)
 	MLXCC		= -L $(LIB)minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit 
-	MLX_PATH	= mlx
+	MLX_PATH	= minilibx_opengl_20191021
 else
 	MLXCC		= -L $(LIB)linux -lmlx -lm -lX11 -lXext -lpthread
 	MLX_PATH	= linux

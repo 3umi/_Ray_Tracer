@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:01:04 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/21 01:00:10 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:06:22 by ohalim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@ int	close_win(t_data *mlx)
 
 int	key_hook(int keycode, t_data *mlx)
 {
-	t_sphere	*sphere;
-
-	sphere = mlx->object->object;
 	if (keycode == ESC || keycode == ESC_LINUX)
 		close_win(mlx);
 	return (0);
