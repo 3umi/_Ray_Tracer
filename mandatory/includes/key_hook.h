@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 04:03:14 by brahim            #+#    #+#             */
-/*   Updated: 2023/07/13 04:51:02 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/21 00:59:28 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@
 
 int	close_win(t_data *mlx);
 int	key_hook(int keycode, t_data *mlx);
-int	lock_key_hook(int keycode, t_data *mlx);
 
 #endif

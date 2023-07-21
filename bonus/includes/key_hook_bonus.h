@@ -6,7 +6,7 @@
 /*   By: belkarto <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:14:41 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/15 02:43:57 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/21 01:17:22 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 void	put_text(t_data *data);
 int		close_win(t_data *mlx);
 int		key_hook(int keycode, t_data *mlx);
-int		lock_key_hook(int keycode, t_data *mlx);
 int		mouse_release(int key, int x, int y, t_data *data);
 
 #endif

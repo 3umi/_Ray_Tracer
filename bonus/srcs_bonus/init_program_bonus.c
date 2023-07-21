@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 11:33:06 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/19 15:24:52 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/21 01:24:24 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ void	put_gradient_bg(t_data *data, t_color color1, t_color color2)
 		x = 0;
 		while (x <= data->img.width)
 		{
-			pixel_color = gradient(color1, color2, (double)y / (data->img.height));
+			pixel_color = gradient(color1, color2,
+					(double)y / (data->img.height));
 			my_mlx_pixel_put(&data->menu_img, x, y, rgb(pixel_color));
 			x++;
 		}
@@ -32,52 +33,37 @@ void	put_gradient_bg(t_data *data, t_color color1, t_color color2)
 	}
 }
 
-void	draw_box(t_data *data, t_vect corr, t_vect width_and_hieght, t_color color)
+void	draw_box(t_data *data, t_vect corr, t_vect width_hieght, t_color color)
 {
 	int		i;
 	int		j;
 
 	i = 0;
-	while (i < width_and_hieght.x)
+	while (i < width_hieght.x)
 	{
 		j = 0;
-		while (j < width_and_hieght.y)
+		while (j < width_hieght.y)
 		{
-			my_mlx_pixel_put(&data->menu_img, corr.x + i, corr.y + j, rgb(color));
+			my_mlx_pixel_put(&data->menu_img, corr.x + i,
+				corr.y + j, rgb(color));
 			j++;
 		}
 		i++;
 	}
 }
 
-void	put_camera_rotation_button(t_data *data, t_color color)
-{
-	t_vect	corr;
-	t_vect	size;
-
-	size = vect_new(86, 30, 0);
-	corr = vect_new(10, 470, 0);
-	draw_box(data, corr, size, color);
-	corr.x += 86 + 10;
-	draw_box(data, corr, size, color);
-	corr.x += 86 + 10;
-	draw_box(data, corr, size, color);
-	corr.x = 86 + 20;
-	corr.y = 470 - 40;
-	draw_box(data, corr, size, color);
-}
-
 void	fill_menu(t_data *data)
 {
-	int	i;
+	int		i;
 	t_vect	corrd;
 	t_vect	size;
 
 	corrd = vect_new(0, 0, 0);
 	size = vect_new(20, 20, 0);
-	put_gradient_bg(data, fill_color(0xFF, 0x3E, 0x9D), fill_color(0x0E, 0x1F, 0x40));
+	put_gradient_bg(data, fill_color(0xFF, 0x3E, 0x9D),
+		fill_color(0x0E, 0x1F, 0x40));
 	i = -1;
-	while (++i < 5)
+	while (++i < 4)
 	{
 		corrd.x = 10;
 		corrd.y = 10 + (i * 30);
@@ -87,9 +73,7 @@ void	fill_menu(t_data *data)
 	size.x = 280;
 	size.y = 40;
 	draw_box(data, corrd, size, fill_color(0xF7, 0xcE, 0x78));
-	put_camera_rotation_button(data, fill_color(0xAA, 0x11, 0xAA));
 }
-
 
 void	init_menu(t_data *data)
 {
@@ -119,8 +103,6 @@ void	__init(t_data *data)
 	data->camera->lookat = vect_new(0, 0, 0);
 	data->img.width = WIN_W;
 	data->img.height = data->img.width / data->img.aspect_ratio;
-	printf("width = %f\n", data->img.width);
-	printf("height = %f\n", data->img.height);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->img.width + 300,
 			data->img.height, "miniRT");
 	data->img.img = mlx_new_image(data->mlx_ptr, data->img.width,

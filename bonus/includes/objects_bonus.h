@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 05:10:30 by belkarto          #+#    #+#             */
-/*   Updated: 2023/07/18 00:59:41 by ohalim           ###   ########.fr       */
+/*   Updated: 2023/07/21 03:21:38 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,14 @@ typedef struct s_cylinder
 	t_color		color_b;
 }				t_cylinder;
 
-typedef struct	s_triangle
+typedef struct s_triangle
 {
 	t_vect		point_a;
 	t_vect		point_b;
 	t_vect		point_c;
+	t_vect		edge_ab;
+	t_vect		edge_ac;
+	t_vect		edge_bc;
 	t_vect		normalized;
 	t_color		color_a;
 	t_color		color_b;

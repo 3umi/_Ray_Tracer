@@ -109,8 +109,7 @@ $(OBJF):
 clean : header
 	@rm -rf $(OBJ_DIR)
 	@printf "$(BLUE)clean\t:\t\t\t$(GREEN)[✓]$(NO_COLOR)\n"
-
-# @make clean -C libs/libft
+	@make clean -C libs/libft
 # # =====================================================
 
 # # == Rule calling clean and deleting the final file ==

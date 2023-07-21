@@ -6,7 +6,7 @@
 /*   By: belkarto <belkarto@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 21:54:17 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/17 19:02:52 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/21 01:52:16 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,92 +14,88 @@
 
 t_qua_sol	calculate_quadratic_cylinder(t_ray r, t_cylinder *cy)
 {
-	t_qua_sol	solution;
+	t_qua_sol	sol;
 	double		a;
 	double		b;
 	double		c;
 
 	a = pow(r.direction.x, 2) + pow(r.direction.z, 2);
-	b = 2 * (r.direction.x * (r.origin.x - cy->center.x) + r.direction.z * (r.origin.z - cy->center.z));
-	c = pow(r.origin.x - cy->center.x, 2) + pow(r.origin.z - cy->center.z, 2) - pow(cy->radius, 2);
-	solution.delta = pow(b, 2) - 4 * a * c;
-	if (solution.delta < 0)
-		return (solution);
-	solution.t1 = (-b - sqrt(solution.delta)) / (2 * a);
-	solution.t2 = (-b + sqrt(solution.delta)) / (2 * a);
-	return (solution);
+	b = 2 * (r.direction.x * (r.origin.x - cy->center.x)
+			+ r.direction.z * (r.origin.z - cy->center.z));
+	c = pow(r.origin.x - cy->center.x, 2) + pow(r.origin.z - cy->center.z, 2)
+		- pow(cy->radius, 2);
+	sol.delta = pow(b, 2) - 4 * a * c;
+	if (sol.delta < 0)
+		return (sol);
+	sol.t1 = (-b - sqrt(sol.delta)) / (2 * a);
+	sol.t2 = (-b + sqrt(sol.delta)) / (2 * a);
+	return (sol);
 }
 
-bool	get_closet_hit(t_ray r, t_hitrecod *rec, t_cylinder *cy, t_qua_sol solution)
+bool	does_t(t_ray r, double t, t_cylinder *cy)
+{
+	return ((t >= 0
+			&& (t * r.direction.y + r.origin.y >= cy->center.y - cy->height / 2)
+			&& (t * r.direction.y + r.origin.y
+				<= cy->center.y + cy->height / 2)));
+}
+
+bool	get_closet_hit(t_ray r, t_hitrecod *rec, t_cylinder *cy, t_qua_sol sol)
 {
 	double	hit1;
 	double	hit2;
 
-	hit1 = (solution.t1 >= 0 
-			&& (solution.t1 * r.direction.y + r.origin.y >= cy->center.y - cy->height / 2)
-			&& (solution.t1 * r.direction.y + r.origin.y <= cy->center.y + cy->height / 2));
-	hit2 = (solution.t2 >= 0
-			&& (solution.t2 * r.direction.y + r.origin.y >= cy->center.y - cy->height / 2)
-			&& (solution.t2 * r.direction.y + r.origin.y <= cy->center.y + cy->height / 2));
+	hit1 = does_t(r, sol.t1, cy);
+	hit2 = does_t(r, sol.t2, cy);
 	if (hit1 && hit2)
 	{
 		if (rec != NULL)
-			rec->hit_point_distance = fmin(solution.t1, solution.t2);
+			rec->hit_point_distance = fmin(sol.t1, sol.t2);
 	}
 	else if (hit1)
 	{
 		if (rec != NULL)
-			rec->hit_point_distance = solution.t1;
+			rec->hit_point_distance = sol.t1;
 	}
 	else if (hit2)
 	{
 		if (rec != NULL)
-			rec->hit_point_distance = solution.t2;
+			rec->hit_point_distance = sol.t2;
 	}
 	else
 		return (false);
 	return (true);
 }
+
 void	cylinder_gradient(t_hitrecod *rec, t_cylinder *cy)
 {
-	double		y_dist;
-	double		t;
+	double	y_dist;
+	double	t;
 
-	y_dist = (rec->p.y - cy->center.y) *  2;
+	y_dist = (rec->p.y - cy->center.y) * 2;
 	t = (y_dist + cy->radius * 2) / cy->height;
 	t = fmin(t, 1);
 	t = fmax(t, 0);
 	rec->color = gradient(cy->color_b, cy->color_a, t);
-	rec->color = _color_clap(rec->color);
 }
+
 bool	hit_cylinder(t_data *data, t_hitrecod *rec, t_object *obj)
 {
 	t_cylinder	*cy;
-	t_qua_sol	solution;
-	bool		hit;
+	t_qua_sol	sol;
 	t_ray		rotated_ray;
 	t_mat4		mat;
 
 	cy = obj->object;
 	mat = mat4_rotate(cy->normal);
-	rotated_ray.direction = mat4_mult_vect(mat, data->r.direction);
-	rotated_ray.origin = mat4_mult_vect(mat, data->r.origin);
-	rotated_ray.t_max = data->r.t_max;
-	rotated_ray.t_min = data->r.t_min;
-	solution = calculate_quadratic_cylinder(rotated_ray, cy);
-	if (solution.delta > 0)
+	initialize_rotated_ray(&rotated_ray, data->r, mat);
+	sol = calculate_quadratic_cylinder(rotated_ray, cy);
+	if (sol.delta > 0)
 	{
-		hit = get_closet_hit(rotated_ray, rec, cy, solution);
-		if (!hit)
+		if (!get_closet_hit(rotated_ray, rec, cy, sol))
 			return (false);
 		rec->p = ray_hit_point(&rotated_ray, rec->hit_point_distance);
-		double y = rec->p.y - cy->center.y;
-
-		mat = mat4_rotate(vect_scale(cy->normal, -1));
-		if (y <= -cy->height / 2 || y >= cy->height / 2)
-			rec->normal = vect_normalize(mat4_mult_vect(mat, cy->normal));
-		else
-			rec->normal = vect_normalize(mat4_mult_vect(mat, vect_unit(vect_sub(vect_sub(rec->p, cy->center), vect_scale(cy->normal, y)))));
+		rec->normal = calculate_normal(rec, cy);
 		if (data->switches.cylinder_gradient)
 			cylinder_gradient(rec, cy);
 		else

@@ -38,8 +38,8 @@ SRC_BONUS_RENDER	=	rerander_bonus hittable_bonus key_hook_utils_bonus sphere_bon
 SRC_BONUS_UTILS 	=	camera_utils_bonus char_utils_bonus colors_utils_bonus \
 						image_utils_bonus linked_list_utils_bonus light_utils_bonus \
 						ray_utils_bonus matrix_utils_bonus vectors_utils_bonus \
-						vectors_utils_2_bonus mouse_utils_bonus
-
+						vectors_utils_2_bonus mouse_utils_bonus cylinder_utils_bonus \
+						color_utils_bonus2 shadow_utils_bonus matrix_utils_bonus2
 SRC_BONUS_PARSING	=	parsing_bonus check_bonus parse_env_bonus parse_objects_bonus \
 						parse_data_bonus
 # #======================================================================================

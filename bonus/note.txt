@@ -1,0 +1,3 @@
+add additional color to objects 
+add multiple light spot "stored in array or linked list"
+add an other object

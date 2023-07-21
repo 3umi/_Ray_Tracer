@@ -6,7 +6,7 @@
 /*   By: ohalim <ohalim@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 01:48:04 by ohalim            #+#    #+#             */
-/*   Updated: 2023/07/16 02:40:38 by belkarto         ###   ########.fr       */
+/*   Updated: 2023/07/21 02:59:12 by belkarto         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,6 @@ t_color	_color_clap(t_color color)
 	return (tmp);
 }
 
-t_color	gradient(t_color color1, t_color color2, double t)
-{
-	t_color	color;
-
-	color.r = (1 - t) * color1.r + t * color2.r;
-	color.g = (1 - t) * color1.g + t * color2.g;
-	color.b = (1 - t) * color1.b + t * color2.b;
-	color = _color_clap(color);
-	return (color);
-}
-
-int	rgb(t_color color)
-{
-	int	rgb;
-
-	rgb = 0x00;
-	rgb += (int)color.r << 16;
-	rgb += (int)color.g << 8;
-	rgb += (int)color.b;
-	return (rgb);
-}
-
 t_color	fill_color(double r, double g, double b)
 {
 	t_color	color;
@@ -57,7 +35,6 @@ t_color	fill_color(double r, double g, double b)
 	color.b = b;
 	return (color);
 }
-
 
 t_color	color_add(t_color a, t_color b)
 {
